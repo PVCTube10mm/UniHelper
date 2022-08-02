@@ -1,4 +1,4 @@
-package com.github.UniHelper.GUI;
+package com.github.UniHelper.View.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;

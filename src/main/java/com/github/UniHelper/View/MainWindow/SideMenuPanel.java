@@ -1,10 +1,10 @@
-package com.github.UniHelper.GUI;
+package com.github.UniHelper.View.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MenuPanel extends JPanel {
-    public MenuPanel() {
+public class SideMenuPanel extends JPanel {
+    public SideMenuPanel() {
         super();
         this.setLayout(new GridLayout(0, 1));
         this.setPreferredSize(new Dimension(300, 800));

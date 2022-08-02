@@ -1,6 +1,6 @@
-package com.github.UniHelper.GUI;
+package com.github.UniHelper.View.MainWindow;
 
-import com.github.UniHelper.GUI.Features.FeatureView;
+import com.github.UniHelper.View.FeatureView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +17,7 @@ public class ActiveFeaturePanel extends JPanel {
         this.add(featureView.getFeatureName(), featureView.getPanel());
     }
 
-    public void showFeature(String featureName) {
+    public void chooseView(String featureName) {
         CardLayout cl = (CardLayout) this.getLayout();
         cl.show(this, featureName);
     }

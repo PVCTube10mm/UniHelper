@@ -1,6 +1,6 @@
-package com.github.UniHelper.GUI.Features;
+package com.github.UniHelper.View.ExampleFeature;
 
-import com.github.UniHelper.GUI.Features.FeatureView;
+import com.github.UniHelper.View.FeatureView;
 
 import javax.swing.*;
 import java.awt.*;

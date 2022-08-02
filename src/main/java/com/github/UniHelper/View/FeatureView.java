@@ -1,4 +1,4 @@
-package com.github.UniHelper.GUI.Features;
+package com.github.UniHelper.View;
 
 import javax.swing.*;
 

@@ -14,6 +14,6 @@ public class Main {
         UIManager.put("Button.arc", 0);
         MainWindowView mainWindowView = new DefaultMainWindowView();
         MainWindowPresenter mainWindowPresenter = new DefaultMainWindowPresenter(mainWindowView);
-        mainWindowView.setPresenter(mainWindowPresenter);
+        mainWindowPresenter.onLaunch();
     }
 }

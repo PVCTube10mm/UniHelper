@@ -1,16 +1,15 @@
 package com.github.UniHelper.View.MainWindow;
 
-import com.github.UniHelper.Presenter.MainWindowPresenter;
+import com.github.UniHelper.Presenter.Commands.Command;
 import com.github.UniHelper.View.FeatureView;
+import com.github.UniHelper.View.Utils.ActionButton;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class DefaultMainWindowView implements MainWindowView {
     private final MainFrame mainFrame;
     private final SideMenuPanel sideMenuPanel;
     private final ActiveFeaturePanel activeFeaturePanel;
-    private MainWindowPresenter presenter;
 
     public DefaultMainWindowView() {
         mainFrame = new MainFrame();
@@ -21,27 +20,26 @@ public class DefaultMainWindowView implements MainWindowView {
     }
 
     @Override
-    public void setPresenter(MainWindowPresenter mainWindowPresenter) {
-        this.presenter = mainWindowPresenter;
-        for(Component c : sideMenuPanel.getComponents()){
-            JButton jb = (JButton) c;
-            jb.addActionListener(e -> presenter.onMenuButtonClicked(jb.getText()));
-        }
-    }
-
-    @Override
     public void show() {
         mainFrame.setVisible(true);
     }
 
     @Override
-    public void showFeature(String featureName){
-        this.activeFeaturePanel.chooseView(featureName);
+    public void addFeatureView(FeatureView featureView) {
+        String featureName = featureView.getFeatureName();
+        activeFeaturePanel.addFeaturePanel(featureView);
+        sideMenuPanel.addFeatureButton(featureName);
+        setButtonCommand(featureName, () -> showFeature(featureName));
     }
 
-    public void addFeatureView(FeatureView featureView) {
-        activeFeaturePanel.addFeatureView(featureView);
-        JButton button = new JButton(featureView.getFeatureName());
-        sideMenuPanel.addFeatureButton(button);
+    @Override
+    public void setButtonCommand(String buttonName, Command command) {
+        ActionButton ab = sideMenuPanel.getButtonByName(buttonName);
+        ab.setCommand(command);
+    }
+
+    @Override
+    public void showFeature(String featureName) {
+        this.activeFeaturePanel.chooseView(featureName);
     }
 }

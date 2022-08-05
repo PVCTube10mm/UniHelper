@@ -5,6 +5,8 @@ import com.github.UniHelper.views.FeatureView;
 import com.github.UniHelper.views.utils.ActionButton;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class DefaultMainWindowView implements MainWindowView {
     private final MainFrame mainFrame;
@@ -36,6 +38,19 @@ public class DefaultMainWindowView implements MainWindowView {
     public void setButtonCommand(String buttonName, Command command) {
         ActionButton ab = sideMenuPanel.getButtonByName(buttonName);
         ab.setCommand(command);
+    }
+
+    @Override
+    public void setOnCloseCommand(Command command) {
+        mainFrame.addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                System.out.println("Closed");
+                e.getWindow().dispose();
+            }
+        });
     }
 
     @Override

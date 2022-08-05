@@ -6,6 +6,8 @@ import com.github.UniHelper.views.FeatureView;
 public interface MainWindowView {
     void setButtonCommand(String buttonName, Command command);
 
+    void setOnCloseCommand(Command command);
+
     void showFeature(String featureName);
 
     void show();

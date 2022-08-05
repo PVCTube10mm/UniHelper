@@ -4,6 +4,8 @@ import com.github.UniHelper.model.Note;
 import com.github.UniHelper.model.NotesModel;
 import com.github.UniHelper.views.notes.NotesView;
 
+import java.util.ArrayList;
+
 public class DefaultNotesPresenter implements NotesPresenter {
     NotesView view;
     NotesModel model;
@@ -31,6 +33,7 @@ public class DefaultNotesPresenter implements NotesPresenter {
 
     @Override
     public void saveNotes() {
+        ArrayList<Note> updatedNotes = view.getNotes();
         model.updateNotes(model.getAllNotes());
     }
 

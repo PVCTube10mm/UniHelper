@@ -51,7 +51,6 @@ public class DefaultNotesModel implements NotesModel {
             ObjectMapper mapper = new ObjectMapper();
             notes = mapper.readValue(new File(saveFileName), new TypeReference<>() {});
         } catch (IOException e) {
-            e.printStackTrace();
             createNewSaveFile();
         }
     }

@@ -8,7 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 class DefaultNodesModelTest {
-    DefaultNotesModel notesModel;
+    private DefaultNotesModel notesModel;
 
     @BeforeEach
     void createModel() {
@@ -193,4 +193,5 @@ class DefaultNodesModelTest {
         Assertions.assertEquals(n2, r3);
         Assertions.assertEquals(n4, r4);
     }
+
 }

@@ -1,6 +1,6 @@
-package com.github.UniHelper.View.Utils;
+package com.github.UniHelper.views.utils;
 
-import com.github.UniHelper.Presenter.Commands.Command;
+import com.github.UniHelper.presenters.commands.Command;
 
 public interface ActionButton {
     void setCommand(Command command);

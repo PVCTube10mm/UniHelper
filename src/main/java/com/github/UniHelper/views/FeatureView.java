@@ -1,4 +1,4 @@
-package com.github.UniHelper.View;
+package com.github.UniHelper.views;
 
 import javax.swing.*;
 

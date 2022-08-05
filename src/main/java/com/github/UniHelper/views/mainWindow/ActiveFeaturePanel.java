@@ -1,6 +1,6 @@
-package com.github.UniHelper.View.MainWindow;
+package com.github.UniHelper.views.mainWindow;
 
-import com.github.UniHelper.View.FeatureView;
+import com.github.UniHelper.views.FeatureView;
 
 import javax.swing.*;
 import java.awt.*;

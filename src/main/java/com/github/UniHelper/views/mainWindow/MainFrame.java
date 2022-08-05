@@ -1,4 +1,4 @@
-package com.github.UniHelper.View.MainWindow;
+package com.github.UniHelper.views.mainWindow;
 
 import javax.swing.*;
 import java.awt.*;

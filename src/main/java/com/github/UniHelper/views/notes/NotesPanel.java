@@ -1,4 +1,4 @@
-package com.github.UniHelper.View.Notes;
+package com.github.UniHelper.views.notes;
 
 import javax.swing.*;
 import java.awt.*;

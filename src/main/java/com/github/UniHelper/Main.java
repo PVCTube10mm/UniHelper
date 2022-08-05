@@ -1,10 +1,10 @@
 package com.github.UniHelper;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.github.UniHelper.Presenter.DefaultMainWindowPresenter;
-import com.github.UniHelper.Presenter.MainWindowPresenter;
-import com.github.UniHelper.View.MainWindow.DefaultMainWindowView;
-import com.github.UniHelper.View.MainWindow.MainWindowView;
+import com.github.UniHelper.presenters.DefaultMainWindowPresenter;
+import com.github.UniHelper.presenters.MainWindowPresenter;
+import com.github.UniHelper.views.mainWindow.DefaultMainWindowView;
+import com.github.UniHelper.views.mainWindow.MainWindowView;
 
 import javax.swing.*;
 

@@ -1,6 +1,6 @@
-package com.github.UniHelper.View.MainWindow;
+package com.github.UniHelper.views.mainWindow;
 
-import com.github.UniHelper.View.Utils.ActionButton;
+import com.github.UniHelper.views.utils.ActionButton;
 
 import javax.swing.*;
 import java.awt.*;

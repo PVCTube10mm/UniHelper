@@ -1,7 +1,7 @@
 package com.github.UniHelper.views.notes;
 
 import com.github.UniHelper.model.Note;
-import com.github.UniHelper.presenters.commands.Command;
+import com.github.UniHelper.views.commands.Command;
 import com.github.UniHelper.views.mainWindow.MenuButton;
 
 import javax.swing.*;

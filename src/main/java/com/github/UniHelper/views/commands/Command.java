@@ -1,4 +1,4 @@
-package com.github.UniHelper.presenters.commands;
+package com.github.UniHelper.views.commands;
 
 @FunctionalInterface
 public interface Command {

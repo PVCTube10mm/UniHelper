@@ -1,5 +1,7 @@
 package com.github.UniHelper.presenters;
 
-public interface MainWindowPresenter {
+import java.util.EventListener;
+
+public interface MainWindowPresenter extends EventListener {
     void onLaunch();
 }

@@ -1,6 +1,6 @@
 package com.github.UniHelper.views.mainWindow;
 
-import com.github.UniHelper.views.commands.Command;
+import com.github.UniHelper.presenters.commands.Command;
 import com.github.UniHelper.views.utils.ActionButton;
 
 import javax.swing.*;

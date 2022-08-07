@@ -2,34 +2,28 @@ package com.github.UniHelper.views.notes;
 
 import com.github.UniHelper.model.Note;
 import com.github.UniHelper.presenters.commands.Command;
-import com.github.UniHelper.views.mainWindow.MenuButton;
+import com.github.UniHelper.views.utils.NamedButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public class DefaultNotesView implements NotesView {
     private final NotesPanel notesPanel;
-    private final MenuButton newNoteButton;
-    private final ArrayList<Command> onCloseCommands;
+    private final NamedButton newNoteButton;
+    private final ArrayList<Command> onNoteModifiedCommands;
+    private final ArrayList<Command> onNoteDeletedCommands;
+    private final ArrayList<Command> onNewNoteCommands;
 
     public DefaultNotesView() {
         notesPanel = new NotesPanel();
-        notesPanel.setBackground(Color.DARK_GRAY);
         notesPanel.setLayout(new GridLayout(5, 5));
-        newNoteButton = new MenuButton("new note");
+        newNoteButton = new NamedButton("new note");
+        onNoteModifiedCommands = new ArrayList<>();
+        onNewNoteCommands = new ArrayList<>();
+        onNoteDeletedCommands = new ArrayList<>();
+        notesPanel.setBackground(Color.DARK_GRAY);
         notesPanel.add(newNoteButton);
-        onCloseCommands = new ArrayList<>();
-        JFrame window = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, notesPanel);
-        if(window != null)
-            window.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosing(WindowEvent e) {
-                    executeOnCloseCommands();
-                }
-            });
     }
 
     @Override
@@ -47,18 +41,23 @@ public class DefaultNotesView implements NotesView {
     }
 
     @Override
-    public ArrayList<Note> getNotes() {
+    public Note getLastOperationSubjectNote() {
         return null;
     }
 
     @Override
-    public void setNewNoteButtonCommand(Command command) {
+    public void addOnNoteDeletedCommand(Command command) {
+        onNoteDeletedCommands.add(command);
+    }
+
+    @Override
+    public void addOnNewNoteCommand(Command command) {
         newNoteButton.setCommand(command);
     }
 
     @Override
-    public void addOnCloseCommand(Command command) {
-        onCloseCommands.add(command);
+    public void addOnNoteModifiedCommand(Command command) {
+        newNoteButton.setCommand(command);
     }
 
     @Override
@@ -71,8 +70,18 @@ public class DefaultNotesView implements NotesView {
         return notesPanel;
     }
 
-    private void executeOnCloseCommands(){
-        for(Command c : onCloseCommands)
+    private void executeOnNewNoteCommands(){
+        for(Command c : onNewNoteCommands)
+            c.execute();
+    }
+
+    private void executeOnNoteDeletedCommands(){
+        for(Command c : onNewNoteCommands)
+            c.execute();
+    }
+
+    private void executeOnNoteModifiedCommands(){
+        for(Command c : onNewNoteCommands)
             c.execute();
     }
 }

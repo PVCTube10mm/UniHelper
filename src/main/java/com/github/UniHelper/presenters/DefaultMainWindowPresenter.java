@@ -25,7 +25,5 @@ public class DefaultMainWindowPresenter implements MainWindowPresenter {
         view.addFeatureView(notesView);
     }
 
-    private void addViewCommands(){
-
-    }
+    private void addViewCommands() {}
 }

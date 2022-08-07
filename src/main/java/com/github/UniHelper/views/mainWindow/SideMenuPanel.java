@@ -1,13 +1,14 @@
 package com.github.UniHelper.views.mainWindow;
 
 import com.github.UniHelper.views.utils.ActionButton;
+import com.github.UniHelper.views.utils.NamedButton;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class SideMenuPanel extends JPanel {
-    private final ArrayList<MenuButton> buttons;
+    private final ArrayList<NamedButton> buttons;
 
     public SideMenuPanel() {
         super();
@@ -19,19 +20,15 @@ public class SideMenuPanel extends JPanel {
 
     public ActionButton getButtonByName(String name) {
         return buttons.stream()
-                .filter(b -> b.getText().equals(name))
+                .filter(b -> b.getName().equals(name))
                 .findFirst()
                 .orElse(null);
     }
 
-    private void addButton(MenuButton button) {
+    public void addButton(NamedButton button) {
         GridLayout gl = (GridLayout) this.getLayout();
         gl.setRows(gl.getRows() + 1);
         buttons.add(button);
         this.add(button);
-    }
-
-    public void addFeatureButton(String featureName) {
-        addButton(new MenuButton(featureName));
     }
 }

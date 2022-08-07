@@ -193,5 +193,4 @@ class DefaultNodesModelTest {
         Assertions.assertEquals(n2, r3);
         Assertions.assertEquals(n4, r4);
     }
-
 }

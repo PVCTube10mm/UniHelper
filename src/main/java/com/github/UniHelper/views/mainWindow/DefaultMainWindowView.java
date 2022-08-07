@@ -2,7 +2,7 @@ package com.github.UniHelper.views.mainWindow;
 
 import com.github.UniHelper.presenters.commands.Command;
 import com.github.UniHelper.views.FeatureView;
-import com.github.UniHelper.views.utils.ActionButton;
+import com.github.UniHelper.views.utils.NamedButton;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -24,8 +24,8 @@ public class DefaultMainWindowView implements MainWindowView {
         onFeatureChangeCommands = new ArrayList<>();
         mainFrame.add(sideMenuPanel, BorderLayout.WEST);
         mainFrame.add(activeFeaturePanel, BorderLayout.CENTER);
-        mainFrame.addWindowListener(new WindowAdapter(){
-            public void windowClosing(WindowEvent e){
+        mainFrame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
                 executeOnCloseCommands();
             }
         });
@@ -40,8 +40,9 @@ public class DefaultMainWindowView implements MainWindowView {
     public void addFeatureView(FeatureView featureView) {
         String featureName = featureView.getFeatureName();
         activeFeaturePanel.addFeaturePanel(featureView);
-        sideMenuPanel.addFeatureButton(featureName);
-        setMenuButtonCommand(featureName, () -> showFeature(featureName));
+        NamedButton featureButton = new NamedButton(featureName);
+        featureButton.addCommand(() -> showFeature(featureName));
+        sideMenuPanel.addButton(featureButton);
     }
 
     @Override
@@ -54,24 +55,19 @@ public class DefaultMainWindowView implements MainWindowView {
         onFeatureChangeCommands.add(command);
     }
 
-    private void setMenuButtonCommand(String buttonName, Command command) {
-        ActionButton ab = sideMenuPanel.getButtonByName(buttonName);
-        ab.setCommand(command);
-    }
-
     @Override
     public void showFeature(String featureName) {
         executeOnFeatureChangeCommands();
         this.activeFeaturePanel.chooseView(featureName);
     }
 
-    private void executeOnCloseCommands(){
-        for(Command c : onCloseCommands)
+    private void executeOnCloseCommands() {
+        for (Command c : onCloseCommands)
             c.execute();
     }
 
-    private void executeOnFeatureChangeCommands(){
-        for(Command c : onFeatureChangeCommands)
+    private void executeOnFeatureChangeCommands() {
+        for (Command c : onFeatureChangeCommands)
             c.execute();
     }
 }

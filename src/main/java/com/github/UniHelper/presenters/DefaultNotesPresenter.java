@@ -13,11 +13,7 @@ public class DefaultNotesPresenter implements NotesPresenter {
     public DefaultNotesPresenter(NotesView notesView, NotesModel notesModel) {
         view = notesView;
         model = notesModel;
-        view.setNewNoteButtonCommand(() -> {
-            model.addNote(new Note("title", "data"));
-            saveNotes();
-            loadNotes();
-        });
+        addViewCommands();
         loadNotes();
     }
 
@@ -40,5 +36,14 @@ public class DefaultNotesPresenter implements NotesPresenter {
     @Override
     public void onClose() {
         saveNotes();
+    }
+
+    private void addViewCommands(){
+        view.addOnCloseCommand(() -> model.updateNotes(view.getNotes()));
+        view.addOnNewNoteCommand(() -> {
+            model.addNote(new Note("title", "data"));
+            saveNotes();
+            loadNotes();
+        });
     }
 }

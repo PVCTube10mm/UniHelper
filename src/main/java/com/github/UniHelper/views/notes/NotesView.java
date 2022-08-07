@@ -11,7 +11,11 @@ public interface NotesView extends FeatureView {
 
     void addNote(Note note);
 
-    ArrayList<Note> getNotes();
+    Note getLastOperationSubjectNote();
 
-    void setNewNoteButtonCommand(Command command);
+    void addOnNoteModifiedCommand(Command command);
+
+    void addOnNoteDeletedCommand(Command command);
+
+    void addOnNewNoteCommand(Command command);
 }

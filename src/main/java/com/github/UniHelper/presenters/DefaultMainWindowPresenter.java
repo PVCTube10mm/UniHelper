@@ -14,6 +14,7 @@ public class DefaultMainWindowPresenter implements MainWindowPresenter {
     @Override
     public void onLaunch() {
         initializeFeatureViews();
+        addViewCommands();
         view.show();
     }
 
@@ -23,4 +24,6 @@ public class DefaultMainWindowPresenter implements MainWindowPresenter {
         NotesPresenter notesPresenter = new DefaultNotesPresenter(notesView, notesModel);
         view.addFeatureView(notesView);
     }
+
+    private void addViewCommands() {}
 }

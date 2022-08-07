@@ -2,7 +2,7 @@ package com.github.UniHelper.views.notes;
 
 import com.github.UniHelper.model.Note;
 import com.github.UniHelper.presenters.commands.Command;
-import com.github.UniHelper.views.mainWindow.MenuButton;
+import com.github.UniHelper.views.utils.NamedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,13 +10,19 @@ import java.util.ArrayList;
 
 public class DefaultNotesView implements NotesView {
     private final NotesPanel notesPanel;
-    private final MenuButton newNoteButton;
+    private final NamedButton newNoteButton;
+    private final ArrayList<Command> onNoteModifiedCommands;
+    private final ArrayList<Command> onNoteDeletedCommands;
+    private final ArrayList<Command> onNewNoteCommands;
 
     public DefaultNotesView() {
         notesPanel = new NotesPanel();
-        notesPanel.setBackground(Color.DARK_GRAY);
         notesPanel.setLayout(new GridLayout(5, 5));
-        newNoteButton = new MenuButton("new note");
+        newNoteButton = new NamedButton("new note");
+        onNoteModifiedCommands = new ArrayList<>();
+        onNewNoteCommands = new ArrayList<>();
+        onNoteDeletedCommands = new ArrayList<>();
+        notesPanel.setBackground(Color.DARK_GRAY);
         notesPanel.add(newNoteButton);
     }
 
@@ -35,12 +41,22 @@ public class DefaultNotesView implements NotesView {
     }
 
     @Override
-    public ArrayList<Note> getNotes() {
+    public Note getLastOperationSubjectNote() {
         return null;
     }
 
     @Override
-    public void setNewNoteButtonCommand(Command command) {
+    public void addOnNoteDeletedCommand(Command command) {
+        onNoteDeletedCommands.add(command);
+    }
+
+    @Override
+    public void addOnNewNoteCommand(Command command) {
+        newNoteButton.setCommand(command);
+    }
+
+    @Override
+    public void addOnNoteModifiedCommand(Command command) {
         newNoteButton.setCommand(command);
     }
 
@@ -52,5 +68,20 @@ public class DefaultNotesView implements NotesView {
     @Override
     public JPanel getPanel() {
         return notesPanel;
+    }
+
+    private void executeOnNewNoteCommands(){
+        for(Command c : onNewNoteCommands)
+            c.execute();
+    }
+
+    private void executeOnNoteDeletedCommands(){
+        for(Command c : onNewNoteCommands)
+            c.execute();
+    }
+
+    private void executeOnNoteModifiedCommands(){
+        for(Command c : onNewNoteCommands)
+            c.execute();
     }
 }

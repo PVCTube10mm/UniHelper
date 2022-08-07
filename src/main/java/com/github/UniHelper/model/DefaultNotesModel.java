@@ -58,8 +58,8 @@ public class DefaultNotesModel implements NotesModel {
     private void save() {
         try (PrintWriter out = new PrintWriter(saveFileName, StandardCharsets.UTF_8)) {
             ObjectMapper mapper = new ObjectMapper();
-            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            String json = ow.writeValueAsString(notes);
+            ObjectWriter writer = mapper.writer().withDefaultPrettyPrinter();
+            String json = writer.writeValueAsString(notes);
             out.println(json);
         } catch (IOException e) {
             e.printStackTrace();

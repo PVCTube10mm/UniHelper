@@ -1,15 +1,15 @@
-package com.github.UniHelper.views.mainWindow;
+package com.github.UniHelper.views.utils;
 
 import com.github.UniHelper.presenters.commands.Command;
-import com.github.UniHelper.views.utils.ActionButton;
 
 import javax.swing.*;
 
-public class MenuButton extends JButton implements ActionButton {
+public class NamedButton extends JButton implements ActionButton {
     private Command command;
 
-    public MenuButton(String name) {
+    public NamedButton(String name) {
         super(name);
+        this.setName(name);
         command = () -> {};
     }
 

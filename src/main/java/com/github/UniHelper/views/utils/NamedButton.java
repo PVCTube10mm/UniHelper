@@ -3,25 +3,31 @@ package com.github.UniHelper.views.utils;
 import com.github.UniHelper.presenters.commands.Command;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class NamedButton extends JButton implements ActionButton {
-    private Command command;
+    private ArrayList<Command> commands;
 
     public NamedButton(String name) {
         super(name);
         this.setName(name);
-        command = () -> {};
+        commands = new ArrayList<>();
+        addActionListener(e -> executeCommands());
     }
 
     @Override
     public void setCommand(Command command) {
-        removeActionListener(e -> this.command.execute());
-        this.command = command;
-        addActionListener(e -> command.execute());
+        commands = new ArrayList<>();
+        commands.add(command);
     }
 
     @Override
     public void addCommand(Command command) {
-        addActionListener(e -> command.execute());
+        commands.add(command);
+    }
+
+    private void executeCommands(){
+        for (Command c : commands)
+            c.execute();
     }
 }

@@ -6,8 +6,4 @@ public interface NotesPresenter {
     void addNote(Note note);
 
     void loadNotes();
-
-    void saveNotes();
-
-    void onClose();
 }

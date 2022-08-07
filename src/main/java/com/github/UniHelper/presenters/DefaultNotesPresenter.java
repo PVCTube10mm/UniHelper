@@ -27,22 +27,9 @@ public class DefaultNotesPresenter implements NotesPresenter {
         view.updateNotes(model.getAllNotes());
     }
 
-    @Override
-    public void saveNotes() {
-        ArrayList<Note> updatedNotes = view.getNotes();
-        model.updateNotes(model.getAllNotes());
-    }
-
-    @Override
-    public void onClose() {
-        saveNotes();
-    }
-
     private void addViewCommands(){
-        view.addOnCloseCommand(() -> model.updateNotes(view.getNotes()));
         view.addOnNewNoteCommand(() -> {
             model.addNote(new Note("title", "data"));
-            saveNotes();
             loadNotes();
         });
     }

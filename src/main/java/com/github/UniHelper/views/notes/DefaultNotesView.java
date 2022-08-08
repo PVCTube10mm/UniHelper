@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class DefaultNotesView implements NotesView {
     private final NotesPanel notesPanel;
+    private final NotesScrollPane notesScrollPane;
     private final NamedButton newNoteButton;
     private final ArrayList<Command> onNoteModifiedCommands;
     private final ArrayList<Command> onNoteDeletedCommands;
@@ -17,8 +18,10 @@ public class DefaultNotesView implements NotesView {
 
     public DefaultNotesView() {
         notesPanel = new NotesPanel();
-        notesPanel.setLayout(new GridLayout(5, 5));
+        notesScrollPane = new NotesScrollPane(notesPanel);
+        notesPanel.setMaximumSize(new Dimension(notesPanel.getSize().width,1000));
         newNoteButton = new NamedButton("new note");
+        newNoteButton.setPreferredSize(new Dimension(200,300));
         onNoteModifiedCommands = new ArrayList<>();
         onNewNoteCommands = new ArrayList<>();
         onNoteDeletedCommands = new ArrayList<>();
@@ -37,7 +40,8 @@ public class DefaultNotesView implements NotesView {
     @Override
     public void addNote(Note note) {
         notesPanel.add(new NotePanel());
-        notesPanel.validate();
+        notesPanel.setPreferredSize(new Dimension(notesPanel.getWidth(), notesPanel.getHeight() + 75));
+        notesPanel.revalidate();
     }
 
     @Override
@@ -66,8 +70,8 @@ public class DefaultNotesView implements NotesView {
     }
 
     @Override
-    public JPanel getPanel() {
-        return notesPanel;
+    public Container getContainer() {
+        return notesScrollPane;
     }
 
     private void executeOnNewNoteCommands(){

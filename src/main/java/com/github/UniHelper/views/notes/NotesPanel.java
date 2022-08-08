@@ -7,6 +7,6 @@ public class NotesPanel extends JPanel {
     public NotesPanel() {
         super();
         setBackground(Color.DARK_GRAY);
-        setPreferredSize(new Dimension(800, 300));
+        setPreferredSize(new Dimension(0, 3000));
     }
 }

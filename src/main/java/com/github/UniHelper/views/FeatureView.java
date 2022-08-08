@@ -1,9 +1,9 @@
 package com.github.UniHelper.views;
 
-import javax.swing.*;
+import java.awt.*;
 
 public interface FeatureView {
     String getFeatureName();
 
-    JPanel getPanel();
+    Container getContainer();
 }

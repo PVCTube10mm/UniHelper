@@ -8,7 +8,7 @@ public class NotePanel extends JPanel {
     public NotePanel() {
         super();
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(300,300));
+        setPreferredSize(new Dimension(300, 300));
         setBorder(new LineBorder(Color.WHITE, 1));
     }
 }

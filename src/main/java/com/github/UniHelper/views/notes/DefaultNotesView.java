@@ -1,8 +1,6 @@
 package com.github.UniHelper.views.notes;
 
-import com.github.UniHelper.model.Note;
 import com.github.UniHelper.presenters.commands.Command;
-import com.github.UniHelper.views.notes.Note.NotePanel;
 import com.github.UniHelper.views.notes.Note.NoteView;
 import com.github.UniHelper.views.utils.NamedButton;
 
@@ -18,7 +16,7 @@ public class DefaultNotesView implements NotesView {
     public DefaultNotesView() {
         notesPanel = new NotesPanel();
         notesScrollPane = new NotesScrollPane(notesPanel);
-        notesPanel.setMaximumSize(new Dimension(0,1000));
+        notesPanel.setMaximumSize(new Dimension(0, 1000));
         onNewNoteCommands = new ArrayList<>();
         newNoteButton = new NewNoteButton();
         newNoteButton.addCommand(this::executeOnNewNoteCommands);
@@ -26,13 +24,8 @@ public class DefaultNotesView implements NotesView {
     }
 
     @Override
-    public void updateNotes(ArrayList<Note> notes) {
-
-    }
-
-    @Override
     public void addNoteView(NoteView noteView) {
-        notesPanel.add(noteView.getContainer(),1);
+        notesPanel.add(noteView.getContainer(), 1);
         notesPanel.setPreferredSize(new Dimension(notesPanel.getWidth(), notesPanel.getHeight() + 101));
         notesPanel.revalidate();
     }
@@ -59,8 +52,8 @@ public class DefaultNotesView implements NotesView {
         return notesScrollPane;
     }
 
-    private void executeOnNewNoteCommands(){
-        for(Command c : onNewNoteCommands)
+    private void executeOnNewNoteCommands() {
+        for (Command c : onNewNoteCommands)
             c.execute();
     }
 }

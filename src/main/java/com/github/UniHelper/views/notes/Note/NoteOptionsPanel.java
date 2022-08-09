@@ -11,22 +11,22 @@ public class NoteOptionsPanel extends JPanel {
     private final NamedButton deleteButton;
     private final NamedButton editButton;
 
-    public NoteOptionsPanel(){
+    public NoteOptionsPanel() {
         super();
         deleteButton = new NamedButton("delete");
         editButton = new NamedButton("edit");
-        setLayout(new GridLayout(1,0));
+        setLayout(new GridLayout(1, 0));
         add(editButton);
         add(deleteButton);
         deleteButton.setBackground(ColorPalette.RED);
         editButton.setBackground(ColorPalette.BROWN);
     }
 
-    public void addDeleteButtonCommand(Command command){
+    public void addDeleteButtonCommand(Command command) {
         deleteButton.addCommand(command);
     }
 
-    public void addEditButtonCommand(Command command){
+    public void addEditButtonCommand(Command command) {
         editButton.addCommand(command);
     }
 }

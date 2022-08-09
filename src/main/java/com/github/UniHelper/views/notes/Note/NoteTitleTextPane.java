@@ -10,14 +10,14 @@ public class NoteTitleTextPane extends JTextPane {
     public NoteTitleTextPane() {
         super();
         maxNumberOfCharackters = 20;
-        setPreferredSize(new Dimension(280,50));
+        setPreferredSize(new Dimension(280, 50));
         StyledDocument styledDocument = getStyledDocumentWithLimitedCharacters();
         setStyledDocument(styledDocument);
         setText("New note");
-        SimpleAttributeSet align= new SimpleAttributeSet();
+        SimpleAttributeSet align = new SimpleAttributeSet();
         StyleConstants.setAlignment(align, StyleConstants.ALIGN_CENTER);
         styledDocument.setParagraphAttributes(0, styledDocument.getLength(), align, false);
-        setFont(new Font(Font.SANS_SERIF, Font.BOLD,  24));
+        setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
         setBackground(Color.BLACK);
     }
 

@@ -6,6 +6,8 @@ import com.github.UniHelper.views.notes.Note.DefaultNoteView;
 import com.github.UniHelper.views.notes.Note.NoteView;
 import com.github.UniHelper.views.notes.NotesView;
 
+import java.util.ArrayList;
+
 public class DefaultNotesPresenter implements NotesPresenter {
     NotesView view;
     NotesModel model;
@@ -19,10 +21,16 @@ public class DefaultNotesPresenter implements NotesPresenter {
 
     @Override
     public void loadNotes() {
-        view.updateNotes(model.getAllNotes());
+        ArrayList<Note> notes = (ArrayList<Note>) model.getAllNotes().clone();
+        for (Note n : notes) {
+            NoteView noteView = new DefaultNoteView();
+            noteView.addOnNoteDeletedCommand(() -> view.removeNoteView(noteView));
+            NotePresenter notePresenter = new DefaultNotePresenter(noteView, model);
+            view.addNoteView(noteView);
+        }
     }
 
-    private void addViewCommands(){
+    private void addViewCommands() {
         view.addOnNewNoteCommand(() -> {
             NoteView noteView = new DefaultNoteView();
             noteView.addOnNoteDeletedCommand(() -> view.removeNoteView(noteView));

@@ -6,11 +6,11 @@ import java.awt.*;
 public class NoteTitlePanel extends JPanel {
     private final JTextPane titleTextPane;
 
-    public NoteTitlePanel(){
+    public NoteTitlePanel() {
         super();
         titleTextPane = new NoteTitleTextPane();
         setBackground(Color.BLACK);
-        setPreferredSize(new Dimension(0,50));
+        setPreferredSize(new Dimension(0, 50));
         add(titleTextPane);
         revalidate();
         SwingUtilities.invokeLater(titleTextPane::requestFocus);

@@ -1,6 +1,5 @@
 package com.github.UniHelper.views.notes.Note;
 
-import com.github.UniHelper.model.Note;
 import com.github.UniHelper.presenters.commands.Command;
 
 import java.awt.*;
@@ -14,7 +13,7 @@ public class DefaultNoteView implements NoteView {
     private final ArrayList<Command> onNoteModifiedCommands;
     private final ArrayList<Command> onNoteDeletedCommands;
 
-    public DefaultNoteView(){
+    public DefaultNoteView() {
         notePanel = new NotePanel();
         titlePanel = new NoteTitlePanel();
         textPanel = new NoteTextPanel();
@@ -33,11 +32,6 @@ public class DefaultNoteView implements NoteView {
     }
 
     @Override
-    public Note getDisplayedNote() {
-        return null;
-    }
-
-    @Override
     public void addOnNoteModifiedCommand(Command command) {
         onNoteModifiedCommands.add(command);
     }
@@ -47,13 +41,13 @@ public class DefaultNoteView implements NoteView {
         onNoteDeletedCommands.add(command);
     }
 
-    private void executeOnNoteModifiedCommands(){
-        for(Command c : onNoteModifiedCommands)
+    private void executeOnNoteModifiedCommands() {
+        for (Command c : onNoteModifiedCommands)
             c.execute();
     }
 
-    private void executeOnNoteDeletedCommands(){
-        for(Command c : onNoteDeletedCommands)
+    private void executeOnNoteDeletedCommands() {
+        for (Command c : onNoteDeletedCommands)
             c.execute();
     }
 }

@@ -7,21 +7,27 @@ import java.awt.*;
 import java.awt.event.MouseWheelListener;
 
 public class NoteTextPanel extends JPanel {
-    JTextArea text;
-    JScrollPane scrollPane;
-    public NoteTextPanel(){
+    private final JTextArea text;
+    private final JScrollPane scrollPane;
+
+    public NoteTextPanel() {
         super();
         setLayout(new GridLayout());
         text = new JTextArea();
+        scrollPane = new JScrollPane(text);
+        add(scrollPane);
+    }
+
+    private void setTextLook() {
         text.setWrapStyleWord(true);
         text.setLineWrap(true);
         text.setBackground(ColorPalette.BLUE);
-        text.setFont(new Font(Font.SANS_SERIF, Font.PLAIN,  16));
-        text.revalidate();
-        scrollPane = new JScrollPane(text);
+        text.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 16));
+    }
+
+    private void setScrollPaneLook() {
         scrollPane.getVerticalScrollBar().setBackground(ColorPalette.BLUE);
         MouseWheelListener defaultListener = scrollPane.getMouseWheelListeners()[0];
         scrollPane.removeMouseWheelListener(defaultListener);
-        add(scrollPane);
     }
 }

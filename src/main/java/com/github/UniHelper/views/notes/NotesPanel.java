@@ -6,7 +6,8 @@ import java.awt.*;
 public class NotesPanel extends JPanel {
     public NotesPanel() {
         super();
-        setBackground(Color.DARK_GRAY);
-        setPreferredSize(new Dimension(0, 3000));
+        setBackground(Color.DARK_GRAY.darker());
+        setPreferredSize(new Dimension(0, 0));
+        setLayout(new FlowLayout(FlowLayout.LEFT));
     }
 }

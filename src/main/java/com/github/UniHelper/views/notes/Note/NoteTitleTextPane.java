@@ -5,11 +5,11 @@ import javax.swing.text.*;
 import java.awt.*;
 
 public class NoteTitleTextPane extends JTextPane {
-    private final int maxNumberOfCharackters;
+    private final int maxNumberOfCharacters;
 
     public NoteTitleTextPane() {
         super();
-        maxNumberOfCharackters = 20;
+        maxNumberOfCharacters = 20;
         setPreferredSize(new Dimension(280, 50));
         StyledDocument styledDocument = getStyledDocumentWithLimitedCharacters();
         setStyledDocument(styledDocument);
@@ -25,7 +25,7 @@ public class NoteTitleTextPane extends JTextPane {
         return new DefaultStyledDocument() {
             @Override
             public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-                if ((getLength() + str.length()) <= maxNumberOfCharackters && (!str.contains("\n")))
+                if ((getLength() + str.length()) <= maxNumberOfCharacters && (!str.contains("\n")))
                     super.insertString(offs, str, a);
             }
         };

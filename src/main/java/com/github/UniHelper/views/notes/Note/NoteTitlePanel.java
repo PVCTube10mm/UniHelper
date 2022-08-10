@@ -15,4 +15,12 @@ public class NoteTitlePanel extends JPanel {
         revalidate();
         SwingUtilities.invokeLater(titleTextPane::requestFocus);
     }
+
+    public void setTitle(String title){
+        titleTextPane.setText(title);
+    }
+
+    public String getTitle(){
+        return titleTextPane.getText();
+    }
 }

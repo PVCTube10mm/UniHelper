@@ -25,6 +25,13 @@ public class DefaultNotesModel implements NotesModel {
     @Override
     public void addNote(Note note) {
         notes.add(note);
+        save();
+    }
+
+    @Override
+    public void deleteNote(Note note) {
+        notes.remove(note);
+        save();
     }
 
     @Override

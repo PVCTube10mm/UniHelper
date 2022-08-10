@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.ArrayList;
 
-class DefaultNodesModelTest {
+class DefaultNotesModelTest {
     private DefaultNotesModel notesModel;
 
     @BeforeEach
@@ -192,5 +192,39 @@ class DefaultNodesModelTest {
         Assertions.assertEquals(n1, r2);
         Assertions.assertEquals(n2, r3);
         Assertions.assertEquals(n4, r4);
+    }
+
+    @Test
+    void deleteNoteShouldNotFailWhenDeletingNonExistingNote(){
+        //Given
+        notesModel.updateNotes(new ArrayList<>());
+
+        //When
+        notesModel.deleteNote(new Note("", ""));
+
+        //Then
+        Assertions.assertTrue(true);
+    }
+
+    @Test
+    void deleteNoteShouldDeleteOnlyGivenNote(){
+        //Given
+        Note n1 = new Note("t1", "d1");
+        Note n2 = new Note("t2", "d2");
+        Note n3 = new Note("t3", "d3");
+        ArrayList<Note> notesBefore = new ArrayList<>();
+        notesBefore.add(n1);
+        notesBefore.add(n2);
+        notesModel.updateNotes(notesBefore);
+
+        //When
+        notesModel.deleteNote(n1);
+        notesModel.deleteNote(n3);
+
+        //Then
+        ArrayList<Note> notesAfter = notesModel.getAllNotes();
+        Assertions.assertFalse(notesAfter.contains(n1));
+        Assertions.assertTrue(notesAfter.contains(n2));
+        Assertions.assertFalse(notesAfter.contains(n3));
     }
 }

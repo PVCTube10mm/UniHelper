@@ -15,6 +15,8 @@ public class NoteTextPanel extends JPanel {
         setLayout(new GridLayout());
         text = new JTextArea();
         scrollPane = new JScrollPane(text);
+        setTextLook();
+        setScrollPaneLook();
         add(scrollPane);
     }
 
@@ -29,5 +31,13 @@ public class NoteTextPanel extends JPanel {
         scrollPane.getVerticalScrollBar().setBackground(ColorPalette.BLUE);
         MouseWheelListener defaultListener = scrollPane.getMouseWheelListeners()[0];
         scrollPane.removeMouseWheelListener(defaultListener);
+    }
+
+    public String getText(){
+        return text.getText();
+    }
+
+    public void setText(String text){
+        this.text.setText(text);
     }
 }

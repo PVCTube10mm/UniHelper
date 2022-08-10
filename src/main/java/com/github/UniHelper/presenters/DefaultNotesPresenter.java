@@ -25,16 +25,18 @@ public class DefaultNotesPresenter implements NotesPresenter {
         for (Note n : notes) {
             NoteView noteView = new DefaultNoteView();
             noteView.addOnNoteDeletedCommand(() -> view.removeNoteView(noteView));
-            NotePresenter notePresenter = new DefaultNotePresenter(noteView, model);
+            NotePresenter notePresenter = new DefaultNotePresenter(noteView, model, n);
             view.addNoteView(noteView);
         }
     }
 
     private void addViewCommands() {
         view.addOnNewNoteCommand(() -> {
+            Note newNote = new Note("New note", "");
+            model.addNote(newNote);
             NoteView noteView = new DefaultNoteView();
             noteView.addOnNoteDeletedCommand(() -> view.removeNoteView(noteView));
-            NotePresenter notePresenter = new DefaultNotePresenter(noteView, model);
+            NotePresenter notePresenter = new DefaultNotePresenter(noteView, model, newNote);
             view.addNoteView(noteView);
         });
     }

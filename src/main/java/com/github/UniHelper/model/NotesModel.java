@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public interface NotesModel {
     void addNote(Note note);
 
+    void deleteNote(Note note);
+
     Note getNoteByTitle(String title);
 
     void updateNotes(ArrayList<Note> notes);

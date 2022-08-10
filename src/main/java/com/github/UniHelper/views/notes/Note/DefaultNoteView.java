@@ -41,6 +41,26 @@ public class DefaultNoteView implements NoteView {
         onNoteDeletedCommands.add(command);
     }
 
+    @Override
+    public String getNoteText() {
+        return textPanel.getText();
+    }
+
+    @Override
+    public String getNoteTitle() {
+        return titlePanel.getTitle();
+    }
+
+    @Override
+    public void setNoteTitle(String title) {
+        titlePanel.setTitle(title);
+    }
+
+    @Override
+    public void setNoteText(String text) {
+        textPanel.setText(text);
+    }
+
     private void executeOnNoteModifiedCommands() {
         for (Command c : onNoteModifiedCommands)
             c.execute();

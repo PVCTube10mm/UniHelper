@@ -14,7 +14,6 @@ public class NoteTitlePanel extends JPanel {
         setPreferredSize(new Dimension(0, 50));
         add(titleTextPane);
         revalidate();
-        SwingUtilities.invokeLater(titleTextPane::requestFocus);
     }
 
     public void setTitle(String title){

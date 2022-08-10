@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class DefaultNoteView implements NoteView, DocumentListener {
-    private final NotePanel notePanel;
+    private final NoteMainPanel noteMainPanel;
     private final NoteTitlePanel titlePanel;
     private final NoteTextPanel textPanel;
     private final NoteOptionsPanel optionsPanel;
@@ -16,15 +16,15 @@ public class DefaultNoteView implements NoteView, DocumentListener {
     private final ArrayList<Command> onNoteDeletedCommands;
 
     public DefaultNoteView() {
-        notePanel = new NotePanel();
+        noteMainPanel = new NoteMainPanel();
         titlePanel = new NoteTitlePanel();
         textPanel = new NoteTextPanel();
         optionsPanel = new NoteOptionsPanel();
         onNoteModifiedCommands = new ArrayList<>();
         onNoteDeletedCommands = new ArrayList<>();
-        notePanel.add(titlePanel, BorderLayout.NORTH);
-        notePanel.add(textPanel, BorderLayout.CENTER);
-        notePanel.add(optionsPanel, BorderLayout.SOUTH);
+        noteMainPanel.add(titlePanel, BorderLayout.NORTH);
+        noteMainPanel.add(textPanel, BorderLayout.CENTER);
+        noteMainPanel.add(optionsPanel, BorderLayout.SOUTH);
         optionsPanel.addDeleteButtonCommand(this::executeOnNoteDeletedCommands);
         titlePanel.addTitleDocumentListener(this);
         textPanel.addTextDocumentListener(this);
@@ -32,7 +32,7 @@ public class DefaultNoteView implements NoteView, DocumentListener {
 
     @Override
     public Container getContainer() {
-        return notePanel;
+        return noteMainPanel;
     }
 
     @Override

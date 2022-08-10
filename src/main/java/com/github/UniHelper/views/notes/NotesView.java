@@ -9,5 +9,11 @@ public interface NotesView extends FeatureView {
 
     void addOnNewNoteCommand(Command command);
 
+    void addOnSearchBarUpdateCommand(Command command);
+
     void removeNoteView(NoteView noteView);
+
+    String getSearchBarText();
+
+    void clearNotes();
 }

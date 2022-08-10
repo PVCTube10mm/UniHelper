@@ -2,10 +2,12 @@ package com.github.UniHelper.views.notes.Note;
 
 import com.github.UniHelper.presenters.commands.Command;
 
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class DefaultNoteView implements NoteView {
+public class DefaultNoteView implements NoteView, DocumentListener {
     private final NotePanel notePanel;
     private final NoteTitlePanel titlePanel;
     private final NoteTextPanel textPanel;
@@ -24,6 +26,8 @@ public class DefaultNoteView implements NoteView {
         notePanel.add(textPanel, BorderLayout.CENTER);
         notePanel.add(optionsPanel, BorderLayout.SOUTH);
         optionsPanel.addDeleteButtonCommand(this::executeOnNoteDeletedCommands);
+        titlePanel.addTitleDocumentListener(this);
+        textPanel.addTextDocumentListener(this);
     }
 
     @Override
@@ -59,6 +63,21 @@ public class DefaultNoteView implements NoteView {
     @Override
     public void setNoteText(String text) {
         textPanel.setText(text);
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        changedUpdate(e);
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        changedUpdate(e);
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        executeOnNoteModifiedCommands();
     }
 
     private void executeOnNoteModifiedCommands() {

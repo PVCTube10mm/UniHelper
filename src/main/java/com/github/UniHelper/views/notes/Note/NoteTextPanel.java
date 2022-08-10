@@ -3,6 +3,7 @@ package com.github.UniHelper.views.notes.Note;
 import com.github.UniHelper.views.utils.ColorPalette;
 
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.MouseWheelListener;
 
@@ -39,5 +40,9 @@ public class NoteTextPanel extends JPanel {
 
     public void setText(String text){
         this.text.setText(text);
+    }
+
+    public void addTextDocumentListener(DocumentListener documentListener){
+        text.getDocument().addDocumentListener(documentListener);
     }
 }

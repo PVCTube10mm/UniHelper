@@ -1,6 +1,7 @@
 package com.github.UniHelper.views.notes.Note;
 
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class NoteTitlePanel extends JPanel {
@@ -22,5 +23,9 @@ public class NoteTitlePanel extends JPanel {
 
     public String getTitle(){
         return titleTextPane.getText();
+    }
+
+    public void addTitleDocumentListener(DocumentListener documentListener){
+        titleTextPane.getDocument().addDocumentListener(documentListener);
     }
 }

@@ -7,7 +7,7 @@ public class NotesContentPanel extends JPanel {
     public NotesContentPanel(){
         super();
         setBackground(Color.DARK_GRAY.darker());
-        setPreferredSize(new Dimension(0, 0));
+        setPreferredSize(new Dimension(800, 0));
         setLayout(new FlowLayout(FlowLayout.LEFT));
     }
 }

@@ -26,6 +26,6 @@ public class DefaultNotePresenter implements NotePresenter {
     private void updateUserChanges(){
         note.setTitle(view.getNoteTitle());
         note.setData(view.getNoteText());
-        model.updateNoteById(note.getId(), note);
+        model.updateNote(note);
     }
 }

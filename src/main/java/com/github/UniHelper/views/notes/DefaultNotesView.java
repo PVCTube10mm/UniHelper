@@ -8,7 +8,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.concurrent.Flow;
 
 public class DefaultNotesView implements NotesView, DocumentListener {
     private final NotesMainPanel notesMainPanel;
@@ -50,6 +49,7 @@ public class DefaultNotesView implements NotesView, DocumentListener {
     @Override
     public void removeNoteView(NoteView noteView) {
         notesContentPanel.remove(noteView.getContainer());
+        notesContentPanel.setPreferredSize(calculateNewContentPanelSize(noteView.getContainer().getSize()));
         notesContentPanel.revalidate();
         notesContentPanel.repaint();
     }
@@ -112,9 +112,9 @@ public class DefaultNotesView implements NotesView, DocumentListener {
 
     private Dimension calculateNewContentPanelSize(Dimension noteViewSize){
         int numberOfNotes = notesContentPanel.getComponents().length;
-        int numberOfColumns = (int) Math.ceil(notesMainPanel.getPreferredSize().getWidth() / noteViewSize.getWidth());
+        int numberOfColumns = (int) Math.ceil(notesContentScrollPane.getPreferredSize().getWidth() / noteViewSize.getWidth());
         int numberOfRows = (int) Math.ceil(((double) numberOfNotes) / numberOfColumns);
         FlowLayout fl = (FlowLayout) notesContentPanel.getLayout();
-        return new Dimension(notesContentPanel.getWidth(), (int) (numberOfRows*(noteViewSize.getHeight() + fl.getVgap())));
+        return new Dimension(notesContentPanel.getWidth(), (int) (numberOfRows*(noteViewSize.getHeight() + fl.getVgap()) + fl.getVgap()));
     }
 }

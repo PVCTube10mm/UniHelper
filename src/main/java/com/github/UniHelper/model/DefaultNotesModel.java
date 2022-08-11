@@ -1,5 +1,6 @@
 package com.github.UniHelper.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -10,7 +11,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class DefaultNotesModel implements NotesModel {
     @Getter
@@ -25,7 +25,8 @@ public class DefaultNotesModel implements NotesModel {
 
     @Override
     public void addNote(Note note) {
-        notes.add(note);
+        Note noteCopy = new Note(note);
+        notes.add(noteCopy);
         save();
     }
 
@@ -36,39 +37,27 @@ public class DefaultNotesModel implements NotesModel {
     }
 
     @Override
-    public Note getNoteByTitle(String title) {
-        return notes.stream()
-                .filter(n -> n.getTitle().equals(title))
-                .findFirst()
-                .orElse(null);
-    }
-
-    @Override
-    public void updateNotes(ArrayList<Note> notes) {
-        this.notes = notes;
+    public void setNotes(ArrayList<Note> notes) {
+        this.notes = getDeepNotesCopy(notes);
         save();
     }
 
     @Override
     public ArrayList<Note> getAllNotes() {
-        return (ArrayList) notes.clone();
+        return getDeepNotesCopy(notes);
     }
 
     @Override
-    public void updateNoteById(UUID id, Note note) {
-        if(note == null)
-            return;
+    public void updateNote(Note note) {
         Note noteToUpdate = notes.stream()
-                .filter(n -> n.getId().equals(id))
+                .filter(n -> n.getId().equals(note.getId()))
                 .findFirst()
                 .orElse(null);
-        if(noteToUpdate == null){
-            addNote(note);
-            note.setId(id);
+        if(note == null || noteToUpdate == null)
             return;
-        }
         noteToUpdate.setTitle(note.getTitle());
         noteToUpdate.setData(note.getData());
+        save();
     }
 
     private void load() {
@@ -91,12 +80,26 @@ public class DefaultNotesModel implements NotesModel {
         }
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void createNewSaveFile() {
         try {
             File f = new File(saveFileName);
             f.createNewFile();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private ArrayList<Note> getDeepNotesCopy(ArrayList<Note> originalNotes){
+        ArrayList<Note> deepCopy = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        try{
+            deepCopy = objectMapper
+                    .readValue(objectMapper.writeValueAsString(originalNotes), new TypeReference<>() {});
+        }
+        catch (JsonProcessingException e){
+            e.printStackTrace();
+        }
+        return deepCopy;
     }
 }

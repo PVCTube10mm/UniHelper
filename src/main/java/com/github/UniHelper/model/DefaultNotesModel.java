@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class DefaultNotesModel implements NotesModel {
     @Getter
@@ -50,7 +51,24 @@ public class DefaultNotesModel implements NotesModel {
 
     @Override
     public ArrayList<Note> getAllNotes() {
-        return notes;
+        return (ArrayList) notes.clone();
+    }
+
+    @Override
+    public void updateNoteById(UUID id, Note note) {
+        if(note == null)
+            return;
+        Note noteToUpdate = notes.stream()
+                .filter(n -> n.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+        if(noteToUpdate == null){
+            addNote(note);
+            note.setId(id);
+            return;
+        }
+        noteToUpdate.setTitle(note.getTitle());
+        noteToUpdate.setData(note.getData());
     }
 
     private void load() {

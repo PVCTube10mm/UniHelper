@@ -8,37 +8,33 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.concurrent.Flow;
 
 public class DefaultNotesView implements NotesView, DocumentListener {
     private final NotesMainPanel notesMainPanel;
     private final NotesOptionsPanel notesOptionsPanel;
-    private final NotesNotesPanel notesNotesPanel;
-    private final NotesNotesScrollPane notesNotesScrollPane;
+    private final NotesContentPanel notesContentPanel;
+    private final NotesContentScrollPane notesContentScrollPane;
     private final NamedButton newNoteButton;
     private final ArrayList<Command> onNewNoteCommands;
     private final ArrayList<Command> onSearchBarUpdateCommands;
 
     public DefaultNotesView() {
         notesMainPanel = new NotesMainPanel();
-        notesNotesPanel = new NotesNotesPanel();
+        notesContentPanel = new NotesContentPanel();
         notesOptionsPanel = new NotesOptionsPanel();
-        notesNotesScrollPane = new NotesNotesScrollPane(notesNotesPanel);
-        notesMainPanel.setMaximumSize(new Dimension(0, 1000));
+        notesContentScrollPane = new NotesContentScrollPane(notesContentPanel);
         onNewNoteCommands = new ArrayList<>();
         onSearchBarUpdateCommands = new ArrayList<>();
         newNoteButton = new NewNoteButton();
-        newNoteButton.addCommand(this::executeOnNewNoteCommands);
-        notesNotesPanel.add(newNoteButton);
-        notesMainPanel.add(notesOptionsPanel, BorderLayout.NORTH);
-        notesMainPanel.add(notesNotesScrollPane, BorderLayout.CENTER);
-        notesOptionsPanel.addSearchBarDocumentListener(this);
+        assembleView();
     }
 
     @Override
     public void addNoteView(NoteView noteView) {
-        notesNotesPanel.add(noteView.getContainer(), 1);
-        notesNotesPanel.setPreferredSize(new Dimension(notesNotesPanel.getWidth(), notesNotesPanel.getHeight() + 101));
-        notesNotesPanel.revalidate();
+        notesContentPanel.add(noteView.getContainer(), 1);
+        notesContentPanel.setPreferredSize(calculateNewContentPanelSize(noteView.getContainer().getPreferredSize()));
+        notesContentPanel.revalidate();
     }
 
     @Override
@@ -53,9 +49,9 @@ public class DefaultNotesView implements NotesView, DocumentListener {
 
     @Override
     public void removeNoteView(NoteView noteView) {
-        notesNotesPanel.remove(noteView.getContainer());
-        notesNotesPanel.revalidate();
-        notesNotesPanel.repaint();
+        notesContentPanel.remove(noteView.getContainer());
+        notesContentPanel.revalidate();
+        notesContentPanel.repaint();
     }
 
     @Override
@@ -100,9 +96,25 @@ public class DefaultNotesView implements NotesView, DocumentListener {
 
     @Override
     public void clearNotes(){
-        notesNotesPanel.removeAll();
-        notesNotesPanel.add(newNoteButton);
-        notesNotesPanel.revalidate();
-        notesNotesPanel.repaint();
+        notesContentPanel.removeAll();
+        notesContentPanel.add(newNoteButton);
+        notesContentPanel.revalidate();
+        notesContentPanel.repaint();
+    }
+
+    private void assembleView(){
+        notesContentPanel.add(newNoteButton);
+        notesMainPanel.add(notesOptionsPanel, BorderLayout.NORTH);
+        notesMainPanel.add(notesContentScrollPane, BorderLayout.CENTER);
+        newNoteButton.addCommand(this::executeOnNewNoteCommands);
+        notesOptionsPanel.addSearchBarDocumentListener(this);
+    }
+
+    private Dimension calculateNewContentPanelSize(Dimension noteViewSize){
+        int numberOfNotes = notesContentPanel.getComponents().length;
+        int numberOfColumns = (int) Math.ceil(notesMainPanel.getPreferredSize().getWidth() / noteViewSize.getWidth());
+        int numberOfRows = (int) Math.ceil(((double) numberOfNotes) / numberOfColumns);
+        FlowLayout fl = (FlowLayout) notesContentPanel.getLayout();
+        return new Dimension(notesContentPanel.getWidth(), (int) (numberOfRows*(noteViewSize.getHeight() + fl.getVgap())));
     }
 }

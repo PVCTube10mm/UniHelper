@@ -22,7 +22,7 @@ public class DefaultNotesPresenter implements NotesPresenter {
 
     @Override
     public void loadNotes() {
-        ArrayList<Note> notes = (ArrayList<Note>) model.getAllNotes().clone();
+        ArrayList<Note> notes = model.getAllNotes();
         for (Note n : notes) {
             NoteView noteView = new DefaultNoteView();
             noteView.addOnNoteDeletedCommand(() -> view.removeNoteView(noteView));
@@ -33,7 +33,7 @@ public class DefaultNotesPresenter implements NotesPresenter {
 
     private void updateSearchedNotes(){
         String pattern = view.getSearchBarText();
-        ArrayList<Note> notes = (ArrayList<Note>) model.getAllNotes().clone();
+        ArrayList<Note> notes = model.getAllNotes();
         view.clearNotes();
 
         ArrayList<Note> filtered = new ArrayList<>(notes.stream()

@@ -17,8 +17,20 @@ public class NoteTextPanel extends JPanel {
         text = new JTextArea();
         scrollPane = new JScrollPane(text);
         setTextLook();
-        setScrollPaneLook();
+        configureScrollbar();
         add(scrollPane);
+    }
+
+    public String getText() {
+        return text.getText();
+    }
+
+    public void setText(String text) {
+        this.text.setText(text);
+    }
+
+    public void addTextDocumentListener(DocumentListener documentListener) {
+        text.getDocument().addDocumentListener(documentListener);
     }
 
     private void setTextLook() {
@@ -28,21 +40,9 @@ public class NoteTextPanel extends JPanel {
         text.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 16));
     }
 
-    private void setScrollPaneLook() {
+    private void configureScrollbar() {
         scrollPane.getVerticalScrollBar().setBackground(ColorPalette.BLUE);
         MouseWheelListener defaultListener = scrollPane.getMouseWheelListeners()[0];
         scrollPane.removeMouseWheelListener(defaultListener);
-    }
-
-    public String getText(){
-        return text.getText();
-    }
-
-    public void setText(String text){
-        this.text.setText(text);
-    }
-
-    public void addTextDocumentListener(DocumentListener documentListener){
-        text.getDocument().addDocumentListener(documentListener);
     }
 }

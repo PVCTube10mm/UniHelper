@@ -26,7 +26,7 @@ public class NamedButton extends JButton implements ActionButton {
         commands.add(command);
     }
 
-    private void executeCommands(){
+    private void executeCommands() {
         for (Command c : commands)
             c.execute();
     }

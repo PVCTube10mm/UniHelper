@@ -22,13 +22,7 @@ public class DefaultMainWindowView implements MainWindowView {
         activeFeaturePanel = new ActiveFeaturePanel();
         onCloseCommands = new ArrayList<>();
         onFeatureChangeCommands = new ArrayList<>();
-        mainFrame.add(sideMenuPanel, BorderLayout.WEST);
-        mainFrame.add(activeFeaturePanel, BorderLayout.CENTER);
-        mainFrame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                executeOnCloseCommands();
-            }
-        });
+        assembleView();
     }
 
     @Override
@@ -59,6 +53,16 @@ public class DefaultMainWindowView implements MainWindowView {
     public void showFeature(String featureName) {
         executeOnFeatureChangeCommands();
         this.activeFeaturePanel.chooseView(featureName);
+    }
+
+    private void assembleView() {
+        mainFrame.add(sideMenuPanel, BorderLayout.WEST);
+        mainFrame.add(activeFeaturePanel, BorderLayout.CENTER);
+        mainFrame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                executeOnCloseCommands();
+            }
+        });
     }
 
     private void executeOnCloseCommands() {

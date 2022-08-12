@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.util.ArrayList;
 
 class DefaultNotesModelTest {
@@ -13,19 +12,6 @@ class DefaultNotesModelTest {
     @BeforeEach
     void createModel() {
         notesModel = new DefaultNotesModel();
-    }
-
-    @Test
-    void saveFileShouldExist() {
-        //Given
-        String saveFileName = notesModel.getSaveFileName();
-        File file = new File(saveFileName);
-
-        //When
-        boolean fileExists = file.isFile();
-
-        //Then
-        Assertions.assertTrue(fileExists);
     }
 
     @Test
@@ -153,7 +139,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void deleteNoteShouldNotFailWhenDeletingNonExistingNote(){
+    void deleteNoteShouldNotFailWhenDeletingNonExistingNote() {
         //Given
         notesModel.setNotes(new ArrayList<>());
 
@@ -165,7 +151,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void deleteNoteShouldDeleteOnlyGivenNote(){
+    void deleteNoteShouldDeleteOnlyGivenNote() {
         //Given
         Note n1 = new Note("t1", "d1");
         Note n2 = new Note("t2", "d2");
@@ -187,7 +173,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void addNoteShouldAddACopy(){
+    void addNoteShouldAddACopy() {
         //Given
         notesModel.setNotes(new ArrayList<>());
         Note note1 = new Note("t1", "d1");
@@ -202,7 +188,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void setNotesShouldSetACopy(){
+    void setNotesShouldSetACopy() {
         //Given
         ArrayList<Note> outsideNotes = new ArrayList<>();
         Note note1 = new Note("t1", "d1");
@@ -213,7 +199,7 @@ class DefaultNotesModelTest {
 
         //When
         note1.setTitle("t3");
-        note2.setData("d3");
+        note2.setText("d3");
 
         //Then
         ArrayList<Note> insideNotes = notesModel.getAllNotes();
@@ -222,7 +208,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void getAllNotesShouldReturnACopy(){
+    void getAllNotesShouldReturnACopy() {
         //Given
         ArrayList<Note> copy = notesModel.getAllNotes();
 
@@ -235,20 +221,21 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void updateNoteShouldUpdateACopy(){
+    void updateNoteShouldUpdateACopy() {
         //Given
         Note note1 = new Note("t1", "d1");
         Note note2 = new Note("t2", "d2");
-        Note note3 = note1;
+        Note note3 = new Note("t3", "d3");
         notesModel.addNote(note1);
+        note1 = note3;
 
         //When
-        note1 = note2;
         notesModel.updateNote(note1);
+        note1 = note2;
 
         //Then
         ArrayList<Note> notes = notesModel.getAllNotes();
-        Assertions.assertFalse(notes.contains(note1));
+        Assertions.assertFalse(notes.contains(note2));
         Assertions.assertTrue(notes.contains(note3));
     }
 }

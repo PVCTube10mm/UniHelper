@@ -16,10 +16,10 @@ public class NoteOptionsPanel extends JPanel {
         deleteButton = new NamedButton("delete");
         editButton = new NamedButton("edit");
         setLayout(new GridLayout(1, 0));
-        add(editButton);
-        add(deleteButton);
         deleteButton.setBackground(ColorPalette.RED);
         editButton.setBackground(ColorPalette.BROWN);
+        add(editButton);
+        add(deleteButton);
     }
 
     public void addDeleteButtonCommand(Command command) {

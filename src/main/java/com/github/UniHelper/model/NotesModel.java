@@ -7,9 +7,9 @@ public interface NotesModel {
 
     void deleteNote(Note note);
 
-    void setNotes(ArrayList<Note> notes);
+    void updateNote(Note note);
 
     ArrayList<Note> getAllNotes();
 
-    void updateNote(Note note);
+    void setNotes(ArrayList<Note> notes);
 }

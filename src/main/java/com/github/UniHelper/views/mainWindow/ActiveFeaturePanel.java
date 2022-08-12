@@ -9,7 +9,6 @@ public class ActiveFeaturePanel extends JPanel {
     public ActiveFeaturePanel() {
         super();
         this.setLayout(new CardLayout());
-        this.setPreferredSize(new Dimension(800, 800));
     }
 
     public void addFeaturePanel(FeatureView featureView) {

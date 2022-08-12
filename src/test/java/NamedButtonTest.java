@@ -10,7 +10,7 @@ class NamedButtonTest {
     NamedButton namedButton;
 
     @BeforeEach
-    void initialize(){
+    void initialize() {
         namedButton = new NamedButton("button name");
     }
 
@@ -58,7 +58,7 @@ class NamedButtonTest {
     }
 
     @Test
-    void addedSameCommandMultipleTimesShouldExecuteAsManyTimesOnceNotified(){
+    void addedSameCommandMultipleTimesShouldExecuteAsManyTimesOnceNotified() {
         //Given
         AtomicInteger numberOfExecutions = new AtomicInteger();
         Command command = numberOfExecutions::getAndIncrement;
@@ -74,7 +74,7 @@ class NamedButtonTest {
     }
 
     @Test
-    void setCommandShouldRemoveOtherCommands(){
+    void setCommandShouldRemoveOtherCommands() {
         //Given
         AtomicInteger numberOfCommand1Executions = new AtomicInteger();
         AtomicInteger numberOfCommand2Executions = new AtomicInteger();
@@ -90,5 +90,4 @@ class NamedButtonTest {
         Assertions.assertEquals(0, numberOfCommand1Executions.get());
         Assertions.assertEquals(1, numberOfCommand2Executions.get());
     }
-
 }

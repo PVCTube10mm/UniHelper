@@ -13,18 +13,17 @@ public class NoteTitlePanel extends JPanel {
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(0, 50));
         add(titleTextPane);
-        revalidate();
     }
 
-    public void setTitle(String title){
+    public void setTitle(String title) {
         titleTextPane.setText(title);
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return titleTextPane.getText();
     }
 
-    public void addTitleDocumentListener(DocumentListener documentListener){
+    public void addTitleDocumentListener(DocumentListener documentListener) {
         titleTextPane.getDocument().addDocumentListener(documentListener);
     }
 }

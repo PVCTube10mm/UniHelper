@@ -22,12 +22,7 @@ public class DefaultNoteView implements NoteView, DocumentListener {
         optionsPanel = new NoteOptionsPanel();
         onNoteModifiedCommands = new ArrayList<>();
         onNoteDeletedCommands = new ArrayList<>();
-        noteMainPanel.add(titlePanel, BorderLayout.NORTH);
-        noteMainPanel.add(textPanel, BorderLayout.CENTER);
-        noteMainPanel.add(optionsPanel, BorderLayout.SOUTH);
-        optionsPanel.addDeleteButtonCommand(this::executeOnNoteDeletedCommands);
-        titlePanel.addTitleDocumentListener(this);
-        textPanel.addTextDocumentListener(this);
+        assembleView();
     }
 
     @Override
@@ -78,6 +73,15 @@ public class DefaultNoteView implements NoteView, DocumentListener {
     @Override
     public void changedUpdate(DocumentEvent e) {
         executeOnNoteModifiedCommands();
+    }
+
+    private void assembleView() {
+        noteMainPanel.add(titlePanel, BorderLayout.NORTH);
+        noteMainPanel.add(textPanel, BorderLayout.CENTER);
+        noteMainPanel.add(optionsPanel, BorderLayout.SOUTH);
+        optionsPanel.addDeleteButtonCommand(this::executeOnNoteDeletedCommands);
+        titlePanel.addTitleDocumentListener(this);
+        textPanel.addTextDocumentListener(this);
     }
 
     private void executeOnNoteModifiedCommands() {

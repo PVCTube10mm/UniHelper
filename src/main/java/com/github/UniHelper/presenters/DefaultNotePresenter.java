@@ -9,23 +9,27 @@ public class DefaultNotePresenter implements NotePresenter {
     private final NotesModel model;
     private final Note note;
 
-    public DefaultNotePresenter(NoteView view, NotesModel model, Note note){
+    public DefaultNotePresenter(NoteView view, NotesModel model, Note note) {
         this.view = view;
         this.model = model;
         this.note = note;
-        view.addOnNoteDeletedCommand(this::deleteNote);
-        view.setNoteText(note.getData());
+        view.setNoteText(note.getText());
         view.setNoteTitle(note.getTitle());
+        setViewCommands();
+    }
+
+    private void setViewCommands() {
+        view.addOnNoteDeletedCommand(this::deleteNote);
         view.addOnNoteModifiedCommand(this::updateUserChanges);
     }
 
-    private void deleteNote(){
+    private void deleteNote() {
         model.deleteNote(note);
     }
 
-    private void updateUserChanges(){
+    private void updateUserChanges() {
         note.setTitle(view.getNoteTitle());
-        note.setData(view.getNoteText());
+        note.setText(view.getNoteText());
         model.updateNote(note);
     }
 }

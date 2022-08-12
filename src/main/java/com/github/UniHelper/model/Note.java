@@ -11,17 +11,17 @@ public class Note {
     @Setter(AccessLevel.NONE)
     private UUID id;
     private String title;
-    private String data;
+    private String text;
 
-    public Note(String title, String data){
+    public Note(String title, String text) {
         this.title = title;
-        this.data = data;
+        this.text = text;
         id = UUID.randomUUID();
     }
 
-    public Note(Note note){
+    public Note(Note note) {
         title = note.getTitle();
-        data = note.getData();
+        text = note.getText();
         id = note.getId();
     }
 }

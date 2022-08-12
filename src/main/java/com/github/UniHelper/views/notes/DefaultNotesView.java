@@ -32,7 +32,8 @@ public class DefaultNotesView implements NotesView, DocumentListener {
     @Override
     public void addNoteView(NoteView noteView) {
         notesContentPanel.add(noteView.getContainer(), 1);
-        notesContentPanel.setPreferredSize(calculateNewContentPanelSize(noteView.getContainer().getPreferredSize()));
+        Dimension newNoteSize = noteView.getContainer().getPreferredSize();
+        notesContentPanel.setPreferredSize(calculateNewContentPanelSize(newNoteSize));
         notesContentPanel.revalidate();
     }
 
@@ -49,7 +50,8 @@ public class DefaultNotesView implements NotesView, DocumentListener {
     @Override
     public void removeNoteView(NoteView noteView) {
         notesContentPanel.remove(noteView.getContainer());
-        notesContentPanel.setPreferredSize(calculateNewContentPanelSize(noteView.getContainer().getSize()));
+        Dimension newNoteSize = noteView.getContainer().getPreferredSize();
+        notesContentPanel.setPreferredSize(calculateNewContentPanelSize(newNoteSize));
         notesContentPanel.revalidate();
         notesContentPanel.repaint();
     }
@@ -95,14 +97,14 @@ public class DefaultNotesView implements NotesView, DocumentListener {
     }
 
     @Override
-    public void clearNotes(){
+    public void clearNotes() {
         notesContentPanel.removeAll();
         notesContentPanel.add(newNoteButton);
         notesContentPanel.revalidate();
         notesContentPanel.repaint();
     }
 
-    private void assembleView(){
+    private void assembleView() {
         notesContentPanel.add(newNoteButton);
         notesMainPanel.add(notesOptionsPanel, BorderLayout.NORTH);
         notesMainPanel.add(notesContentScrollPane, BorderLayout.CENTER);
@@ -110,11 +112,19 @@ public class DefaultNotesView implements NotesView, DocumentListener {
         notesOptionsPanel.addSearchBarDocumentListener(this);
     }
 
-    private Dimension calculateNewContentPanelSize(Dimension noteViewSize){
+    private Dimension calculateNewContentPanelSize(Dimension noteViewSize) {
         int numberOfNotes = notesContentPanel.getComponents().length;
-        int numberOfColumns = (int) Math.ceil(notesContentScrollPane.getPreferredSize().getWidth() / noteViewSize.getWidth());
-        int numberOfRows = (int) Math.ceil(((double) numberOfNotes) / numberOfColumns);
+        double contentWidth = notesContentPanel.getPreferredSize().getWidth();
+        int numberOfColumns = (int) Math.ceil(contentWidth / noteViewSize.getWidth());
+        int numberOfRows = (int) Math.ceil((double) numberOfNotes / (double) numberOfColumns);
+        int verticalPadding = getVerticalContentPadding();
+        int newWidth = (int) notesContentPanel.getPreferredSize().getWidth();
+        int newHeight = (int) (numberOfRows * (noteViewSize.getHeight() + verticalPadding) + verticalPadding);
+        return new Dimension(newWidth, newHeight);
+    }
+
+    private int getVerticalContentPadding() {
         FlowLayout fl = (FlowLayout) notesContentPanel.getLayout();
-        return new Dimension(notesContentPanel.getWidth(), (int) (numberOfRows*(noteViewSize.getHeight() + fl.getVgap()) + fl.getVgap()));
+        return fl.getVgap();
     }
 }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import lombok.Getter;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class DefaultNotesModel implements NotesModel {
-    @Getter
     private final String saveFileName;
     ArrayList<Note> notes;
 
@@ -53,10 +51,12 @@ public class DefaultNotesModel implements NotesModel {
                 .filter(n -> n.getId().equals(note.getId()))
                 .findFirst()
                 .orElse(null);
-        if(note == null || noteToUpdate == null)
-            return;
-        noteToUpdate.setTitle(note.getTitle());
-        noteToUpdate.setData(note.getData());
+        if (noteToUpdate == null)
+            addNote(note);
+        else {
+            noteToUpdate.setTitle(note.getTitle());
+            noteToUpdate.setText(note.getText());
+        }
         save();
     }
 
@@ -90,15 +90,15 @@ public class DefaultNotesModel implements NotesModel {
         }
     }
 
-    private ArrayList<Note> getDeepNotesCopy(ArrayList<Note> originalNotes){
-        ArrayList<Note> deepCopy = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        try{
+    private ArrayList<Note> getDeepNotesCopy(ArrayList<Note> originalNotes) {
+        ArrayList<Note> deepCopy;
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
             deepCopy = objectMapper
                     .readValue(objectMapper.writeValueAsString(originalNotes), new TypeReference<>() {});
-        }
-        catch (JsonProcessingException e){
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
+            return null;
         }
         return deepCopy;
     }

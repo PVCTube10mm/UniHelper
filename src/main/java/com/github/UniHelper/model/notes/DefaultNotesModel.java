@@ -1,4 +1,4 @@
-package com.github.UniHelper.model;
+package com.github.UniHelper.model.notes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

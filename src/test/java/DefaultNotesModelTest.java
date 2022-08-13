@@ -1,5 +1,5 @@
-import com.github.UniHelper.model.DefaultNotesModel;
-import com.github.UniHelper.model.Note;
+import com.github.UniHelper.model.notes.DefaultNotesModel;
+import com.github.UniHelper.model.notes.Note;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

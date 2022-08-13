@@ -1,4 +1,4 @@
-package com.github.UniHelper.model;
+package com.github.UniHelper.model.notes;
 
 import lombok.*;
 

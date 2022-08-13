@@ -2,8 +2,8 @@ package com.github.UniHelper.presenters.notes;
 
 import com.github.UniHelper.model.notes.Note;
 import com.github.UniHelper.model.notes.NotesModel;
-import com.github.UniHelper.views.notes.Note.DefaultNoteView;
-import com.github.UniHelper.views.notes.Note.NoteView;
+import com.github.UniHelper.views.notes.note.DefaultNoteView;
+import com.github.UniHelper.views.notes.note.NoteView;
 import com.github.UniHelper.views.notes.NotesView;
 
 import java.util.ArrayList;

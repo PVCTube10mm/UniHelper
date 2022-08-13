@@ -1,4 +1,4 @@
-package com.github.UniHelper.views.notes.Note;
+package com.github.UniHelper.views.notes.note;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;

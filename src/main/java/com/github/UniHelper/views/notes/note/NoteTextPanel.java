@@ -1,4 +1,4 @@
-package com.github.UniHelper.views.notes.Note;
+package com.github.UniHelper.views.notes.note;
 
 import com.github.UniHelper.views.utils.ColorPalette;
 
@@ -38,6 +38,7 @@ public class NoteTextPanel extends JPanel {
         text.setLineWrap(true);
         text.setBackground(ColorPalette.BLUE);
         text.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 16));
+        text.setEditable(false);
     }
 
     private void configureScrollbar() {

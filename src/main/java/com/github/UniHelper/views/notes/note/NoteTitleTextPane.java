@@ -1,4 +1,4 @@
-package com.github.UniHelper.views.notes.Note;
+package com.github.UniHelper.views.notes.note;
 
 import javax.swing.*;
 import javax.swing.text.*;
@@ -23,6 +23,7 @@ public class NoteTitleTextPane extends JTextPane {
         StyleConstants.setAlignment(align, StyleConstants.ALIGN_CENTER);
         styledDocument.setParagraphAttributes(0, styledDocument.getLength(), align, false);
         setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+        setEditable(false);
     }
 
     private StyledDocument getStyledDocumentWithLimitedCharacters() {

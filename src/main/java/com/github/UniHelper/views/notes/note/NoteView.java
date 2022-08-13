@@ -1,4 +1,4 @@
-package com.github.UniHelper.views.notes.Note;
+package com.github.UniHelper.views.notes.note;
 
 import com.github.UniHelper.presenters.commands.Command;
 

@@ -1,7 +1,7 @@
 package com.github.UniHelper.views.notes;
 
 import com.github.UniHelper.presenters.commands.Command;
-import com.github.UniHelper.views.notes.Note.NoteView;
+import com.github.UniHelper.views.notes.note.NoteView;
 import com.github.UniHelper.views.utils.NamedButton;
 
 import javax.swing.event.DocumentEvent;

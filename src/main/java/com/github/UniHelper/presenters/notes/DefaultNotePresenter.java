@@ -2,7 +2,7 @@ package com.github.UniHelper.presenters.notes;
 
 import com.github.UniHelper.model.notes.Note;
 import com.github.UniHelper.model.notes.NotesModel;
-import com.github.UniHelper.views.notes.Note.NoteView;
+import com.github.UniHelper.views.notes.note.NoteView;
 
 public class DefaultNotePresenter implements NotePresenter {
     private final NoteView view;

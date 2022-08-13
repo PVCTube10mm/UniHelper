@@ -7,6 +7,8 @@ import com.github.UniHelper.presenters.notes.NotesPresenter;
 import com.github.UniHelper.views.mainWindow.MainWindowView;
 import com.github.UniHelper.views.notes.DefaultNotesView;
 import com.github.UniHelper.views.notes.NotesView;
+import com.github.UniHelper.views.timetable.DefaultTimetableView;
+import com.github.UniHelper.views.timetable.TimetableView;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -24,5 +26,8 @@ public class DefaultMainWindowPresenter implements MainWindowPresenter {
         NotesModel notesModel = new DefaultNotesModel();
         NotesPresenter notesPresenter = new DefaultNotesPresenter(notesView, notesModel);
         view.addFeatureView(notesView);
+
+        TimetableView timetableView = new DefaultTimetableView();
+        view.addFeatureView(timetableView);
     }
 }

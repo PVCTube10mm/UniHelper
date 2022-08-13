@@ -12,7 +12,7 @@ public class ActiveFeaturePanel extends JPanel {
     }
 
     public void addFeaturePanel(FeatureView featureView) {
-        this.add(featureView.getContainer());
+        this.add(featureView.getContainer(), featureView.getFeatureName());
     }
 
     public void chooseView(String featureName) {

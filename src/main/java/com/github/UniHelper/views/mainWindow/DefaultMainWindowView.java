@@ -32,11 +32,8 @@ public class DefaultMainWindowView implements MainWindowView {
 
     @Override
     public void addFeatureView(FeatureView featureView) {
-        String featureName = featureView.getFeatureName();
+        addFeatureToMenu(featureView);
         activeFeaturePanel.addFeaturePanel(featureView);
-        NamedButton featureButton = new NamedButton(featureName);
-        featureButton.addCommand(() -> showFeature(featureName));
-        sideMenuPanel.addButton(featureButton);
     }
 
     @Override
@@ -63,6 +60,13 @@ public class DefaultMainWindowView implements MainWindowView {
                 executeOnCloseCommands();
             }
         });
+    }
+
+    private void addFeatureToMenu(FeatureView featureView) {
+        String featureName = featureView.getFeatureName();
+        NamedButton featureButton = new NamedButton(featureName);
+        featureButton.addCommand(() -> showFeature(featureName));
+        sideMenuPanel.addButton(featureButton);
     }
 
     private void executeOnCloseCommands() {

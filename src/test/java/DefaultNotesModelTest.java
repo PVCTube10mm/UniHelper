@@ -43,7 +43,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void whenSettingEmptyGetAllNotesShouldReturnEmpty() {
+    void whenSettingEmptyCollectionGetAllNotesShouldReturnEmptyCollection() {
         //Given
         notesModel.setNotes(new ArrayList<>());
 

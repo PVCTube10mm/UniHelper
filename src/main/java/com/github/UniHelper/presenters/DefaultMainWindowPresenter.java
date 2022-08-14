@@ -22,11 +22,18 @@ public class DefaultMainWindowPresenter implements MainWindowPresenter {
     }
 
     private void initializeFeatureViews() {
+        initializeNotes();
+        initializeTimetable();
+    }
+
+    private void initializeNotes() {
         NotesView notesView = new DefaultNotesView();
         NotesModel notesModel = new DefaultNotesModel();
         NotesPresenter notesPresenter = new DefaultNotesPresenter(notesView, notesModel);
         view.addFeatureView(notesView);
+    }
 
+    private void initializeTimetable() {
         TimetableView timetableView = new DefaultTimetableView();
         view.addFeatureView(timetableView);
     }

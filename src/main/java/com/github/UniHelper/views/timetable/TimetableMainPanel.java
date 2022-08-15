@@ -8,8 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 
 public class TimetableMainPanel extends JPanel {
     public TimetableMainPanel(){
@@ -40,8 +38,8 @@ public class TimetableMainPanel extends JPanel {
             if(file != null){
                 try{
                     BufferedImage image = ImageIO.read(file);
-                    model.setTimetable(image);
-                    image = model.getTimetable();
+                    model.setTimetableImage(image);
+                    image = model.getTimetableImage();
                     ImageIcon icon = new ImageIcon(image);
                     imageContainerLabel.setIcon(icon);
                     revalidate();

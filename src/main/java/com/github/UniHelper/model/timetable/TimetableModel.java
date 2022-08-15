@@ -3,9 +3,9 @@ package com.github.UniHelper.model.timetable;
 import java.awt.image.BufferedImage;
 
 public interface TimetableModel {
-    void setTimetable(BufferedImage timetable);
+    void setTimetableImage(BufferedImage timetableImage);
 
     void deleteTimetable();
 
-    BufferedImage getTimetable();
+    BufferedImage getTimetableImage();
 }

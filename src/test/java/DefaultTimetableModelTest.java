@@ -22,12 +22,12 @@ public class DefaultTimetableModelTest {
         BufferedImage input3 = null;
 
         //When
-        timetableModel.setTimetable(input1);
-        BufferedImage output1 = timetableModel.getTimetable();
-        timetableModel.setTimetable(input2);
-        BufferedImage output2 = timetableModel.getTimetable();
-        timetableModel.setTimetable(input3);
-        BufferedImage output3 = timetableModel.getTimetable();
+        timetableModel.setTimetableImage(input1);
+        BufferedImage output1 = timetableModel.getTimetableImage();
+        timetableModel.setTimetableImage(input2);
+        BufferedImage output2 = timetableModel.getTimetableImage();
+        timetableModel.setTimetableImage(input3);
+        BufferedImage output3 = timetableModel.getTimetableImage();
 
         //Then
         Assertions.assertTrue(compareImages(input1, output1));
@@ -42,13 +42,13 @@ public class DefaultTimetableModelTest {
         BufferedImage input2 = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
 
         //When
-        timetableModel.setTimetable(input1);
+        timetableModel.setTimetableImage(input1);
         timetableModel.deleteTimetable();
-        BufferedImage output1 = timetableModel.getTimetable();
+        BufferedImage output1 = timetableModel.getTimetableImage();
 
-        timetableModel.setTimetable(input2);
+        timetableModel.setTimetableImage(input2);
         timetableModel.deleteTimetable();
-        BufferedImage output2 = timetableModel.getTimetable();
+        BufferedImage output2 = timetableModel.getTimetableImage();
 
         //Then
         Assertions.assertNull(output1);

@@ -7,55 +7,61 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class DefaultTimetableModel implements TimetableModel {
-    private File saveFile;
-    private BufferedImage timetable;
+    private final File saveFile;
+    private BufferedImage timetableImage;
 
     public DefaultTimetableModel() {
-        try {
-            saveFile = new File("timetable.png");
-            if(!saveFile.isFile())
-                saveFile.createNewFile();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-
+        saveFile = new File("timetable.png");
+        if (!saveFile.exists())
+            createNewSaveFile();
+        else
+            loadTimetable();
     }
 
     @Override
-    public void setTimetable(BufferedImage timetable) {
-        if(timetable == null) {
+    public void setTimetableImage(BufferedImage timetableImage) {
+        this.timetableImage = timetableImage;
+        if (timetableImage != null)
+            saveTimetable();
+        else
             deleteTimetable();
-            return;
-        }
-        if(!saveFile.exists()){
+    }
 
-        }
-        saveAsPNG(timetable);
-        try{
-            this.timetable = ImageIO.read(saveFile);
-        } catch (IOException e){
+    @Override
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public void deleteTimetable() {
+        if (saveFile.exists())
+            saveFile.delete();
+        timetableImage = null;
+    }
+
+    @Override
+    public BufferedImage getTimetableImage() {
+        return timetableImage;
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private void createNewSaveFile() {
+        try {
+            saveFile.createNewFile();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void deleteTimetable() {
-        if(saveFile.exists())
-            saveFile.delete();
-        timetable = null;
+    private void loadTimetable() {
+        try {
+            timetableImage = ImageIO.read(saveFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    @Override
-    public BufferedImage getTimetable() {
-        return timetable;
-    }
-
-    private void saveAsPNG(BufferedImage image) {
-        try (FileOutputStream outputStream
-                     = new FileOutputStream(saveFile.getName())) {
+    private void saveTimetable() {
+        try (FileOutputStream outputStream = new FileOutputStream(saveFile.getName())) {
             boolean result = ImageIO.write(
-                    image, "png", outputStream);
-        } catch (Exception e){
+                    timetableImage, "png", outputStream);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

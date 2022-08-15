@@ -30,9 +30,9 @@ public class DefaultTimetableModelTest {
         BufferedImage output3 = timetableModel.getTimetableImage();
 
         //Then
-        Assertions.assertTrue(compareImages(input1, output1));
-        Assertions.assertTrue(compareImages(input2, output2));
-        Assertions.assertTrue(compareImages(input3, output3));
+        Assertions.assertTrue(areImagesEqual(input1, output1));
+        Assertions.assertTrue(areImagesEqual(input2, output2));
+        Assertions.assertTrue(areImagesEqual(input3, output3));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class DefaultTimetableModelTest {
         Assertions.assertNull(output2);
     }
 
-    private static boolean compareImages(BufferedImage imgA, BufferedImage imgB) {
+    private static boolean areImagesEqual(BufferedImage imgA, BufferedImage imgB) {
         if(imgA == null || imgB == null)
             return imgA == imgB;
 

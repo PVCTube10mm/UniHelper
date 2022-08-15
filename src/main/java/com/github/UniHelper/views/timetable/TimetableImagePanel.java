@@ -10,11 +10,12 @@ public class TimetableImagePanel extends JPanel {
     public TimetableImagePanel() {
         super();
         setLayout(new BorderLayout());
+        setBackground(Color.DARK_GRAY.darker());
         imageContainerLabel = new JLabel();
         add(imageContainerLabel, BorderLayout.CENTER);
     }
 
-    public void setImage(BufferedImage image){
+    public void setImage(BufferedImage image) {
         ImageIcon icon = new ImageIcon(image);
         imageContainerLabel.setIcon(icon);
         revalidate();

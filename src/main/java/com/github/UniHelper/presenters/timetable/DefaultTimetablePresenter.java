@@ -20,7 +20,7 @@ public class DefaultTimetablePresenter implements TimetablePresenter {
 
     private void loadTimetable() {
         BufferedImage timetable = model.getTimetableImage();
-        if(timetable != null)
+        if (timetable != null)
             view.setTimetableImage(timetable);
     }
 
@@ -30,7 +30,7 @@ public class DefaultTimetablePresenter implements TimetablePresenter {
     }
 
     private void onImageUploaded() {
-        try{
+        try {
             File uploadedFile = view.getRecentlyUploadedFile();
             BufferedImage timetableImage = ImageIO.read(uploadedFile);
             model.setTimetableImage(timetableImage);

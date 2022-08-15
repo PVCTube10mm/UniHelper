@@ -1,6 +1,7 @@
 package com.github.UniHelper.views.timetable;
 
 import com.github.UniHelper.presenters.commands.Command;
+import com.github.UniHelper.views.utils.ColorPalette;
 import com.github.UniHelper.views.utils.NamedButton;
 
 import javax.swing.*;
@@ -14,10 +15,9 @@ public class TimetableOptionsPanel extends JPanel {
         super();
         uploadTimetableButton = new NamedButton("upload timetable image");
         deleteTimetableButton = new NamedButton("delete timetable");
-        uploadTimetableButton.setPreferredSize(new Dimension((int) uploadTimetableButton.getPreferredSize().getWidth(), 65));
-        deleteTimetableButton.setPreferredSize(new Dimension((int) deleteTimetableButton.getPreferredSize().getWidth(), 65));
         setPreferredSize(new Dimension(0, 75));
         setLayout(new FlowLayout(FlowLayout.CENTER));
+        setButtonsLook();
         add(uploadTimetableButton);
         add(deleteTimetableButton);
     }
@@ -28,5 +28,14 @@ public class TimetableOptionsPanel extends JPanel {
 
     public void setDeleteTimetableButtonCommand(Command command) {
         deleteTimetableButton.setCommand(command);
+    }
+
+    private void setButtonsLook() {
+        int UploadButtonWidthBasedOnText = (int) uploadTimetableButton.getPreferredSize().getWidth();
+        int DeleteButtonWidthBasedOnText = (int) deleteTimetableButton.getPreferredSize().getWidth();
+        uploadTimetableButton.setPreferredSize(new Dimension(UploadButtonWidthBasedOnText, 65));
+        deleteTimetableButton.setPreferredSize(new Dimension(DeleteButtonWidthBasedOnText, 65));
+        uploadTimetableButton.setBackground(ColorPalette.BLUE);
+        deleteTimetableButton.setBackground(ColorPalette.BLUE);
     }
 }

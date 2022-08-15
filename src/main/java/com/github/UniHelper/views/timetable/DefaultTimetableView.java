@@ -18,6 +18,7 @@ public class DefaultTimetableView implements TimetableView {
     private final TimetableImagePanelScrollPane imagePanelScrollPane;
     private final ArrayList<Command> onTimetableImageUploadedCommands;
     private final ArrayList<Command> onTimetableImageDeletedCommands;
+    private final JFileChooser fileChooser;
     @Getter
     private File recentlyUploadedFile;
 
@@ -28,6 +29,7 @@ public class DefaultTimetableView implements TimetableView {
         imagePanelScrollPane = new TimetableImagePanelScrollPane(imagePanel);
         onTimetableImageUploadedCommands = new ArrayList<>();
         onTimetableImageDeletedCommands = new ArrayList<>();
+        fileChooser = new JFileChooser();
         assembleView();
     }
 
@@ -65,6 +67,7 @@ public class DefaultTimetableView implements TimetableView {
         mainPanel.add(optionsPanel, BorderLayout.NORTH);
         mainPanel.add(imagePanelScrollPane, BorderLayout.CENTER);
         setButtonCommands();
+        setFileChooserFilter();
     }
 
     private void setButtonCommands() {
@@ -72,23 +75,25 @@ public class DefaultTimetableView implements TimetableView {
         optionsPanel.setDeleteTimetableButtonCommand(this::executeOnTimetableImageDeletedCommands);
     }
 
+    private void setFileChooserFilter() {
+        FileFilter fileFilter = new FileNameExtensionFilter("Image files", "jpg", "png", "bmp");
+        fileChooser.setFileFilter(fileFilter);
+    }
+
     private void executeOnTimetableImageUploadedCommands() {
-        for(Command c : onTimetableImageUploadedCommands)
+        for (Command c : onTimetableImageUploadedCommands)
             c.execute();
     }
 
     private void executeOnTimetableImageDeletedCommands() {
-        for(Command c : onTimetableImageDeletedCommands)
+        for (Command c : onTimetableImageDeletedCommands)
             c.execute();
     }
 
     private void getFileFromUser() {
-        JFileChooser fileChooser = new JFileChooser();
-        FileFilter fileFilter = new FileNameExtensionFilter("Image files", "jpg", "png", "bmp");
-        fileChooser.setFileFilter(fileFilter);
         File file = fileChooser.getSelectedFile();
         int returnValue = fileChooser.showOpenDialog(null);
-        if(returnValue == JFileChooser.APPROVE_OPTION) {
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
             recentlyUploadedFile = fileChooser.getSelectedFile();
             executeOnTimetableImageUploadedCommands();
         }

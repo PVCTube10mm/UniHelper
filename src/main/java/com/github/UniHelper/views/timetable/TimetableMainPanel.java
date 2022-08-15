@@ -1,9 +1,12 @@
 package com.github.UniHelper.views.timetable;
 
+import com.github.UniHelper.model.timetable.DefaultTimetableModel;
 import com.github.UniHelper.views.utils.NamedButton;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -11,6 +14,9 @@ import java.nio.file.StandardCopyOption;
 public class TimetableMainPanel extends JPanel {
     public TimetableMainPanel(){
         super();
+
+        DefaultTimetableModel model = new DefaultTimetableModel();
+
         setLayout(new BorderLayout());
         JPanel imagePanel = new JPanel();
         JLabel imageContainerLabel = new JLabel();
@@ -27,16 +33,23 @@ public class TimetableMainPanel extends JPanel {
             if(returnValue == JFileChooser.APPROVE_OPTION) {
                 try{
                     file = fileChooser.getSelectedFile();
-                    Files.copy(file.toPath(), new File(file.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
                 }catch(Exception e){
                     e.printStackTrace();
                 }
             }
             if(file != null){
-                ImageIcon icon = new ImageIcon(file.getName());
-                imageContainerLabel.setIcon(icon);
-                revalidate();
-                repaint();
+                try{
+                    BufferedImage image = ImageIO.read(file);
+                    model.setTimetable(image);
+                    image = model.getTimetable();
+                    ImageIcon icon = new ImageIcon(image);
+                    imageContainerLabel.setIcon(icon);
+                    revalidate();
+                    repaint();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
         });
     }

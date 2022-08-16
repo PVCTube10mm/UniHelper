@@ -8,6 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class DefaultNoteView implements NoteView, DocumentListener {
+
     private final NoteMainPanel noteMainPanel;
     private final NoteTitlePanel titlePanel;
     private final NoteTextPanel textPanel;
@@ -85,12 +86,14 @@ public class DefaultNoteView implements NoteView, DocumentListener {
     }
 
     private void executeOnNoteModifiedCommands() {
-        for (Command c : onNoteModifiedCommands)
+        for (Command c : onNoteModifiedCommands) {
             c.execute();
+        }
     }
 
     private void executeOnNoteDeletedCommands() {
-        for (Command c : onNoteDeletedCommands)
+        for (Command c : onNoteDeletedCommands) {
             c.execute();
+        }
     }
 }

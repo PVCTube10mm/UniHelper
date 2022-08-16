@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.awt.image.BufferedImage;
 
 public class DefaultTimetableModelTest {
+
     private TimetableModel timetableModel;
 
     @BeforeEach
@@ -15,7 +16,7 @@ public class DefaultTimetableModelTest {
     }
 
     @Test
-    void accessorsTest(){
+    void accessors_test(){
         //Given
         BufferedImage input1 = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
         BufferedImage input2 = new BufferedImage(2, 2, BufferedImage.TYPE_3BYTE_BGR);
@@ -36,7 +37,7 @@ public class DefaultTimetableModelTest {
     }
 
     @Test
-    void deleteTimetableTest() {
+    void deleteTimetable_test() {
         //Given
         BufferedImage input1 = null;
         BufferedImage input2 = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);

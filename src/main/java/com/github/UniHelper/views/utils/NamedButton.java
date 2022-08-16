@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class NamedButton extends JButton implements ActionButton {
+
     private ArrayList<Command> commands;
 
     public NamedButton(String name) {
@@ -27,7 +28,8 @@ public class NamedButton extends JButton implements ActionButton {
     }
 
     private void executeCommands() {
-        for (Command c : commands)
+        for (Command c : commands) {
             c.execute();
+        }
     }
 }

@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SideMenuPanel extends JPanel {
+
     public SideMenuPanel() {
         super();
         this.setLayout(new GridLayout(0, 1));

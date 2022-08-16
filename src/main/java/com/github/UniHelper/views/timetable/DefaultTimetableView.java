@@ -12,6 +12,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class DefaultTimetableView implements TimetableView {
+
     private final TimetableMainPanel mainPanel;
     private final TimetableOptionsPanel optionsPanel;
     private final TimetableImagePanel imagePanel;
@@ -81,13 +82,15 @@ public class DefaultTimetableView implements TimetableView {
     }
 
     private void executeOnTimetableImageUploadedCommands() {
-        for (Command c : onTimetableImageUploadedCommands)
+        for (Command c : onTimetableImageUploadedCommands) {
             c.execute();
+        }
     }
 
     private void executeOnTimetableImageDeletedCommands() {
-        for (Command c : onTimetableImageDeletedCommands)
+        for (Command c : onTimetableImageDeletedCommands) {
             c.execute();
+        }
     }
 
     private void getFileFromUser() {

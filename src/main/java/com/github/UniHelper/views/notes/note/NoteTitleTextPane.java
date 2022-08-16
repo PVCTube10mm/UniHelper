@@ -5,6 +5,7 @@ import javax.swing.text.*;
 import java.awt.*;
 
 public class NoteTitleTextPane extends JTextPane {
+
     private final int maxNumberOfCharacters;
 
     public NoteTitleTextPane() {

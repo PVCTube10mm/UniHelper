@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ActiveFeaturePanel extends JPanel {
+
     public ActiveFeaturePanel() {
         super();
         this.setLayout(new CardLayout());

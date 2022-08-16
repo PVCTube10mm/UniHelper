@@ -5,6 +5,7 @@ import com.github.UniHelper.model.notes.NotesModel;
 import com.github.UniHelper.views.notes.note.NoteView;
 
 public class DefaultNotePresenter implements NotePresenter {
+
     private final NoteView view;
     private final NotesModel model;
     private final Note note;

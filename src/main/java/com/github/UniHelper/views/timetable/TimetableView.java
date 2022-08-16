@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 public interface TimetableView extends FeatureView {
+
     void addOnTimetableImageUploadedCommand(Command command);
 
     void addOnTimetableImageDeletedCommand(Command command);

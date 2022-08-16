@@ -7,31 +7,35 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class DefaultTimetableModel implements TimetableModel {
+
     private final File saveFile;
     private BufferedImage timetableImage;
 
     public DefaultTimetableModel() {
         saveFile = new File("timetable.png");
-        if (!saveFile.exists())
+        if (!saveFile.exists()) {
             createNewSaveFile();
-        else
+        } else {
             loadTimetable();
+        }
     }
 
     @Override
     public void setTimetableImage(BufferedImage timetableImage) {
         this.timetableImage = timetableImage;
-        if (timetableImage != null)
+        if (timetableImage != null) {
             saveTimetable();
-        else
+        } else {
             deleteTimetable();
+        }
     }
 
     @Override
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public void deleteTimetable() {
-        if (saveFile.exists())
+        if (saveFile.exists()) {
             saveFile.delete();
+        }
         timetableImage = null;
     }
 

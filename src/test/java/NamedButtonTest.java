@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.atomic.AtomicInteger;
 
 class NamedButtonTest {
+
     NamedButton namedButton;
 
     @BeforeEach
@@ -15,7 +16,7 @@ class NamedButtonTest {
     }
 
     @Test
-    void getNameShouldReturnCorrectName() {
+    void getName_should_return_correct_name() {
         //Given
 
         //When
@@ -26,7 +27,7 @@ class NamedButtonTest {
     }
 
     @Test
-    void addedCommandShouldExecuteOneTimeOnceNotified() {
+    void added_command_should_execute_one_time_once_notified() {
         //Given
         AtomicInteger numberOfExecutions = new AtomicInteger();
         Command command = numberOfExecutions::getAndIncrement;
@@ -40,7 +41,7 @@ class NamedButtonTest {
     }
 
     @Test
-    void addedMultipleCommandsShouldAllExecuteOnceNotified() {
+    void added_multiple_commands_should_all_execute_once_notified() {
         //Given
         AtomicInteger numberOfCommand1Executions = new AtomicInteger();
         AtomicInteger numberOfCommand2Executions = new AtomicInteger();
@@ -58,7 +59,7 @@ class NamedButtonTest {
     }
 
     @Test
-    void addedSameCommandMultipleTimesShouldExecuteAsManyTimesOnceNotified() {
+    void added_same_command_multiple_times_should_execute_as_many_times_once_notified() {
         //Given
         AtomicInteger numberOfExecutions = new AtomicInteger();
         Command command = numberOfExecutions::getAndIncrement;
@@ -74,7 +75,7 @@ class NamedButtonTest {
     }
 
     @Test
-    void setCommandShouldRemoveOtherCommands() {
+    void setCommand_should_remove_other_commands() {
         //Given
         AtomicInteger numberOfCommand1Executions = new AtomicInteger();
         AtomicInteger numberOfCommand2Executions = new AtomicInteger();

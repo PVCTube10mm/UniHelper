@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class DefaultNotesModel implements NotesModel {
+    
     private final String saveFileName;
     ArrayList<Note> notes;
 
@@ -51,8 +52,9 @@ public class DefaultNotesModel implements NotesModel {
                 .filter(n -> n.getId().equals(note.getId()))
                 .findFirst()
                 .orElse(null);
-        if (noteToUpdate == null)
+        if (noteToUpdate == null) {
             addNote(note);
+        }
         else {
             noteToUpdate.setTitle(note.getTitle());
             noteToUpdate.setText(note.getText());

@@ -7,15 +7,16 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 class DefaultNotesModelTest {
+
     private DefaultNotesModel notesModel;
 
     @BeforeEach
-    void createModel() {
+    void create_model() {
         notesModel = new DefaultNotesModel();
     }
 
     @Test
-    void afterAddNotesSizeShouldNotBeZero() {
+    void after_addNotes_size_should_not_be_zero() {
         //Given
         Note note = new Note("title", "data");
 
@@ -27,7 +28,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void givenTwoEqualNotesBothShouldBePresent() {
+    void given_two_equal_notes_both_should_be_present() {
         //Given
         Note note = new Note("", "");
 
@@ -43,7 +44,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void whenSettingEmptyCollectionGetAllNotesShouldReturnEmptyCollection() {
+    void when_setting_empty_collection_get_all_notes_should_return_empty_collection() {
         //Given
         notesModel.setNotes(new ArrayList<>());
 
@@ -55,7 +56,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void OnlyNotesWithEqualTitleAndDataShouldBeEqual() {
+    void only_notes_with_equal_title_and_data_should_be_equal() {
         //Given
         Note n1 = new Note("", "");
         Note n2 = new Note("title", "");
@@ -75,7 +76,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void getAllNotesShouldReturnAllTheNotes() {
+    void getAllNotes_should_return_all_the_notes() {
         //Given
         ArrayList<Note> notes = new ArrayList<>();
         Note n1 = new Note("title", "data");
@@ -96,13 +97,13 @@ class DefaultNotesModelTest {
         ArrayList<Note> returned = notesModel.getAllNotes();
 
         //Then
-        for (Note n : notes)
+        for (Note n : notes) {
             Assertions.assertTrue(returned.contains(n));
-
+        }
     }
 
     @Test
-    void afterSetNotesShouldHaveOnlyGivenNotes() {
+    void after_setNotes_should_have_only_given_notes() {
         //Given
         Note noteBefore1 = new Note("title", "data");
         Note noteBefore2 = new Note("title2", "data2");
@@ -139,7 +140,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void deleteNoteShouldNotFailWhenDeletingNonExistingNote() {
+    void deleteNote_should_not_fail_when_deleting_non_existing_note() {
         //Given
         notesModel.setNotes(new ArrayList<>());
 
@@ -151,7 +152,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void deleteNoteShouldDeleteOnlyGivenNote() {
+    void deleteNote_should_delete_only_given_note() {
         //Given
         Note n1 = new Note("t1", "d1");
         Note n2 = new Note("t2", "d2");
@@ -173,7 +174,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void addNoteShouldAddACopy() {
+    void addNote_should_add_a_copy() {
         //Given
         notesModel.setNotes(new ArrayList<>());
         Note note1 = new Note("t1", "d1");
@@ -188,7 +189,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void setNotesShouldSetACopy() {
+    void setNotes_should_set_a_copy() {
         //Given
         ArrayList<Note> outsideNotes = new ArrayList<>();
         Note note1 = new Note("t1", "d1");
@@ -208,7 +209,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void getAllNotesShouldReturnACopy() {
+    void getAllNotes_should_return_a_copy() {
         //Given
         ArrayList<Note> copy = notesModel.getAllNotes();
 
@@ -221,7 +222,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void updateNoteShouldUpdateACopy() {
+    void updateNote_should_update_a_copy() {
         //Given
         Note note1 = new Note("t1", "d1");
         Note note2 = new Note("t2", "d2");

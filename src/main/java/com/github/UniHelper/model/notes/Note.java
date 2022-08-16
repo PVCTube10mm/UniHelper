@@ -7,6 +7,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Note {
+
     @EqualsAndHashCode.Exclude
     @Setter(AccessLevel.NONE)
     private UUID id;

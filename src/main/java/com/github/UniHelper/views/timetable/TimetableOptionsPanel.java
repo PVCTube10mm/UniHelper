@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TimetableOptionsPanel extends JPanel {
+
     private final NamedButton uploadTimetableButton;
     private final NamedButton deleteTimetableButton;
 

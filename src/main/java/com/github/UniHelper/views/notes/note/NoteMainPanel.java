@@ -5,6 +5,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class NoteMainPanel extends JPanel {
+
     public NoteMainPanel() {
         super();
         setLayout(new BorderLayout());

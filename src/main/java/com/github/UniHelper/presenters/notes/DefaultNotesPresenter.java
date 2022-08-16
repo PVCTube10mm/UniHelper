@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class DefaultNotesPresenter implements NotesPresenter {
+
     private final NotesView view;
     private final NotesModel model;
 

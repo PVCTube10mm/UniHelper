@@ -9,6 +9,7 @@ import com.github.UniHelper.views.mainWindow.MainWindowView;
 import javax.swing.*;
 
 public class Main {
+
     public static void main(String[] args) {
         FlatDarkLaf.setup();
         UIManager.put("Button.arc", 0);

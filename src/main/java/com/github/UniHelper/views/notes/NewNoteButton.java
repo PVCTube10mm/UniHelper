@@ -6,6 +6,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class NewNoteButton extends NamedButton {
+
     public NewNoteButton() {
         super("New note");
         setPreferredSize(new Dimension(300, 300));

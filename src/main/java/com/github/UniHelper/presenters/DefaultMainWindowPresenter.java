@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class DefaultMainWindowPresenter implements MainWindowPresenter {
+
     private final MainWindowView view;
 
     @Override

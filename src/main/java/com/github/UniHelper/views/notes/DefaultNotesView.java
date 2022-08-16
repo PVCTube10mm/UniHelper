@@ -10,6 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class DefaultNotesView implements NotesView, DocumentListener {
+
     private final NotesMainPanel notesMainPanel;
     private final NotesOptionsPanel notesOptionsPanel;
     private final NotesContentPanel notesContentPanel;
@@ -71,16 +72,6 @@ public class DefaultNotesView implements NotesView, DocumentListener {
         return notesMainPanel;
     }
 
-    private void executeOnNewNoteCommands() {
-        for (Command c : onNewNoteCommands)
-            c.execute();
-    }
-
-    private void executeOnSearchBarUpdateCommands() {
-        for (Command c : onSearchBarUpdateCommands)
-            c.execute();
-    }
-
     @Override
     public void insertUpdate(DocumentEvent e) {
         changedUpdate(e);
@@ -120,11 +111,24 @@ public class DefaultNotesView implements NotesView, DocumentListener {
         int verticalPadding = getVerticalContentPadding();
         int newWidth = (int) notesContentPanel.getPreferredSize().getWidth();
         int newHeight = (int) (numberOfRows * (noteViewSize.getHeight() + verticalPadding) + verticalPadding);
+
         return new Dimension(newWidth, newHeight);
     }
 
     private int getVerticalContentPadding() {
         FlowLayout fl = (FlowLayout) notesContentPanel.getLayout();
         return fl.getVgap();
+    }
+
+    private void executeOnNewNoteCommands() {
+        for (Command c : onNewNoteCommands) {
+            c.execute();
+        }
+    }
+
+    private void executeOnSearchBarUpdateCommands() {
+        for (Command c : onSearchBarUpdateCommands) {
+            c.execute();
+        }
     }
 }

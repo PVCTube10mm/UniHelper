@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public class DefaultMainWindowView implements MainWindowView {
+
     private final MainFrame mainFrame;
     private final SideMenuPanel sideMenuPanel;
     private final ActiveFeaturePanel activeFeaturePanel;
@@ -70,12 +71,14 @@ public class DefaultMainWindowView implements MainWindowView {
     }
 
     private void executeOnCloseCommands() {
-        for (Command c : onCloseCommands)
+        for (Command c : onCloseCommands) {
             c.execute();
+        }
     }
 
     private void executeOnFeatureChangeCommands() {
-        for (Command c : onFeatureChangeCommands)
+        for (Command c : onFeatureChangeCommands) {
             c.execute();
+        }
     }
 }

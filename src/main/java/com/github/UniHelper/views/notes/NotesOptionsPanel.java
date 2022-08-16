@@ -5,6 +5,7 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class NotesOptionsPanel extends JPanel {
+
     private final JTextField searchTextField;
 
     public NotesOptionsPanel() {

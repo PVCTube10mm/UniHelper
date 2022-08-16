@@ -5,6 +5,7 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class NoteTitlePanel extends JPanel {
+
     private final JTextPane titleTextPane;
 
     public NoteTitlePanel() {

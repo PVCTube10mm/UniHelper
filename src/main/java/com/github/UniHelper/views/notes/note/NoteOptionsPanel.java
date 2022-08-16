@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class NoteOptionsPanel extends JPanel {
+
     private final NamedButton deleteButton;
     private final NamedButton editButton;
 

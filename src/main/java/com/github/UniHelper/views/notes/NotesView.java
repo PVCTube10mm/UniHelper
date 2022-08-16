@@ -5,6 +5,7 @@ import com.github.UniHelper.views.FeatureView;
 import com.github.UniHelper.views.notes.note.NoteView;
 
 public interface NotesView extends FeatureView {
+
     void addNoteView(NoteView noteView);
 
     void removeNoteView(NoteView noteView);

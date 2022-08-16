@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class TimetableImagePanel extends JPanel {
+
     private final JLabel imageContainerLabel;
 
     public TimetableImagePanel() {

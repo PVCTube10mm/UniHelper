@@ -13,6 +13,8 @@ public class DefaultNotesView implements NotesView, DocumentListener {
 
     private final NotesMainPanel notesMainPanel;
     private final NotesOptionsPanel notesOptionsPanel;
+    private final NotesSearchBarPanel searchBarPanel;
+    private final NotesCategorySelectorPanel categorySelectorPanel;
     private final NotesContentPanel notesContentPanel;
     private final NotesContentScrollPane notesContentScrollPane;
     private final NamedButton newNoteButton;
@@ -23,6 +25,8 @@ public class DefaultNotesView implements NotesView, DocumentListener {
         notesMainPanel = new NotesMainPanel();
         notesContentPanel = new NotesContentPanel();
         notesOptionsPanel = new NotesOptionsPanel();
+        searchBarPanel = new NotesSearchBarPanel();
+        categorySelectorPanel = new NotesCategorySelectorPanel();
         notesContentScrollPane = new NotesContentScrollPane(notesContentPanel);
         onNewNoteCommands = new ArrayList<>();
         onSearchBarUpdateCommands = new ArrayList<>();
@@ -59,7 +63,7 @@ public class DefaultNotesView implements NotesView, DocumentListener {
 
     @Override
     public String getSearchBarText() {
-        return notesOptionsPanel.getSearchBarText();
+        return searchBarPanel.getSearchBarText();
     }
 
     @Override
@@ -97,10 +101,12 @@ public class DefaultNotesView implements NotesView, DocumentListener {
 
     private void assembleView() {
         notesContentPanel.add(newNoteButton);
+        notesOptionsPanel.add(searchBarPanel, BorderLayout.NORTH);
+        notesOptionsPanel.add(categorySelectorPanel, BorderLayout.CENTER);
         notesMainPanel.add(notesOptionsPanel, BorderLayout.NORTH);
         notesMainPanel.add(notesContentScrollPane, BorderLayout.CENTER);
         newNoteButton.addCommand(this::executeOnNewNoteCommands);
-        notesOptionsPanel.addSearchBarDocumentListener(this);
+        searchBarPanel.addSearchBarDocumentListener(this);
     }
 
     private Dimension calculateNewContentPanelSize(Dimension noteViewSize) {

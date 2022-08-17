@@ -17,12 +17,12 @@ public class DefaultTimetableModelTest {
 
     @Test
     void accessors_test(){
-        //Given
+        // Given
         BufferedImage input1 = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
         BufferedImage input2 = new BufferedImage(2, 2, BufferedImage.TYPE_3BYTE_BGR);
         BufferedImage input3 = null;
 
-        //When
+        // When
         timetableModel.setTimetableImage(input1);
         BufferedImage output1 = timetableModel.getTimetableImage();
         timetableModel.setTimetableImage(input2);
@@ -30,7 +30,7 @@ public class DefaultTimetableModelTest {
         timetableModel.setTimetableImage(input3);
         BufferedImage output3 = timetableModel.getTimetableImage();
 
-        //Then
+        // Then
         Assertions.assertTrue(areImagesEqual(input1, output1));
         Assertions.assertTrue(areImagesEqual(input2, output2));
         Assertions.assertTrue(areImagesEqual(input3, output3));
@@ -38,11 +38,11 @@ public class DefaultTimetableModelTest {
 
     @Test
     void deleteTimetable_test() {
-        //Given
+        // Given
         BufferedImage input1 = null;
         BufferedImage input2 = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
 
-        //When
+        // When
         timetableModel.setTimetableImage(input1);
         timetableModel.deleteTimetable();
         BufferedImage output1 = timetableModel.getTimetableImage();
@@ -51,7 +51,7 @@ public class DefaultTimetableModelTest {
         timetableModel.deleteTimetable();
         BufferedImage output2 = timetableModel.getTimetableImage();
 
-        //Then
+        // Then
         Assertions.assertNull(output1);
         Assertions.assertNull(output2);
     }

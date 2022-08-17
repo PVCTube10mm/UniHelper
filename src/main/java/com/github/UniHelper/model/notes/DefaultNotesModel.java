@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class DefaultNotesModel implements NotesModel {
     
     private final String saveFileName;
-    ArrayList<Note> notes;
+    private ArrayList<Note> notes;
 
     public DefaultNotesModel() {
         notes = new ArrayList<>();

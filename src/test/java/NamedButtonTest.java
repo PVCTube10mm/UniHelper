@@ -17,32 +17,32 @@ class NamedButtonTest {
 
     @Test
     void getName_should_return_correct_name() {
-        //Given
+        // Given
 
-        //When
+        // When
         String name = namedButton.getName();
 
-        //Then
+        // Then
         Assertions.assertEquals("button name", name);
     }
 
     @Test
     void added_command_should_execute_one_time_once_notified() {
-        //Given
+        // Given
         AtomicInteger numberOfExecutions = new AtomicInteger();
         Command command = numberOfExecutions::getAndIncrement;
         namedButton.addCommand(command);
 
-        //When
+        // When
         namedButton.doClick();
 
-        //Then
+        // Then
         Assertions.assertEquals(1, numberOfExecutions.get());
     }
 
     @Test
     void added_multiple_commands_should_all_execute_once_notified() {
-        //Given
+        // Given
         AtomicInteger numberOfCommand1Executions = new AtomicInteger();
         AtomicInteger numberOfCommand2Executions = new AtomicInteger();
         Command command1 = numberOfCommand1Executions::getAndIncrement;
@@ -50,44 +50,44 @@ class NamedButtonTest {
         namedButton.addCommand(command1);
         namedButton.addCommand(command2);
 
-        //When
+        // When
         namedButton.doClick();
 
-        //Then
+        // Then
         Assertions.assertEquals(1, numberOfCommand1Executions.get());
         Assertions.assertEquals(1, numberOfCommand2Executions.get());
     }
 
     @Test
     void added_same_command_multiple_times_should_execute_as_many_times_once_notified() {
-        //Given
+        // Given
         AtomicInteger numberOfExecutions = new AtomicInteger();
         Command command = numberOfExecutions::getAndIncrement;
         namedButton.addCommand(command);
         namedButton.addCommand(command);
         namedButton.addCommand(command);
 
-        //When
+        // When
         namedButton.doClick();
 
-        //Then
+        // Then
         Assertions.assertEquals(3, numberOfExecutions.get());
     }
 
     @Test
     void setCommand_should_remove_other_commands() {
-        //Given
+        // Given
         AtomicInteger numberOfCommand1Executions = new AtomicInteger();
         AtomicInteger numberOfCommand2Executions = new AtomicInteger();
         Command command1 = numberOfCommand1Executions::getAndIncrement;
         Command command2 = numberOfCommand2Executions::getAndIncrement;
         namedButton.addCommand(command1);
 
-        //When
+        // When
         namedButton.setCommand(command2);
         namedButton.doClick();
 
-        //Then
+        // Then
         Assertions.assertEquals(0, numberOfCommand1Executions.get());
         Assertions.assertEquals(1, numberOfCommand2Executions.get());
     }

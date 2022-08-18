@@ -22,6 +22,7 @@ public class DefaultCategoriesModel implements CategoriesModel {
 
     private final String saveFileName;
     private Set<Category> categories;
+    private final ObjectMapper categoryMapper;
 
     public static DefaultCategoriesModel getInstance() {
         DefaultCategoriesModel result = instance;
@@ -70,7 +71,16 @@ public class DefaultCategoriesModel implements CategoriesModel {
     private DefaultCategoriesModel() {
         categories = new HashSet<>();
         saveFileName = "saved_categories.txt";
+        categoryMapper = new ObjectMapper();
+        addSerializersToMapper();
         load();
+    }
+
+    private void addSerializersToMapper() {
+        SimpleModule awtModule = new SimpleModule("AWT Module");
+        awtModule.addSerializer(Color.class, new ColorJsonSerializer());
+        awtModule.addDeserializer(Color.class, new ColorJsonDeserializer());
+        categoryMapper.registerModule(awtModule);
     }
 
     private Category findCategoryById(UUID id) {
@@ -82,8 +92,7 @@ public class DefaultCategoriesModel implements CategoriesModel {
 
     private void load() {
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            categories = mapper.readValue(new File(saveFileName), new TypeReference<>() {});
+            categories = categoryMapper.readValue(new File(saveFileName), new TypeReference<>() {});
         } catch (IOException e) {
             createNewSaveFile();
         }
@@ -91,8 +100,7 @@ public class DefaultCategoriesModel implements CategoriesModel {
 
     private void save() {
         try (PrintWriter out = new PrintWriter(saveFileName, StandardCharsets.UTF_8)) {
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectWriter writer = mapper.writer().withDefaultPrettyPrinter();
+            ObjectWriter writer = categoryMapper.writer().withDefaultPrettyPrinter();
             String json = writer.writeValueAsString(categories);
             out.println(json);
         } catch (IOException e) {
@@ -112,17 +120,9 @@ public class DefaultCategoriesModel implements CategoriesModel {
 
     private Set<Category> getDeepCategoriesCopy(Set<Category> originalCategories) {
         Set<Category> deepCopy;
-
-        SimpleModule awtModule = new SimpleModule("AWT Module");
-        awtModule.addSerializer(Color.class, new ColorJsonSerializer());
-        awtModule.addDeserializer(Color.class, new ColorJsonDeserializer());
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(awtModule);
-
         try {
-            deepCopy = objectMapper
-                    .readValue(objectMapper.writeValueAsString(originalCategories), new TypeReference<>() {});
+            deepCopy = categoryMapper
+                    .readValue(categoryMapper.writeValueAsString(originalCategories), new TypeReference<>() {});
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return null;

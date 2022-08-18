@@ -1,6 +1,7 @@
 package com.github.UniHelper;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.github.UniHelper.model.categories.DefaultCategoriesModel;
 import com.github.UniHelper.presenters.DefaultMainWindowPresenter;
 import com.github.UniHelper.presenters.MainWindowPresenter;
 import com.github.UniHelper.views.mainWindow.DefaultMainWindowView;
@@ -16,6 +17,7 @@ public class Main {
         MainWindowView mainWindowView = new DefaultMainWindowView();
         MainWindowPresenter mainWindowPresenter = new DefaultMainWindowPresenter(mainWindowView);
         mainWindowPresenter.onLaunch();
+        DefaultCategoriesModel.getInstance();
     }
 }
 

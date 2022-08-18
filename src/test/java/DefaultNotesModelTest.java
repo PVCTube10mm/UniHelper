@@ -18,7 +18,7 @@ class DefaultNotesModelTest {
     @Test
     void after_addNotes_size_should_not_be_zero() {
         // Given
-        Note note = new Note("title", "data");
+        Note note = new Note("title", "data", "category");
 
         // When
         notesModel.addNote(note);
@@ -30,7 +30,7 @@ class DefaultNotesModelTest {
     @Test
     void given_two_equal_notes_both_should_be_present() {
         // Given
-        Note note = new Note("", "");
+        Note note = new Note("", "", "");
 
         // When
         int sizeBeforeAddingNotes = notesModel.getAllNotes().size();
@@ -58,11 +58,11 @@ class DefaultNotesModelTest {
     @Test
     void only_notes_with_equal_title_and_data_should_be_equal() {
         // Given
-        Note n1 = new Note("", "");
-        Note n2 = new Note("title", "");
-        Note n3 = new Note("", "title");
-        Note n4 = new Note("B", "A");
-        Note n5 = new Note("B", "A");
+        Note n1 = new Note("", "", "");
+        Note n2 = new Note("title", "", "");
+        Note n3 = new Note("", "title", "");
+        Note n4 = new Note("B", "A", "");
+        Note n5 = new Note("B", "A", "");
 
         // When
 
@@ -79,10 +79,10 @@ class DefaultNotesModelTest {
     void getAllNotes_should_return_all_the_notes() {
         // Given
         ArrayList<Note> notes = new ArrayList<>();
-        Note n1 = new Note("title", "data");
-        Note n2 = new Note("title", "data");
-        Note n3 = new Note("title2", "data2");
-        Note n4 = new Note("title2", "data3");
+        Note n1 = new Note("title", "data", "category");
+        Note n2 = new Note("title", "data", "category");
+        Note n3 = new Note("title2", "data2", "category2");
+        Note n4 = new Note("title2", "data3", "category3");
         notes.add(n1);
         notes.add(n2);
         notes.add(n3);
@@ -105,16 +105,16 @@ class DefaultNotesModelTest {
     @Test
     void after_setNotes_should_have_only_given_notes() {
         // Given
-        Note noteBefore1 = new Note("title", "data");
-        Note noteBefore2 = new Note("title2", "data2");
-        Note noteBefore3 = new Note("title3", "data3");
+        Note noteBefore1 = new Note("title", "data", "category");
+        Note noteBefore2 = new Note("title2", "data2", "category2");
+        Note noteBefore3 = new Note("title3", "data3", "category3");
         notesModel.addNote(noteBefore1);
         notesModel.addNote(noteBefore2);
         notesModel.addNote(noteBefore3);
         ArrayList<Note> notes = new ArrayList<>();
-        Note noteAfter1 = new Note("title4", "data4");
+        Note noteAfter1 = new Note("title4", "data4", "category4");
         Note noteAfter2 = noteBefore2;
-        Note noteAfter3 = new Note("title", "data2");
+        Note noteAfter3 = new Note("title", "data2", "category3");
         notes.add(noteAfter1);
         notes.add(noteAfter2);
         notes.add(noteAfter3);
@@ -145,7 +145,7 @@ class DefaultNotesModelTest {
         notesModel.setNotes(new ArrayList<>());
 
         // When
-        notesModel.deleteNote(new Note("", ""));
+        notesModel.deleteNote(new Note("", "", ""));
 
         // Then
         Assertions.assertTrue(true);
@@ -154,9 +154,9 @@ class DefaultNotesModelTest {
     @Test
     void deleteNote_should_delete_only_given_note() {
         // Given
-        Note n1 = new Note("t1", "d1");
-        Note n2 = new Note("t2", "d2");
-        Note n3 = new Note("t3", "d3");
+        Note n1 = new Note("t1", "d1", "c1");
+        Note n2 = new Note("t2", "d2", "c2");
+        Note n3 = new Note("t3", "d3", "c3");
         ArrayList<Note> notesBefore = new ArrayList<>();
         notesBefore.add(n1);
         notesBefore.add(n2);
@@ -177,7 +177,7 @@ class DefaultNotesModelTest {
     void addNote_should_add_a_copy() {
         // Given
         notesModel.setNotes(new ArrayList<>());
-        Note note1 = new Note("t1", "d1");
+        Note note1 = new Note("t1", "d1", "c1");
 
 
         // When
@@ -192,20 +192,24 @@ class DefaultNotesModelTest {
     void setNotes_should_set_a_copy() {
         // Given
         ArrayList<Note> outsideNotes = new ArrayList<>();
-        Note note1 = new Note("t1", "d1");
-        Note note2 = new Note("t2", "d2");
+        Note note1 = new Note("t1", "d1", "c1");
+        Note note2 = new Note("t2", "d2", "c2");
+        Note note3 = new Note("t3", "d3", "c3");
         outsideNotes.add(note1);
         outsideNotes.add(note2);
+        outsideNotes.add(note3);
         notesModel.setNotes(outsideNotes);
 
         // When
-        note1.setTitle("t3");
-        note2.setText("d3");
+        note1.setTitle("t4");
+        note2.setText("d4");
+        note3.setCategory("c4");
 
         // Then
         ArrayList<Note> insideNotes = notesModel.getAllNotes();
         Assertions.assertFalse(insideNotes.contains(note1));
         Assertions.assertFalse(insideNotes.contains(note2));
+        Assertions.assertFalse(insideNotes.contains(note3));
     }
 
     @Test
@@ -214,7 +218,7 @@ class DefaultNotesModelTest {
         ArrayList<Note> copy = notesModel.getAllNotes();
 
         // When
-        copy.add(new Note("", ""));
+        copy.add(new Note("", "", ""));
 
         // Then
         ArrayList<Note> copy2 = notesModel.getAllNotes();
@@ -225,9 +229,9 @@ class DefaultNotesModelTest {
     void updateNote_should_update_a_copy() {
         // Given
         notesModel.setNotes(new ArrayList<>());
-        Note note1 = new Note("t1", "d1");
-        Note note2 = new Note("t2", "d2");
-        Note note3 = new Note("t3", "d3");
+        Note note1 = new Note("t1", "d1", "c1");
+        Note note2 = new Note("t2", "d2", "c2");
+        Note note3 = new Note("t3", "d3", "c3");
         notesModel.addNote(note1);
         note1 = note3;
 

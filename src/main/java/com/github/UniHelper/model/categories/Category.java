@@ -9,6 +9,8 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Category {
 
+    public static final Category NONE = new Category("None", Color.GRAY);
+
     @EqualsAndHashCode.Exclude
     @Setter(AccessLevel.NONE)
     private UUID id;

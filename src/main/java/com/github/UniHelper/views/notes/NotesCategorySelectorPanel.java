@@ -1,7 +1,8 @@
 package com.github.UniHelper.views.notes;
 
-import com.formdev.flatlaf.ui.FlatRoundBorder;
+import com.github.UniHelper.model.categories.CategoriesModel;
 import com.github.UniHelper.model.categories.Category;
+import com.github.UniHelper.model.categories.DefaultCategoriesModel;
 import com.github.UniHelper.views.utils.RadioButton;
 import com.github.UniHelper.views.utils.RadioButtonBundle;
 
@@ -15,17 +16,24 @@ public class NotesCategorySelectorPanel extends JPanel {
         super();
         ArrayList<RadioButton> buttons = new ArrayList<>();
 
-        NotesCategorySelectorButton button1 = new NotesCategorySelectorButton(new Category("Personal", Color.RED));
-        NotesCategorySelectorButton button2 = new NotesCategorySelectorButton(new Category("Education", Color.GREEN));
-        NotesCategorySelectorButton button3 = new NotesCategorySelectorButton(new Category("Work", Color.BLUE));
+        CategoriesModel categoriesModel = DefaultCategoriesModel.getInstance();
+        ArrayList<Category> categories = new ArrayList<>(categoriesModel.getAllCategories());
+
+
+        NotesCategorySelectorButton button1 = new NotesCategorySelectorButton(Category.NONE);
+        NotesCategorySelectorButton button2 = new NotesCategorySelectorButton(categories.get(0));
+        NotesCategorySelectorButton button3 = new NotesCategorySelectorButton(categories.get(1));
+        NotesCategorySelectorButton button4 = new NotesCategorySelectorButton(categories.get(2));
         buttons.add(button1);
         buttons.add(button2);
         buttons.add(button3);
+        buttons.add(button4);
         RadioButtonBundle radioButtonBundle = new RadioButtonBundle(buttons);
 
         add(button1);
         add(button2);
         add(button3);
+        add(button4);
 
         setLook();
     }

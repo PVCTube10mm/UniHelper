@@ -58,6 +58,7 @@ public class DefaultNotesModel implements NotesModel {
         else {
             noteToUpdate.setTitle(note.getTitle());
             noteToUpdate.setText(note.getText());
+            noteToUpdate.setCategory(note.getCategory());
         }
         save();
     }

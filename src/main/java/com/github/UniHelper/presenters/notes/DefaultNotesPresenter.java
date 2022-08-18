@@ -1,5 +1,6 @@
 package com.github.UniHelper.presenters.notes;
 
+import com.github.UniHelper.model.categories.Category;
 import com.github.UniHelper.model.notes.Note;
 import com.github.UniHelper.model.notes.NotesModel;
 import com.github.UniHelper.views.notes.note.DefaultNoteView;
@@ -47,7 +48,7 @@ public class DefaultNotesPresenter implements NotesPresenter {
     }
 
     private void addNewNote() {
-        Note newNote = new Note("New note", "");
+        Note newNote = new Note("New note", "", Category.NONE.getName());
         model.addNote(newNote);
         addNoteToView(newNote);
     }

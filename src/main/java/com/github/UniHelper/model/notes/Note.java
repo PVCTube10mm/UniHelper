@@ -13,16 +13,19 @@ public class Note {
     private UUID id;
     private String title;
     private String text;
+    private String category;
 
-    public Note(String title, String text) {
+    public Note(String title, String text, String category) {
         this.title = title;
         this.text = text;
+        this.category = category;
         id = UUID.randomUUID();
     }
 
     public Note(Note note) {
         title = note.getTitle();
         text = note.getText();
+        category = note.category;
         id = note.getId();
     }
 }

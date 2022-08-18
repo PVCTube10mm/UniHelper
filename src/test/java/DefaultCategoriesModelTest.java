@@ -1,9 +1,7 @@
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.github.UniHelper.model.categories.CategoriesModel;
 import com.github.UniHelper.model.categories.Category;
 import com.github.UniHelper.model.categories.DefaultCategoriesModel;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DefaultCategoriesModelTest {
+
     CategoriesModel categoriesModel;
 
     @BeforeEach

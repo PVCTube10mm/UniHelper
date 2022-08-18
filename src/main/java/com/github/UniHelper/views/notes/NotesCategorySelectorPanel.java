@@ -3,8 +3,10 @@ package com.github.UniHelper.views.notes;
 import com.github.UniHelper.model.categories.CategoriesModel;
 import com.github.UniHelper.model.categories.Category;
 import com.github.UniHelper.model.categories.DefaultCategoriesModel;
+import com.github.UniHelper.presenters.commands.Command;
 import com.github.UniHelper.views.utils.RadioButton;
 import com.github.UniHelper.views.utils.RadioButtonBundle;
+import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,9 +14,18 @@ import java.util.ArrayList;
 
 public class NotesCategorySelectorPanel extends JPanel {
 
+    @Getter
+    private Category activeCategory;
+
+    private RadioButtonBundle radioButtonBundle;
+
+    private final ArrayList<Command> onCategoryChangedCommands;
+
     public NotesCategorySelectorPanel() {
         super();
+        activeCategory = null;
         ArrayList<RadioButton> buttons = new ArrayList<>();
+        onCategoryChangedCommands = new ArrayList<>();
 
         CategoriesModel categoriesModel = DefaultCategoriesModel.getInstance();
         ArrayList<Category> categories = new ArrayList<>(categoriesModel.getAllCategories());
@@ -28,7 +39,8 @@ public class NotesCategorySelectorPanel extends JPanel {
         buttons.add(button2);
         buttons.add(button3);
         buttons.add(button4);
-        RadioButtonBundle radioButtonBundle = new RadioButtonBundle(buttons);
+        radioButtonBundle = new RadioButtonBundle(buttons);
+        radioButtonBundle.addOnCategoryChangedCommand(this::executeOnCategoryChangedCommands);
 
         add(button1);
         add(button2);
@@ -36,6 +48,18 @@ public class NotesCategorySelectorPanel extends JPanel {
         add(button4);
 
         setLook();
+    }
+
+    public void addOnCategoryChangedCommand(Command command) {
+        onCategoryChangedCommands.add(command);
+    }
+
+    private void executeOnCategoryChangedCommands(){
+        NotesCategorySelectorButton activeButton = (NotesCategorySelectorButton) radioButtonBundle.getActiveButton();
+        activeCategory = activeButton.getCategory();
+        for(Command c : onCategoryChangedCommands) {
+            c.execute();
+        }
     }
 
     private void setLook() {

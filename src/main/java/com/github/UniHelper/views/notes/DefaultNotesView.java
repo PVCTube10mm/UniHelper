@@ -1,5 +1,6 @@
 package com.github.UniHelper.views.notes;
 
+import com.github.UniHelper.model.categories.Category;
 import com.github.UniHelper.presenters.commands.Command;
 import com.github.UniHelper.views.notes.note.NoteView;
 import com.github.UniHelper.views.utils.NamedButton;
@@ -20,6 +21,7 @@ public class DefaultNotesView implements NotesView, DocumentListener {
     private final NamedButton newNoteButton;
     private final ArrayList<Command> onNewNoteCommands;
     private final ArrayList<Command> onSearchBarUpdateCommands;
+    private final ArrayList<Command> onCategoryChangedCommands;
 
     public DefaultNotesView() {
         notesMainPanel = new NotesMainPanel();
@@ -30,6 +32,7 @@ public class DefaultNotesView implements NotesView, DocumentListener {
         notesContentScrollPane = new NotesContentScrollPane(notesContentPanel);
         onNewNoteCommands = new ArrayList<>();
         onSearchBarUpdateCommands = new ArrayList<>();
+        onCategoryChangedCommands = new ArrayList<>();
         newNoteButton = new NewNoteButton();
         assembleView();
     }
@@ -50,6 +53,11 @@ public class DefaultNotesView implements NotesView, DocumentListener {
     @Override
     public void addOnSearchBarUpdateCommand(Command command) {
         onSearchBarUpdateCommands.add(command);
+    }
+
+    @Override
+    public void addOnCategoryChangedCommand(Command command) {
+        onCategoryChangedCommands.add(command);
     }
 
     @Override
@@ -99,6 +107,11 @@ public class DefaultNotesView implements NotesView, DocumentListener {
         notesContentPanel.repaint();
     }
 
+    @Override
+    public Category getActiveCategory() {
+        return categorySelectorPanel.getActiveCategory();
+    }
+
     private void assembleView() {
         notesContentPanel.add(newNoteButton);
         notesOptionsPanel.add(searchBarPanel, BorderLayout.NORTH);
@@ -107,6 +120,7 @@ public class DefaultNotesView implements NotesView, DocumentListener {
         notesMainPanel.add(notesContentScrollPane, BorderLayout.CENTER);
         newNoteButton.addCommand(this::executeOnNewNoteCommands);
         searchBarPanel.addSearchBarDocumentListener(this);
+        categorySelectorPanel.addOnCategoryChangedCommand(this::executeOnCategoryChangedCommands);
     }
 
     private Dimension calculateNewContentPanelSize(Dimension noteViewSize) {
@@ -134,6 +148,12 @@ public class DefaultNotesView implements NotesView, DocumentListener {
 
     private void executeOnSearchBarUpdateCommands() {
         for (Command c : onSearchBarUpdateCommands) {
+            c.execute();
+        }
+    }
+
+    private void executeOnCategoryChangedCommands() {
+        for (Command c : onCategoryChangedCommands) {
             c.execute();
         }
     }

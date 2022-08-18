@@ -1,0 +1,13 @@
+[ {
+  "id" : "1b2a1e36-370a-4dd3-80fb-6582959a158e",
+  "name" : "Personal",
+  "color" : -16711936
+}, {
+  "id" : "79df7e2a-820f-4cf9-a093-c92f6b70ac13",
+  "name" : "Work",
+  "color" : -65536
+}, {
+  "id" : "2e744f5f-2459-41eb-a929-a1269ed2a46b",
+  "name" : "Education",
+  "color" : -16776961
+} ]

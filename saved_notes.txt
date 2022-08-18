@@ -1,1 +1,21 @@
-[ ]
+[ {
+  "id" : "9b3d0f3b-de6c-4a09-8d96-50a1867df938",
+  "title" : "None note",
+  "text" : "",
+  "category" : "None"
+}, {
+  "id" : "9eb5de70-e80d-4e28-a887-9d4ba704ae41",
+  "title" : "Personal note",
+  "text" : "",
+  "category" : "Personal"
+}, {
+  "id" : "edba1029-59e0-40b4-95ed-1ceaad847f07",
+  "title" : "Education note",
+  "text" : "",
+  "category" : "Education"
+}, {
+  "id" : "d61afc70-58ef-43e9-84c6-68c807371dd0",
+  "title" : "Work note",
+  "text" : "",
+  "category" : "Work"
+} ]

@@ -36,13 +36,17 @@ public class DefaultNotesPresenter implements NotesPresenter {
     private void addViewCommands() {
         view.addOnSearchBarUpdateCommand(this::updateSearchedNotes);
         view.addOnNewNoteCommand(this::addNewNote);
+        view.addOnCategoryChangedCommand(this::updateSearchedNotes);
     }
 
     private void updateSearchedNotes() {
         String pattern = view.getSearchBarText();
+        Category activeCategory = view.getActiveCategory();
         view.clearNotes();
-        ArrayList<Note> matchingNotes = getNotesContainingGivenPattern(pattern);
-        for (Note n : matchingNotes) {
+        ArrayList<Note> notesMatchingPattern = getNotesContainingGivenPattern(pattern);
+        ArrayList<Note> notesMatchingCategory = getNotesWithGivenCategory(activeCategory);
+        ArrayList<Note> notesMatchingPatternAndCategory = getNotesListsProduct(notesMatchingPattern, notesMatchingCategory);
+        for (Note n : notesMatchingPatternAndCategory) {
             addNoteToView(n);
         }
     }
@@ -86,5 +90,25 @@ public class DefaultNotesPresenter implements NotesPresenter {
         secondCopy.removeAll(firstCopy);
         firstCopy.addAll(secondCopy);
         return firstCopy;
+    }
+
+    private ArrayList<Note> getNotesWithGivenCategory(Category activeCategory) {
+        return new ArrayList<>(model.getAllNotes().stream()
+                .filter(n -> n.getCategory().equals(activeCategory.getName()))
+                .toList());
+    }
+
+    private ArrayList<Note> getNotesListsProduct(ArrayList<Note> first, ArrayList<Note> second) {
+        ArrayList<Note> firstCopy = new ArrayList<>(first);
+        ArrayList<Note> secondCopy = new ArrayList<>(second);
+        firstCopy.removeAll(second);
+        secondCopy.removeAll(first);
+        ArrayList<Note> sum = new ArrayList<>();
+        sum.addAll(first);
+        sum.addAll(secondCopy);
+        ArrayList<Note> product = sum;
+        product.removeAll(firstCopy);
+        product.removeAll(secondCopy);
+        return product;
     }
 }

@@ -68,9 +68,9 @@ public class RadioButton extends JPanel {
 
             @Override
             public void mousePressed(final MouseEvent e) {
-                active = true;
-                setBackgroundOnMouseEvent(clickedColor);
+                setActive(true);
                 executeCommands();
+                setBackgroundOnMouseEvent(clickedColor);
             }
 
             @Override

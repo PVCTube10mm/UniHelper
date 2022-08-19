@@ -12,8 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class DefaultCategoriesModel implements CategoriesModel {
@@ -21,7 +20,7 @@ public class DefaultCategoriesModel implements CategoriesModel {
     private static volatile DefaultCategoriesModel instance;
 
     private final String saveFileName;
-    private Set<Category> categories;
+    private ArrayList<Category> categories;
     private final ObjectMapper categoryMapper;
 
     public static DefaultCategoriesModel getInstance() {
@@ -29,7 +28,7 @@ public class DefaultCategoriesModel implements CategoriesModel {
         if (result != null) {
             return result;
         }
-        synchronized(DefaultCategoriesModel.class) {
+        synchronized (DefaultCategoriesModel.class) {
             if (instance == null) {
                 instance = new DefaultCategoriesModel();
             }
@@ -39,12 +38,14 @@ public class DefaultCategoriesModel implements CategoriesModel {
 
     @Override
     public void addOrModifyCategory(Category category) {
+        if(categories.contains(category)){
+            return;
+        }
         Category categoryWithSameId = findCategoryById(category.getId());
-        if(categoryWithSameId == null) {
+        if (categoryWithSameId == null) {
             Category categoryCopy = new Category(category);
             categories.add(categoryCopy);
-        }
-        else {
+        } else {
             categoryWithSameId.setColor(category.getColor());
             categoryWithSameId.setName(category.getName());
         }
@@ -58,18 +59,18 @@ public class DefaultCategoriesModel implements CategoriesModel {
     }
 
     @Override
-    public Set<Category> getAllCategories() {
+    public ArrayList<Category> getAllCategories() {
         return getDeepCategoriesCopy(categories);
     }
 
     @Override
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(ArrayList<Category> categories) {
         this.categories = getDeepCategoriesCopy(categories);
         save();
     }
 
     private DefaultCategoriesModel() {
-        categories = new HashSet<>();
+        categories = new ArrayList<>();
         saveFileName = "saved_categories.txt";
         categoryMapper = new ObjectMapper();
         addSerializersToMapper();
@@ -92,7 +93,8 @@ public class DefaultCategoriesModel implements CategoriesModel {
 
     private void load() {
         try {
-            categories = categoryMapper.readValue(new File(saveFileName), new TypeReference<>() {});
+            categories = categoryMapper.readValue(new File(saveFileName), new TypeReference<>() {
+            });
         } catch (IOException e) {
             createNewSaveFile();
         }
@@ -118,8 +120,8 @@ public class DefaultCategoriesModel implements CategoriesModel {
         }
     }
 
-    private Set<Category> getDeepCategoriesCopy(Set<Category> originalCategories) {
-        Set<Category> deepCopy;
+    private ArrayList<Category> getDeepCategoriesCopy(ArrayList<Category> originalCategories) {
+        ArrayList<Category> deepCopy;
         try {
             deepCopy = categoryMapper
                     .readValue(categoryMapper.writeValueAsString(originalCategories), new TypeReference<>() {});

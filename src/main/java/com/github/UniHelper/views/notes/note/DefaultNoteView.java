@@ -62,6 +62,12 @@ public class DefaultNoteView implements NoteView, DocumentListener {
     }
 
     @Override
+    public void setColor(Color color) {
+        titlePanel.setTitleBackground(color.darker().darker());
+        textPanel.setTextBackground(color);
+    }
+
+    @Override
     public void insertUpdate(DocumentEvent e) {
         changedUpdate(e);
     }

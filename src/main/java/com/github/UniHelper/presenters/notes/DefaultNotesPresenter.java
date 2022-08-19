@@ -1,12 +1,15 @@
 package com.github.UniHelper.presenters.notes;
 
+import com.github.UniHelper.model.categories.CategoriesModel;
 import com.github.UniHelper.model.categories.Category;
+import com.github.UniHelper.model.categories.DefaultCategoriesModel;
 import com.github.UniHelper.model.notes.Note;
 import com.github.UniHelper.model.notes.NotesModel;
+import com.github.UniHelper.views.notes.NotesView;
 import com.github.UniHelper.views.notes.note.DefaultNoteView;
 import com.github.UniHelper.views.notes.note.NoteView;
-import com.github.UniHelper.views.notes.NotesView;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -25,12 +28,7 @@ public class DefaultNotesPresenter implements NotesPresenter {
     @Override
     public void loadNotes() {
         ArrayList<Note> notes = model.getAllNotes();
-        for (Note n : notes) {
-            NoteView noteView = new DefaultNoteView();
-            noteView.addOnNoteDeletedCommand(() -> view.removeNoteView(noteView));
-            NotePresenter notePresenter = new DefaultNotePresenter(noteView, model, n);
-            view.addNoteView(noteView);
-        }
+        setViewNotes(notes);
     }
 
     private void addViewCommands() {
@@ -39,16 +37,20 @@ public class DefaultNotesPresenter implements NotesPresenter {
         view.addOnCategoryChangedCommand(this::updateSearchedNotes);
     }
 
+    private void setViewNotes(ArrayList<Note> notes) {
+        view.clearNotes();
+        for (Note n : notes) {
+            addNoteToView(n);
+        }
+    }
+
     private void updateSearchedNotes() {
         String pattern = view.getSearchBarText();
         Category activeCategory = view.getActiveCategory();
-        view.clearNotes();
         ArrayList<Note> notesMatchingPattern = getNotesContainingGivenPattern(pattern);
         ArrayList<Note> notesMatchingCategory = getNotesWithGivenCategory(activeCategory);
         ArrayList<Note> notesMatchingPatternAndCategory = getNotesListsProduct(notesMatchingPattern, notesMatchingCategory);
-        for (Note n : notesMatchingPatternAndCategory) {
-            addNoteToView(n);
-        }
+        setViewNotes(notesMatchingPatternAndCategory);
     }
 
     private void addNewNote() {
@@ -60,8 +62,19 @@ public class DefaultNotesPresenter implements NotesPresenter {
     private void addNoteToView(Note note) {
         NoteView noteView = new DefaultNoteView();
         noteView.addOnNoteDeletedCommand(() -> view.removeNoteView(noteView));
+        noteView.setColor(getCategoryColor(note.getCategory()));
         NotePresenter notePresenter = new DefaultNotePresenter(noteView, model, note);
         view.addNoteView(noteView);
+    }
+
+    private Color getCategoryColor(String category) {
+        CategoriesModel cm = DefaultCategoriesModel.getInstance();
+        ArrayList<Category> categories = cm.getAllCategories();
+        return categories.stream()
+                .filter(c -> c.getName().equals(category))
+                .map(Category::getColor)
+                .findFirst()
+                .orElse(null);
     }
 
     private ArrayList<Note> getNotesContainingGivenPattern(String pattern) {
@@ -93,22 +106,25 @@ public class DefaultNotesPresenter implements NotesPresenter {
     }
 
     private ArrayList<Note> getNotesWithGivenCategory(Category activeCategory) {
-        return new ArrayList<>(model.getAllNotes().stream()
-                .filter(n -> n.getCategory().equals(activeCategory.getName()))
-                .toList());
+        ArrayList<Note> notesWithGivenCategory;
+        if (isAnyCategoryActive()) {
+            notesWithGivenCategory = new ArrayList<>(model.getAllNotes().stream()
+                    .filter(n -> n.getCategory().equals(activeCategory.getName()))
+                    .toList());
+        } else {
+            notesWithGivenCategory = model.getAllNotes();
+        }
+        return notesWithGivenCategory;
     }
 
     private ArrayList<Note> getNotesListsProduct(ArrayList<Note> first, ArrayList<Note> second) {
         ArrayList<Note> firstCopy = new ArrayList<>(first);
         ArrayList<Note> secondCopy = new ArrayList<>(second);
-        firstCopy.removeAll(second);
-        secondCopy.removeAll(first);
-        ArrayList<Note> sum = new ArrayList<>();
-        sum.addAll(first);
-        sum.addAll(secondCopy);
-        ArrayList<Note> product = sum;
-        product.removeAll(firstCopy);
-        product.removeAll(secondCopy);
-        return product;
+        firstCopy.retainAll(secondCopy);
+        return firstCopy;
+    }
+
+    private boolean isAnyCategoryActive() {
+        return view.getActiveCategory() != null;
     }
 }

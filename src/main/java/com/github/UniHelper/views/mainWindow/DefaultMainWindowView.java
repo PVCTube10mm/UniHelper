@@ -48,6 +48,11 @@ public class DefaultMainWindowView implements MainWindowView {
     }
 
     @Override
+    public Dimension getFeaturePanelSize() {
+        return activeFeaturePanel.getPreferredSize();
+    }
+
+    @Override
     public void showFeature(String featureName) {
         executeOnFeatureChangeCommands();
         this.activeFeaturePanel.chooseView(featureName);

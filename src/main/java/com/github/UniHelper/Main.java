@@ -12,12 +12,14 @@ import javax.swing.*;
 public class Main {
 
     public static void main(String[] args) {
-        FlatDarkLaf.setup();
-        UIManager.put("Button.arc", 0);
-        MainWindowView mainWindowView = new DefaultMainWindowView();
-        MainWindowPresenter mainWindowPresenter = new DefaultMainWindowPresenter(mainWindowView);
-        mainWindowPresenter.onLaunch();
-        DefaultCategoriesModel.getInstance();
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            FlatDarkLaf.setup();
+            UIManager.put("Button.arc", 0);
+            MainWindowView mainWindowView = new DefaultMainWindowView();
+            MainWindowPresenter mainWindowPresenter = new DefaultMainWindowPresenter(mainWindowView);
+            mainWindowPresenter.onLaunch();
+            DefaultCategoriesModel.getInstance();
+        });
     }
 }
 

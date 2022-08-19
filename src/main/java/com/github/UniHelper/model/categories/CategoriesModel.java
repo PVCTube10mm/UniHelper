@@ -1,6 +1,6 @@
 package com.github.UniHelper.model.categories;
 
-import java.util.Set;
+import java.util.ArrayList;
 
 public interface CategoriesModel {
 
@@ -8,7 +8,7 @@ public interface CategoriesModel {
 
     void deleteCategory(Category category);
 
-    Set<Category> getAllCategories();
+    ArrayList<Category> getAllCategories();
 
-    void setCategories(Set<Category> categories);
+    void setCategories(ArrayList<Category> categories);
 }

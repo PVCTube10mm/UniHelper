@@ -6,8 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class DefaultCategoriesModelTest {
 
@@ -21,13 +20,13 @@ public class DefaultCategoriesModelTest {
     @Test
     void given_empty_set_in_setCategories_getAllCategories_should_return_empty_set() {
         // Given
-        Set<Category> empty = new HashSet<>();
+        ArrayList<Category> empty = new ArrayList<>();
 
         // When
         categoriesModel.setCategories(empty);
 
         // Then
-        Set<Category> returned = categoriesModel.getAllCategories();
+        ArrayList<Category> returned = categoriesModel.getAllCategories();
 
         Assertions.assertTrue(returned.isEmpty());
     }
@@ -37,13 +36,13 @@ public class DefaultCategoriesModelTest {
         // Given
         Category c1 = new Category("n1", Color.WHITE);
         Category c2 = new Category("n2", Color.RED);
-        Set<Category> givenCategories = new HashSet<>();
+        ArrayList<Category> givenCategories = new ArrayList<>();
         givenCategories.add(c1);
         givenCategories.add(c2);
 
         // When
         categoriesModel.setCategories(givenCategories);
-        Set<Category> returnedCategories = categoriesModel.getAllCategories();
+        ArrayList<Category> returnedCategories = categoriesModel.getAllCategories();
 
         // Then
         Assertions.assertEquals(givenCategories, returnedCategories);
@@ -55,7 +54,7 @@ public class DefaultCategoriesModelTest {
         Category c1 = new Category("n1", Color.WHITE);
         Category c2 = new Category("n2", Color.RED);
         Category c3 = new Category("n3", Color.BLACK);
-        Set<Category> givenCategories = new HashSet<>();
+        ArrayList<Category> givenCategories = new ArrayList<>();
         givenCategories.add(c1);
         givenCategories.add(c2);
         givenCategories.add(c3);
@@ -66,7 +65,7 @@ public class DefaultCategoriesModelTest {
         categoriesModel.deleteCategory(new Category("n1", Color.WHITE));
         categoriesModel.deleteCategory(new Category("n3", Color.RED));
         categoriesModel.deleteCategory(c2);
-        Set<Category> returnedCategories = categoriesModel.getAllCategories();
+        ArrayList<Category> returnedCategories = categoriesModel.getAllCategories();
 
         // Then
         Assertions.assertFalse(returnedCategories.contains(c1));
@@ -80,7 +79,7 @@ public class DefaultCategoriesModelTest {
         Category c1 = new Category("n1", Color.WHITE);
         Category c2 = new Category("n2", Color.RED);
         Category c3 = new Category("n3", Color.BLACK);
-        Set<Category> givenCategories = new HashSet<>();
+        ArrayList<Category> givenCategories = new ArrayList<>();
         givenCategories.add(c1);
         givenCategories.add(c2);
         givenCategories.add(c3);
@@ -93,7 +92,7 @@ public class DefaultCategoriesModelTest {
         categoriesModel.addOrModifyCategory(new Category("n2", Color.RED));
         categoriesModel.addOrModifyCategory(newCategory1);
         categoriesModel.addOrModifyCategory(newCategory2);
-        Set<Category> returnedCategories = categoriesModel.getAllCategories();
+        ArrayList<Category> returnedCategories = categoriesModel.getAllCategories();
 
         // Then
         Assertions.assertEquals(5, returnedCategories.size());
@@ -107,7 +106,7 @@ public class DefaultCategoriesModelTest {
         // Given
         Category c1 = new Category("n1", Color.WHITE);
         Category c2 = new Category("n2", Color.RED);
-        Set<Category> givenCategories = new HashSet<>();
+        ArrayList<Category> givenCategories = new ArrayList<>();
         givenCategories.add(c1);
         givenCategories.add(c2);
         categoriesModel.setCategories(givenCategories);
@@ -117,7 +116,7 @@ public class DefaultCategoriesModelTest {
         c2.setName("N2");
         categoriesModel.addOrModifyCategory(c3);
         categoriesModel.addOrModifyCategory(c2);
-        Set<Category> returnedCategories = categoriesModel.getAllCategories();
+        ArrayList<Category> returnedCategories = categoriesModel.getAllCategories();
 
         // Then
         Assertions.assertTrue(returnedCategories.contains(c1));

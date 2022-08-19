@@ -1,4 +1,4 @@
-package com.github.UniHelper.views.notes;
+package com.github.UniHelper.views.notes.notesOptionsPanel;
 
 import com.github.UniHelper.model.categories.Category;
 import com.github.UniHelper.views.utils.RadioButton;
@@ -12,11 +12,19 @@ public class NotesCategorySelectorButton extends RadioButton {
 
     @Getter
     private final Category category;
+    private final JLabel textLabel;
+    private final JPanel colorPanel;
 
     public NotesCategorySelectorButton(Category category) {
         super();
         this.category = category;
+        textLabel = new JLabel(category.getName());
+        colorPanel = new JPanel();
         setLook();
+    }
+
+    public void updateColor() {
+        colorPanel.setBackground(category.getColor());
     }
 
     private void setLook() {
@@ -24,15 +32,10 @@ public class NotesCategorySelectorButton extends RadioButton {
         fl.setHgap(10);
         fl.setVgap(10);
         setLayout(fl);
-
-        JPanel colorLabel = new JPanel();
-        colorLabel.setBackground(category.getColor());
-        colorLabel.setPreferredSize(new Dimension(50, 50));
-
-        JLabel textLabel = new JLabel(category.getName());
+        colorPanel.setBackground(category.getColor());
+        colorPanel.setPreferredSize(new Dimension(40, 40));
         textLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
-
-        add(colorLabel);
+        add(colorPanel);
         add(textLabel);
     }
 }

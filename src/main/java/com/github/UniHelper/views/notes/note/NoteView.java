@@ -19,4 +19,6 @@ public interface NoteView {
     void setNoteTitle(String title);
 
     void setNoteText(String text);
+
+    void setColor(Color color);
 }

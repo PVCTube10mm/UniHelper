@@ -27,4 +27,9 @@ public class NoteTitlePanel extends JPanel {
     public void addTitleDocumentListener(DocumentListener documentListener) {
         titleTextPane.getDocument().addDocumentListener(documentListener);
     }
+
+    public void setTitleBackground(Color color) {
+        setBackground(color);
+        titleTextPane.setBackground(color);
+    }
 }

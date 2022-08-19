@@ -34,6 +34,10 @@ public class NoteTextPanel extends JPanel {
         text.getDocument().addDocumentListener(documentListener);
     }
 
+    public void setTextBackground(Color color) {
+        text.setBackground(color);
+    }
+
     private void setTextLook() {
         text.setWrapStyleWord(true);
         text.setLineWrap(true);

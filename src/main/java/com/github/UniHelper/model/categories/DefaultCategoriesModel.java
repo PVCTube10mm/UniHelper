@@ -1,11 +1,12 @@
 package com.github.UniHelper.model.categories;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.github.UniHelper.model.utils.ColorJsonDeserializer;
+import com.github.UniHelper.model.utils.ColorJsonSerializer;
 
 import java.awt.*;
 import java.io.File;
@@ -38,7 +39,7 @@ public class DefaultCategoriesModel implements CategoriesModel {
 
     @Override
     public void addOrModifyCategory(Category category) {
-        if(categories.contains(category)){
+        if (categories.contains(category)) {
             return;
         }
         Category categoryWithSameId = findCategoryById(category.getId());
@@ -124,31 +125,12 @@ public class DefaultCategoriesModel implements CategoriesModel {
         ArrayList<Category> deepCopy;
         try {
             deepCopy = categoryMapper
-                    .readValue(categoryMapper.writeValueAsString(originalCategories), new TypeReference<>() {});
+                    .readValue(categoryMapper.writeValueAsString(originalCategories), new TypeReference<>() {
+                    });
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return null;
         }
         return deepCopy;
-    }
-
-    private static class ColorJsonSerializer extends JsonSerializer<Color> {
-
-        @Override
-        public void serialize(Color value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            if (value == null) {
-                gen.writeNull();
-                return;
-            }
-            gen.writeNumber(value.getRGB());
-        }
-    }
-
-    private static class ColorJsonDeserializer extends JsonDeserializer<Color> {
-
-        @Override
-        public Color deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-            return new Color(p.getValueAsInt());
-        }
     }
 }

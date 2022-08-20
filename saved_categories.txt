@@ -9,7 +9,7 @@
 }, {
   "id" : "79df7e2a-820f-4cf9-a093-c92f6b70ac13",
   "name" : "Work",
-  "color" : -10092493
+  "color" : -6750157
 }, {
   "id" : "4421ebc4-3114-48f9-bb9f-31fcfcbbcf9b",
   "name" : "None",

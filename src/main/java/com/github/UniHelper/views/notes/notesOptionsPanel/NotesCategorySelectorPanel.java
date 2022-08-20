@@ -1,8 +1,6 @@
 package com.github.UniHelper.views.notes.notesOptionsPanel;
 
-import com.github.UniHelper.model.categories.CategoriesModel;
 import com.github.UniHelper.model.categories.Category;
-import com.github.UniHelper.model.categories.DefaultCategoriesModel;
 import com.github.UniHelper.presenters.commands.Command;
 import com.github.UniHelper.views.utils.RadioButton;
 import com.github.UniHelper.views.utils.RadioButtonBundle;
@@ -23,6 +21,8 @@ public class NotesCategorySelectorPanel extends JPanel {
 
     @Getter
     private Category activeCategory;
+    @Getter
+    private Color modifiedCategoryColor;
     private ArrayList<Category> categories;
     private ArrayList<RadioButton> selectorButtons;
 
@@ -51,7 +51,7 @@ public class NotesCategorySelectorPanel extends JPanel {
         add(allCategoriesButton);
         add(editCategoryButton);
         allCategoriesButton.setActive(true);
-        radioButtonBundle.addOnActiveButtonChangedCommand(this::executeOnCategoryChangedCommands);
+        radioButtonBundle.addOnActiveButtonChangedCommand(this::changeCategory);
         editCategoryButton.addCommand(this::editCategory);
         editCategoryButton.setEnabled(false);
     }
@@ -63,7 +63,7 @@ public class NotesCategorySelectorPanel extends JPanel {
         setLayout(fl);
     }
 
-    private void executeOnCategoryChangedCommands() {
+    private void changeCategory() {
         if (radioButtonBundle.getActiveButton() == allCategoriesButton) {
             activeCategory = null;
             editCategoryButton.setEnabled(false);
@@ -72,6 +72,10 @@ public class NotesCategorySelectorPanel extends JPanel {
             NotesCategorySelectorButton activeButton = (NotesCategorySelectorButton) radioButtonBundle.getActiveButton();
             activeCategory = activeButton.getCategory();
         }
+        executeOnCategoryChangedCommands();
+    }
+
+    private void executeOnCategoryChangedCommands() {
         for (Command c : onCategoryChangedCommands) {
             c.execute();
         }
@@ -80,11 +84,8 @@ public class NotesCategorySelectorPanel extends JPanel {
     private void editCategory() {
         Color newColor = getColorFromUser();
         if(newColor != null) {
-            CategoriesModel cm = DefaultCategoriesModel.getInstance();
-            cm.addOrModifyCategory(activeCategory);
+            modifiedCategoryColor = newColor;
             activeCategory.setColor(newColor);
-            NotesCategorySelectorButton sb = (NotesCategorySelectorButton) radioButtonBundle.getActiveButton();
-            sb.updateColor();
             executeOnCategoryModifiedCommands();
         }
     }
@@ -100,23 +101,22 @@ public class NotesCategorySelectorPanel extends JPanel {
     private void updateButtons() {
         this.removeAll();
         add(allCategoriesButton);
-        makeButtons();
-        reactivateActiveCategoryButton();
+        createNewButtons();
+        reactivateButtonWithActiveCategory();
         add(editCategoryButton);
         revalidate();
         repaint();
     }
 
-    private void reactivateActiveCategoryButton() {
-        for (RadioButton rb : selectorButtons) {
-            if (rb instanceof NotesCategorySelectorButton) {
-                if (((NotesCategorySelectorButton) rb).getCategory().equals(activeCategory))
-                    radioButtonBundle.setActiveButton(rb);
-            }
-        }
+    private void reactivateButtonWithActiveCategory() {
+        selectorButtons.stream()
+                .filter(rb -> rb != allCategoriesButton)
+                .map(rb -> (NotesCategorySelectorButton) rb)
+                .filter(rb -> rb.getCategory().equals(activeCategory))
+                .forEach(radioButtonBundle::setActiveButton);
     }
 
-    private void makeButtons() {
+    private void createNewButtons() {
         selectorButtons = categories.stream()
                 .map(NotesCategorySelectorButton::new)
                 .collect(Collectors.toCollection(ArrayList::new));

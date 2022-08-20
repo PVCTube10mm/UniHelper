@@ -32,6 +32,16 @@ public class RadioButton extends JPanel {
         initializeLook();
     }
 
+    @Override
+    public void setBackground(Color color) {
+        super.setBackground(color);
+        if (!isBackgroundChangeInternal) {
+            defaultColor = color;
+            hoveredColor = color.brighter();
+            clickedColor = color.brighter().brighter();
+        }
+    }
+
     public void setActive(boolean isActive) {
         this.active = isActive;
         if (isActive) {
@@ -57,16 +67,6 @@ public class RadioButton extends JPanel {
             else {
                 rbl.handleButtonEvent(this);
             }
-        }
-    }
-
-    @Override
-    public void setBackground(Color color) {
-        super.setBackground(color);
-        if (!isBackgroundChangeInternal) {
-            defaultColor = color;
-            hoveredColor = color.brighter();
-            clickedColor = color.brighter().brighter();
         }
     }
 

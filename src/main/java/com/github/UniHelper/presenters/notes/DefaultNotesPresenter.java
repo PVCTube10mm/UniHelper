@@ -22,7 +22,14 @@ public class DefaultNotesPresenter implements NotesPresenter {
         view = notesView;
         model = notesModel;
         addViewCommands();
+        loadCategories();
         loadNotes();
+    }
+
+    private void loadCategories() {
+        CategoriesModel categoriesModel = DefaultCategoriesModel.getInstance();
+        ArrayList<Category> categories = categoriesModel.getAllCategories();
+        view.setCategories(categories);
     }
 
     @Override
@@ -35,6 +42,16 @@ public class DefaultNotesPresenter implements NotesPresenter {
         view.addOnSearchBarUpdateCommand(this::updateSearchedNotes);
         view.addOnNewNoteCommand(this::addNewNote);
         view.addOnCategoryChangedCommand(this::updateSearchedNotes);
+        view.addOnCategoryModifiedCommand(this::updateCategory);
+    }
+
+    private void updateCategory() {
+        Category modifiedCategory = view.getModifiedCategory();
+        CategoriesModel categoriesModel = DefaultCategoriesModel.getInstance();
+        categoriesModel.addOrModifyCategory(modifiedCategory);
+        ArrayList<Category> newCategories = categoriesModel.getAllCategories();
+        view.setCategories(newCategories);
+        updateSearchedNotes();
     }
 
     private void setViewNotes(ArrayList<Note> notes) {

@@ -5,6 +5,8 @@ import com.github.UniHelper.presenters.commands.Command;
 import com.github.UniHelper.views.FeatureView;
 import com.github.UniHelper.views.notes.note.NoteView;
 
+import java.util.ArrayList;
+
 public interface NotesView extends FeatureView {
 
     void addNoteView(NoteView noteView);
@@ -17,9 +19,15 @@ public interface NotesView extends FeatureView {
 
     void addOnSearchBarUpdateCommand(Command command);
 
+    void addOnCategoryModifiedCommand(Command command);
+
     String getSearchBarText();
 
     void clearNotes();
 
     Category getActiveCategory();
+
+    void setCategories(ArrayList<Category> categories);
+
+    Category getModifiedCategory();
 }

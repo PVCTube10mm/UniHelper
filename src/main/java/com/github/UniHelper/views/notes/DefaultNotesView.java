@@ -27,6 +27,7 @@ public class DefaultNotesView implements NotesView, DocumentListener {
     private final ArrayList<Command> onNewNoteCommands;
     private final ArrayList<Command> onSearchBarUpdateCommands;
     private final ArrayList<Command> onCategoryChangedCommands;
+    private final ArrayList<Command> onCategoryModifiedCommands;
 
     public DefaultNotesView(int accessibleWidth) {
         notesMainPanel = new NotesMainPanel();
@@ -38,6 +39,7 @@ public class DefaultNotesView implements NotesView, DocumentListener {
         onNewNoteCommands = new ArrayList<>();
         onSearchBarUpdateCommands = new ArrayList<>();
         onCategoryChangedCommands = new ArrayList<>();
+        onCategoryModifiedCommands = new ArrayList<>();
         newNoteButton = new NewNoteButton();
         assembleView(accessibleWidth);
     }
@@ -57,6 +59,11 @@ public class DefaultNotesView implements NotesView, DocumentListener {
     @Override
     public void addOnSearchBarUpdateCommand(Command command) {
         onSearchBarUpdateCommands.add(command);
+    }
+
+    @Override
+    public void addOnCategoryModifiedCommand(Command command) {
+        onCategoryModifiedCommands.add(command);
     }
 
     @Override
@@ -115,6 +122,16 @@ public class DefaultNotesView implements NotesView, DocumentListener {
         return categorySelectorPanel.getActiveCategory();
     }
 
+    @Override
+    public void setCategories(ArrayList<Category> categories) {
+        categorySelectorPanel.setCategories(categories);
+    }
+
+    @Override
+    public Category getModifiedCategory() {
+        return categorySelectorPanel.getActiveCategory();
+    }
+
     private void assembleView(int accessibleWidth) {
         notesContentPanel.setPreferredSize(new Dimension(accessibleWidth, 0));
         searchBarPanel.add(newNoteButton);
@@ -125,6 +142,7 @@ public class DefaultNotesView implements NotesView, DocumentListener {
         newNoteButton.addCommand(this::executeOnNewNoteCommands);
         searchBarPanel.addSearchBarDocumentListener(this);
         categorySelectorPanel.addOnCategoryChangedCommand(this::executeOnCategoryChangedCommands);
+        categorySelectorPanel.addOnCategoryModifiedCommand(this::executeOnCategoryModifiedCommands);
     }
 
     private Dimension calculateNewContentPanelSize(Dimension noteViewSize) {
@@ -157,6 +175,12 @@ public class DefaultNotesView implements NotesView, DocumentListener {
 
     private void executeOnCategoryChangedCommands() {
         for (Command c : onCategoryChangedCommands) {
+            c.execute();
+        }
+    }
+
+    private void executeOnCategoryModifiedCommands() {
+        for (Command c : onCategoryModifiedCommands) {
             c.execute();
         }
     }

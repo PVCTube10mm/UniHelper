@@ -6,23 +6,23 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class RadioButtonBundle {
+public class RadioButtonBundle implements RadioButtonListener {
 
     @Getter
     private ArrayList<RadioButton> buttons;
     @Getter
     private RadioButton activeButton;
-    private final ArrayList<Command> onCategoryChangedCommands;
+    private final ArrayList<Command> onActiveButtonChangedCommands;
 
 
     public RadioButtonBundle() {
         buttons = new ArrayList<>();
-        onCategoryChangedCommands = new ArrayList<>();
+        onActiveButtonChangedCommands = new ArrayList<>();
         initializeButtonsState();
     }
 
     public RadioButtonBundle(Collection<RadioButton> buttons) {
-        onCategoryChangedCommands = new ArrayList<>();
+        onActiveButtonChangedCommands = new ArrayList<>();
         setButtons(buttons);
     }
 
@@ -31,19 +31,30 @@ public class RadioButtonBundle {
         initializeButtonsState();
     }
 
-    public void addOnCategoryChangedCommand(Command command) {
-        onCategoryChangedCommands.add(command);
+    public void addOnActiveButtonChangedCommand(Command command) {
+        onActiveButtonChangedCommands.add(command);
     }
 
     private void initializeButtonsState() {
         activeButton = null;
         for(RadioButton rb : buttons) {
             rb.setActive(false);
-            rb.addCommand(() -> onButtonClicked(rb));
+            rb.addListener(this);
         }
     }
 
     private void onButtonClicked(RadioButton button) {
+        setActiveButton(button);
+        executeOnActiveButtonChangedCommands();
+    }
+
+    private void executeOnActiveButtonChangedCommands() {
+        for(Command c : onActiveButtonChangedCommands) {
+            c.execute();
+        }
+    }
+
+    public void setActiveButton(RadioButton button) {
         button.setActive(true);
         activeButton = button;
         for(RadioButton rb : buttons) {
@@ -51,12 +62,10 @@ public class RadioButtonBundle {
                 rb.setActive(false);
             }
         }
-        executeOnCategoryChangedCommands();
     }
 
-    private void executeOnCategoryChangedCommands() {
-        for(Command c : onCategoryChangedCommands) {
-            c.execute();
-        }
+    @Override
+    public void handleButtonEvent(RadioButton button) {
+        onButtonClicked(button);
     }
 }

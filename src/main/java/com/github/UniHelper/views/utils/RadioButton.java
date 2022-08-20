@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class RadioButton extends JPanel {
 
@@ -18,12 +19,14 @@ public class RadioButton extends JPanel {
     private Color hoveredColor;
     private Color clickedColor;
     private final ArrayList<Command> commands;
+    private final HashSet<RadioButtonListener> listeners;
     private boolean isBackgroundChangeInternal;
 
     public RadioButton() {
         super();
         active = false;
         commands = new ArrayList<>();
+        listeners = new HashSet<>();
         isBackgroundChangeInternal = false;
         initializeMouseListener();
         initializeLook();
@@ -40,6 +43,21 @@ public class RadioButton extends JPanel {
 
     public void addCommand(Command command) {
         commands.add(command);
+    }
+
+    public void addListener(RadioButtonListener listener) {
+        listeners.add(listener);
+    }
+
+    private void notifyListeners() {
+        for(RadioButtonListener rbl : listeners) {
+            if(rbl == null) {
+                listeners.remove(null);
+            }
+            else {
+                rbl.handleButtonEvent(this);
+            }
+        }
     }
 
     @Override
@@ -70,6 +88,7 @@ public class RadioButton extends JPanel {
             public void mousePressed(final MouseEvent e) {
                 setActive(true);
                 executeCommands();
+                notifyListeners();
                 setBackgroundOnMouseEvent(clickedColor);
             }
 

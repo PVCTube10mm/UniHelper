@@ -28,6 +28,7 @@ public class NoteTextPanel extends JPanel {
 
     public void setText(String text) {
         this.text.setText(text);
+        this.text.setCaretPosition(0);
     }
 
     public void addTextDocumentListener(DocumentListener documentListener) {
@@ -36,6 +37,7 @@ public class NoteTextPanel extends JPanel {
 
     public void setTextBackground(Color color) {
         text.setBackground(color);
+        scrollPane.getVerticalScrollBar().setBackground(color);
     }
 
     private void setTextLook() {
@@ -47,7 +49,6 @@ public class NoteTextPanel extends JPanel {
     }
 
     private void configureScrollbar() {
-        scrollPane.getVerticalScrollBar().setBackground(ColorPalette.BLUE);
         MouseWheelListener defaultListener = scrollPane.getMouseWheelListeners()[0];
         scrollPane.removeMouseWheelListener(defaultListener);
     }

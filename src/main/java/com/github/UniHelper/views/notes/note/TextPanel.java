@@ -7,12 +7,12 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.MouseWheelListener;
 
-public class NoteTextPanel extends JPanel {
+public class TextPanel extends JPanel {
 
     private final JTextArea text;
     private final JScrollPane scrollPane;
 
-    public NoteTextPanel() {
+    public TextPanel() {
         super();
         setLayout(new GridLayout());
         text = new JTextArea();

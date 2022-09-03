@@ -4,11 +4,11 @@ import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 
-public class NoteTitleTextPane extends JTextPane {
+public class TitleTextPane extends JTextPane {
 
     private final int maxNumberOfCharacters;
 
-    public NoteTitleTextPane() {
+    public TitleTextPane() {
         super();
         maxNumberOfCharacters = 20;
         setPreferredSize(new Dimension(280, 50));

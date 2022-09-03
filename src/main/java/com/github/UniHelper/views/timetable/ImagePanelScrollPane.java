@@ -2,9 +2,9 @@ package com.github.UniHelper.views.timetable;
 
 import javax.swing.*;
 
-public class TimetableImagePanelScrollPane extends JScrollPane {
+public class ImagePanelScrollPane extends JScrollPane {
 
-    public TimetableImagePanelScrollPane(JPanel imagePanel) {
+    public ImagePanelScrollPane(JPanel imagePanel) {
         super(imagePanel);
         getVerticalScrollBar().setUnitIncrement(16);
     }

@@ -16,8 +16,8 @@ public class NotesCategorySelectorPanel extends JPanel {
     private final ArrayList<Command> onCategoryChangedCommands;
     private final ArrayList<Command> onCategoryModifiedCommands;
     private final RadioButtonBundle radioButtonBundle;
-    private final NotesEditCategoryButton editCategoryButton;
-    private final NotesAllCategoriesButton allCategoriesButton;
+    private final EditCategoryButton editCategoryButton;
+    private final AllCategoriesButton allCategoriesButton;
 
     @Getter
     private Category activeCategory;
@@ -31,8 +31,8 @@ public class NotesCategorySelectorPanel extends JPanel {
         onCategoryChangedCommands = new ArrayList<>();
         onCategoryModifiedCommands = new ArrayList<>();
         radioButtonBundle = new RadioButtonBundle();
-        editCategoryButton = new NotesEditCategoryButton();
-        allCategoriesButton = new NotesAllCategoriesButton();
+        editCategoryButton = new EditCategoryButton();
+        allCategoriesButton = new AllCategoriesButton();
         activeCategory = null;
         assembleView();
         setLook();
@@ -69,7 +69,7 @@ public class NotesCategorySelectorPanel extends JPanel {
             editCategoryButton.setEnabled(false);
         } else {
             editCategoryButton.setEnabled(true);
-            NotesCategorySelectorButton activeButton = (NotesCategorySelectorButton) radioButtonBundle.getActiveButton();
+            CategorySelectorButton activeButton = (CategorySelectorButton) radioButtonBundle.getActiveButton();
             activeCategory = activeButton.getCategory();
         }
         executeOnCategoryChangedCommands();
@@ -111,14 +111,14 @@ public class NotesCategorySelectorPanel extends JPanel {
     private void reactivateButtonWithActiveCategory() {
         selectorButtons.stream()
                 .filter(rb -> rb != allCategoriesButton)
-                .map(rb -> (NotesCategorySelectorButton) rb)
+                .map(rb -> (CategorySelectorButton) rb)
                 .filter(rb -> rb.getCategory().equals(activeCategory))
                 .forEach(radioButtonBundle::setActiveButton);
     }
 
     private void createNewButtons() {
         selectorButtons = categories.stream()
-                .map(NotesCategorySelectorButton::new)
+                .map(CategorySelectorButton::new)
                 .collect(Collectors.toCollection(ArrayList::new));
         selectorButtons.add(0, allCategoriesButton);
         radioButtonBundle.setButtons(selectorButtons);

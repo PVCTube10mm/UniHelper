@@ -80,7 +80,7 @@ public class DefaultNotesPresenter implements NotesPresenter {
         NoteView noteView = new DefaultNoteView();
         noteView.addOnNoteDeletedCommand(() -> view.removeNoteView(noteView));
         noteView.setColor(getCategoryColor(note.getCategory()));
-        NotePresenter notePresenter = new DefaultNotePresenter(noteView, model, note);
+        NotePresenter notePresenter = new DefaultNotePresenter(noteView, note);
         view.addNoteView(noteView);
     }
 

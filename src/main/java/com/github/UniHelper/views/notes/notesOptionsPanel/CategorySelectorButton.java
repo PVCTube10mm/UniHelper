@@ -8,14 +8,14 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class NotesCategorySelectorButton extends RadioButton {
+public class CategorySelectorButton extends RadioButton {
 
     @Getter
     private final Category category;
     private final JLabel textLabel;
     private final JPanel colorPanel;
 
-    public NotesCategorySelectorButton(Category category) {
+    public CategorySelectorButton(Category category) {
         super();
         this.category = category;
         textLabel = new JLabel(category.getName());

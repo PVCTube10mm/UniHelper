@@ -3,9 +3,9 @@ package com.github.UniHelper.views.notes;
 import javax.swing.*;
 import java.awt.*;
 
-public class NotesMainPanel extends JPanel {
+public class MainPanel extends JPanel {
 
-    public NotesMainPanel() {
+    public MainPanel() {
         super();
         setLayout((new BorderLayout()));
     }

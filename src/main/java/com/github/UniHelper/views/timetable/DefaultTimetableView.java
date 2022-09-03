@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class DefaultTimetableView implements TimetableView {
 
-    private final TimetableMainPanel mainPanel;
-    private final TimetableOptionsPanel optionsPanel;
-    private final TimetableImagePanel imagePanel;
-    private final TimetableImagePanelScrollPane imagePanelScrollPane;
+    private final MainPanel mainPanel;
+    private final OptionsPanel optionsPanel;
+    private final ImagePanel imagePanel;
+    private final ImagePanelScrollPane imagePanelScrollPane;
     private final ArrayList<Command> onTimetableImageUploadedCommands;
     private final ArrayList<Command> onTimetableImageDeletedCommands;
     private final JFileChooser fileChooser;
@@ -24,10 +24,10 @@ public class DefaultTimetableView implements TimetableView {
     private File recentlyUploadedFile;
 
     public DefaultTimetableView() {
-        mainPanel = new TimetableMainPanel();
-        optionsPanel = new TimetableOptionsPanel();
-        imagePanel = new TimetableImagePanel();
-        imagePanelScrollPane = new TimetableImagePanelScrollPane(imagePanel);
+        mainPanel = new MainPanel();
+        optionsPanel = new OptionsPanel();
+        imagePanel = new ImagePanel();
+        imagePanelScrollPane = new ImagePanelScrollPane(imagePanel);
         onTimetableImageUploadedCommands = new ArrayList<>();
         onTimetableImageDeletedCommands = new ArrayList<>();
         fileChooser = new JFileChooser();

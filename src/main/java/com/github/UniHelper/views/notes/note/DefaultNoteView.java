@@ -7,24 +7,24 @@ import java.util.ArrayList;
 
 public class DefaultNoteView implements NoteView {
 
-    private final NoteMainPanel noteMainPanel;
-    private final NoteTitlePanel titlePanel;
-    private final NoteTextPanel textPanel;
-    private final NoteOptionsPanel optionsPanel;
+    private final MainPanel mainPanel;
+    private final TitlePanel titlePanel;
+    private final TextPanel textPanel;
+    private final OptionsPanel optionsPanel;
     private final ArrayList<Command> onNoteDeletedCommands;
 
     public DefaultNoteView() {
-        noteMainPanel = new NoteMainPanel();
-        titlePanel = new NoteTitlePanel();
-        textPanel = new NoteTextPanel();
-        optionsPanel = new NoteOptionsPanel();
+        mainPanel = new MainPanel();
+        titlePanel = new TitlePanel();
+        textPanel = new TextPanel();
+        optionsPanel = new OptionsPanel();
         onNoteDeletedCommands = new ArrayList<>();
         assembleView();
     }
 
     @Override
     public Container getContainer() {
-        return noteMainPanel;
+        return mainPanel;
     }
 
     @Override
@@ -48,18 +48,18 @@ public class DefaultNoteView implements NoteView {
         textPanel.setTextBackground(color);
     }
 
-    public NoteTitlePanel getTitlePanel() {
+    public TitlePanel getTitlePanel() {
         return titlePanel;
     }
 
-    public NoteTextPanel getTextPanel() {
+    public TextPanel getTextPanel() {
         return textPanel;
     }
 
     private void assembleView() {
-        noteMainPanel.add(titlePanel, BorderLayout.NORTH);
-        noteMainPanel.add(textPanel, BorderLayout.CENTER);
-        noteMainPanel.add(optionsPanel, BorderLayout.SOUTH);
+        mainPanel.add(titlePanel, BorderLayout.NORTH);
+        mainPanel.add(textPanel, BorderLayout.CENTER);
+        mainPanel.add(optionsPanel, BorderLayout.SOUTH);
         optionsPanel.addDeleteButtonCommand(this::executeOnNoteDeletedCommands);
     }
 

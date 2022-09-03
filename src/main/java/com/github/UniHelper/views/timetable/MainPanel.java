@@ -3,9 +3,9 @@ package com.github.UniHelper.views.timetable;
 import javax.swing.*;
 import java.awt.*;
 
-public class TimetableMainPanel extends JPanel {
+public class MainPanel extends JPanel {
 
-    public TimetableMainPanel() {
+    public MainPanel() {
         super();
         setLayout(new BorderLayout());
     }

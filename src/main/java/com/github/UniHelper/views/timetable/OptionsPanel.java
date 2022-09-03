@@ -7,12 +7,12 @@ import com.github.UniHelper.views.utils.NamedButton;
 import javax.swing.*;
 import java.awt.*;
 
-public class TimetableOptionsPanel extends JPanel {
+public class OptionsPanel extends JPanel {
 
     private final NamedButton uploadTimetableButton;
     private final NamedButton deleteTimetableButton;
 
-    public TimetableOptionsPanel() {
+    public OptionsPanel() {
         super();
         uploadTimetableButton = new NamedButton("upload timetable image");
         deleteTimetableButton = new NamedButton("delete timetable");

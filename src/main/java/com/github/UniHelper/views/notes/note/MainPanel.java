@@ -4,9 +4,9 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public class NoteMainPanel extends JPanel {
+public class MainPanel extends JPanel {
 
-    public NoteMainPanel() {
+    public MainPanel() {
         super();
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 300));

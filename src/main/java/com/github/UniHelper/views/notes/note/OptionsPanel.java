@@ -7,12 +7,12 @@ import com.github.UniHelper.views.utils.NamedButton;
 import javax.swing.*;
 import java.awt.*;
 
-public class NoteOptionsPanel extends JPanel {
+public class OptionsPanel extends JPanel {
 
     private final NamedButton deleteButton;
     private final NamedButton editButton;
 
-    public NoteOptionsPanel() {
+    public OptionsPanel() {
         super();
         deleteButton = new NamedButton("delete");
         editButton = new NamedButton("edit");

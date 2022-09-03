@@ -4,13 +4,13 @@ import javax.swing.*;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 
-public class NoteTitlePanel extends JPanel {
+public class TitlePanel extends JPanel {
 
     private final JTextPane titleTextPane;
 
-    public NoteTitlePanel() {
+    public TitlePanel() {
         super();
-        titleTextPane = new NoteTitleTextPane();
+        titleTextPane = new TitleTextPane();
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(0, 50));
         add(titleTextPane);

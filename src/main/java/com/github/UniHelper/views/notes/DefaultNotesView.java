@@ -3,11 +3,11 @@ package com.github.UniHelper.views.notes;
 import com.github.UniHelper.model.categories.Category;
 import com.github.UniHelper.presenters.commands.Command;
 import com.github.UniHelper.views.notes.note.NoteView;
-import com.github.UniHelper.views.notes.notesContentPanel.NotesContentPanel;
-import com.github.UniHelper.views.notes.notesContentPanel.NotesContentScrollPane;
+import com.github.UniHelper.views.notes.notesContentPanel.ContentPanel;
+import com.github.UniHelper.views.notes.notesContentPanel.ContentScrollPane;
 import com.github.UniHelper.views.notes.notesOptionsPanel.NotesCategorySelectorPanel;
-import com.github.UniHelper.views.notes.notesOptionsPanel.NotesOptionsPanel;
-import com.github.UniHelper.views.notes.notesOptionsPanel.NotesSearchBarPanel;
+import com.github.UniHelper.views.notes.notesOptionsPanel.OptionsPanel;
+import com.github.UniHelper.views.notes.notesOptionsPanel.SearchBarPanel;
 import com.github.UniHelper.views.utils.NamedButton;
 
 import javax.swing.event.DocumentEvent;
@@ -17,12 +17,12 @@ import java.util.ArrayList;
 
 public class DefaultNotesView implements NotesView, DocumentListener {
 
-    private final NotesMainPanel notesMainPanel;
-    private final NotesOptionsPanel notesOptionsPanel;
-    private final NotesSearchBarPanel searchBarPanel;
+    private final MainPanel mainPanel;
+    private final OptionsPanel optionsPanel;
+    private final SearchBarPanel searchBarPanel;
     private final NotesCategorySelectorPanel categorySelectorPanel;
-    private final NotesContentPanel notesContentPanel;
-    private final NotesContentScrollPane notesContentScrollPane;
+    private final ContentPanel contentPanel;
+    private final ContentScrollPane contentScrollPane;
     private final NamedButton newNoteButton;
     private final ArrayList<Command> onNewNoteCommands;
     private final ArrayList<Command> onSearchBarUpdateCommands;
@@ -30,12 +30,12 @@ public class DefaultNotesView implements NotesView, DocumentListener {
     private final ArrayList<Command> onCategoryModifiedCommands;
 
     public DefaultNotesView(int accessibleWidth) {
-        notesMainPanel = new NotesMainPanel();
-        notesContentPanel = new NotesContentPanel();
-        notesOptionsPanel = new NotesOptionsPanel();
-        searchBarPanel = new NotesSearchBarPanel();
+        mainPanel = new MainPanel();
+        contentPanel = new ContentPanel();
+        optionsPanel = new OptionsPanel();
+        searchBarPanel = new SearchBarPanel();
         categorySelectorPanel = new NotesCategorySelectorPanel();
-        notesContentScrollPane = new NotesContentScrollPane(notesContentPanel);
+        contentScrollPane = new ContentScrollPane(contentPanel);
         onNewNoteCommands = new ArrayList<>();
         onSearchBarUpdateCommands = new ArrayList<>();
         onCategoryChangedCommands = new ArrayList<>();
@@ -46,9 +46,9 @@ public class DefaultNotesView implements NotesView, DocumentListener {
 
     @Override
     public void addNoteView(NoteView noteView) {
-        notesContentPanel.add(noteView.getContainer(), 0);
+        contentPanel.add(noteView.getContainer(), 0);
         Dimension newNoteSize = noteView.getContainer().getPreferredSize();
-        notesContentPanel.setPreferredSize(calculateNewContentPanelSize(newNoteSize));
+        contentPanel.setPreferredSize(calculateNewContentPanelSize(newNoteSize));
     }
 
     @Override
@@ -73,11 +73,11 @@ public class DefaultNotesView implements NotesView, DocumentListener {
 
     @Override
     public void removeNoteView(NoteView noteView) {
-        notesContentPanel.remove(noteView.getContainer());
+        contentPanel.remove(noteView.getContainer());
         Dimension newNoteSize = noteView.getContainer().getPreferredSize();
-        notesContentPanel.setPreferredSize(calculateNewContentPanelSize(newNoteSize));
-        notesContentPanel.revalidate();
-        notesContentPanel.repaint();
+        contentPanel.setPreferredSize(calculateNewContentPanelSize(newNoteSize));
+        contentPanel.revalidate();
+        contentPanel.repaint();
     }
 
     @Override
@@ -92,7 +92,7 @@ public class DefaultNotesView implements NotesView, DocumentListener {
 
     @Override
     public Container getContainer() {
-        return notesMainPanel;
+        return mainPanel;
     }
 
     @Override
@@ -112,9 +112,9 @@ public class DefaultNotesView implements NotesView, DocumentListener {
 
     @Override
     public void clearNotes() {
-        notesContentPanel.removeAll();
-        notesContentPanel.revalidate();
-        notesContentPanel.repaint();
+        contentPanel.removeAll();
+        contentPanel.revalidate();
+        contentPanel.repaint();
     }
 
     @Override
@@ -133,12 +133,12 @@ public class DefaultNotesView implements NotesView, DocumentListener {
     }
 
     private void assembleView(int accessibleWidth) {
-        notesContentPanel.setPreferredSize(new Dimension(accessibleWidth, 0));
+        contentPanel.setPreferredSize(new Dimension(accessibleWidth, 0));
         searchBarPanel.add(newNoteButton);
-        notesOptionsPanel.add(searchBarPanel, BorderLayout.NORTH);
-        notesOptionsPanel.add(categorySelectorPanel, BorderLayout.CENTER);
-        notesMainPanel.add(notesOptionsPanel, BorderLayout.NORTH);
-        notesMainPanel.add(notesContentScrollPane, BorderLayout.CENTER);
+        optionsPanel.add(searchBarPanel, BorderLayout.NORTH);
+        optionsPanel.add(categorySelectorPanel, BorderLayout.CENTER);
+        mainPanel.add(optionsPanel, BorderLayout.NORTH);
+        mainPanel.add(contentScrollPane, BorderLayout.CENTER);
         newNoteButton.addCommand(this::executeOnNewNoteCommands);
         searchBarPanel.addSearchBarDocumentListener(this);
         categorySelectorPanel.addOnCategoryChangedCommand(this::executeOnCategoryChangedCommands);
@@ -146,18 +146,18 @@ public class DefaultNotesView implements NotesView, DocumentListener {
     }
 
     private Dimension calculateNewContentPanelSize(Dimension noteViewSize) {
-        int numberOfNotes = notesContentPanel.getComponents().length;
-        double contentWidth = notesContentPanel.getPreferredSize().getWidth();
+        int numberOfNotes = contentPanel.getComponents().length;
+        double contentWidth = contentPanel.getPreferredSize().getWidth();
         int numberOfColumns = (int) Math.floor(contentWidth / noteViewSize.getWidth());
         int numberOfRows = (int) Math.ceil((double) numberOfNotes / (double) numberOfColumns);
         int verticalPadding = getVerticalContentPadding();
-        int newWidth = (int) notesContentPanel.getPreferredSize().getWidth();
+        int newWidth = (int) contentPanel.getPreferredSize().getWidth();
         int newHeight = (int) (numberOfRows * (noteViewSize.getHeight() + verticalPadding) + verticalPadding);
         return new Dimension(newWidth, newHeight);
     }
 
     private int getVerticalContentPadding() {
-        FlowLayout fl = (FlowLayout) notesContentPanel.getLayout();
+        FlowLayout fl = (FlowLayout) contentPanel.getLayout();
         return fl.getVgap();
     }
 

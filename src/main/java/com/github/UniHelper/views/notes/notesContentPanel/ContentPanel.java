@@ -3,9 +3,9 @@ package com.github.UniHelper.views.notes.notesContentPanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class NotesContentPanel extends JPanel {
+public class ContentPanel extends JPanel {
 
-    public NotesContentPanel() {
+    public ContentPanel() {
         super();
         setBackground(Color.DARK_GRAY.darker());
         setLayout(new FlowLayout(FlowLayout.LEFT));

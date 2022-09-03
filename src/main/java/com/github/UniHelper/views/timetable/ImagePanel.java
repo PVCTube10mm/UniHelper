@@ -4,11 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class TimetableImagePanel extends JPanel {
+public class ImagePanel extends JPanel {
 
     private final JLabel imageContainerLabel;
 
-    public TimetableImagePanel() {
+    public ImagePanel() {
         super();
         setLayout(new BorderLayout());
         setBackground(Color.DARK_GRAY.darker());

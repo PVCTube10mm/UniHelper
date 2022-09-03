@@ -2,9 +2,9 @@ package com.github.UniHelper.views.notes.notesContentPanel;
 
 import javax.swing.*;
 
-public class NotesContentScrollPane extends JScrollPane {
+public class ContentScrollPane extends JScrollPane {
 
-    public NotesContentScrollPane(JPanel notesPanel) {
+    public ContentScrollPane(JPanel notesPanel) {
         super(notesPanel);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

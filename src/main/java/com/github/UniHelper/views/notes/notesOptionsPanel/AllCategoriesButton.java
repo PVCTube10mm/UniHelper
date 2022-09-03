@@ -5,9 +5,9 @@ import com.github.UniHelper.views.utils.RadioButton;
 import javax.swing.*;
 import java.awt.*;
 
-public class NotesAllCategoriesButton extends RadioButton {
+public class AllCategoriesButton extends RadioButton {
 
-    public NotesAllCategoriesButton() {
+    public AllCategoriesButton() {
         setPreferredSize(new Dimension(120,62));
         FlowLayout fl = new FlowLayout();
         fl.setVgap(13);

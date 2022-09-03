@@ -1,6 +1,5 @@
 package com.github.UniHelper.views.utils;
 
-import com.github.UniHelper.presenters.commands.Command;
 import lombok.Getter;
 
 import javax.swing.*;
@@ -8,26 +7,26 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class RadioButton extends JPanel {
 
+    private final HashSet<RadioButtonListener> listeners;
+
     @Getter
-    private boolean active;
     private Color defaultColor;
     private Color hoveredColor;
     private Color clickedColor;
-    private final ArrayList<Command> commands;
-    private final HashSet<RadioButtonListener> listeners;
-    private boolean isBackgroundChangeInternal;
+    @Getter
+    private boolean active;
+    @Getter
+    private boolean backgroundChangeInternal;
 
     public RadioButton() {
         super();
-        active = false;
-        commands = new ArrayList<>();
         listeners = new HashSet<>();
-        isBackgroundChangeInternal = false;
+        active = false;
+        backgroundChangeInternal = false;
         initializeMouseListener();
         initializeLook();
     }
@@ -35,7 +34,7 @@ public class RadioButton extends JPanel {
     @Override
     public void setBackground(Color color) {
         super.setBackground(color);
-        if (!isBackgroundChangeInternal) {
+        if (!isBackgroundChangeInternal()) {
             defaultColor = color;
             hoveredColor = color.brighter();
             clickedColor = color.brighter().brighter();
@@ -51,23 +50,8 @@ public class RadioButton extends JPanel {
         }
     }
 
-    public void addCommand(Command command) {
-        commands.add(command);
-    }
-
     public void addListener(RadioButtonListener listener) {
         listeners.add(listener);
-    }
-
-    private void notifyListeners() {
-        for(RadioButtonListener rbl : listeners) {
-            if(rbl == null) {
-                listeners.remove(null);
-            }
-            else {
-                rbl.handleButtonEvent(this);
-            }
-        }
     }
 
     private void initializeLook() {
@@ -75,21 +59,16 @@ public class RadioButton extends JPanel {
         setBackground(Color.DARK_GRAY.darker().darker());
     }
 
-    private void executeCommands() {
-        for (Command c : commands) {
-            c.execute();
-        }
-    }
-
     private void initializeMouseListener() {
         addMouseListener(new MouseAdapter() {
 
             @Override
             public void mousePressed(final MouseEvent e) {
-                setActive(true);
-                executeCommands();
-                notifyListeners();
-                setBackgroundOnMouseEvent(clickedColor);
+                if(!active) {
+                    setActive(true);
+                    notifyListeners();
+                    setBackgroundOnMouseEvent(clickedColor);
+                }
             }
 
             @Override
@@ -108,9 +87,20 @@ public class RadioButton extends JPanel {
         });
     }
 
+    private void notifyListeners() {
+        for(RadioButtonListener rbl : listeners) {
+            if(rbl == null) {
+                listeners.remove(null);
+            }
+            else {
+                rbl.handleButtonEvent(this);
+            }
+        }
+    }
+
     private void setBackgroundOnMouseEvent(Color color) {
-        isBackgroundChangeInternal = true;
+        backgroundChangeInternal = true;
         setBackground(color);
-        isBackgroundChangeInternal = false;
+        backgroundChangeInternal = false;
     }
 }

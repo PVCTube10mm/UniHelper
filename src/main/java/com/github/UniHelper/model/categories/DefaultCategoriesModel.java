@@ -21,8 +21,8 @@ public class DefaultCategoriesModel implements CategoriesModel {
     private static volatile DefaultCategoriesModel instance;
 
     private final String saveFileName;
-    private ArrayList<Category> categories;
     private final ObjectMapper categoryMapper;
+    private ArrayList<Category> categories;
 
     public static DefaultCategoriesModel getInstance() {
         DefaultCategoriesModel result = instance;
@@ -71,9 +71,9 @@ public class DefaultCategoriesModel implements CategoriesModel {
     }
 
     private DefaultCategoriesModel() {
-        categories = new ArrayList<>();
         saveFileName = "saved_categories.txt";
         categoryMapper = new ObjectMapper();
+        categories = new ArrayList<>();
         addSerializersToMapper();
         load();
     }
@@ -83,13 +83,6 @@ public class DefaultCategoriesModel implements CategoriesModel {
         awtModule.addSerializer(Color.class, new ColorJsonSerializer());
         awtModule.addDeserializer(Color.class, new ColorJsonDeserializer());
         categoryMapper.registerModule(awtModule);
-    }
-
-    private Category findCategoryById(UUID id) {
-        return categories.stream()
-                .filter(c -> c.getId().equals(id))
-                .findFirst()
-                .orElse(null);
     }
 
     private void load() {
@@ -111,6 +104,18 @@ public class DefaultCategoriesModel implements CategoriesModel {
         }
     }
 
+    private ArrayList<Category> getDeepCategoriesCopy(ArrayList<Category> originalCategories) {
+        ArrayList<Category> deepCopy;
+        try {
+            deepCopy = categoryMapper
+                    .readValue(categoryMapper.writeValueAsString(originalCategories), new TypeReference<>() {});
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return deepCopy;
+    }
+
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void createNewSaveFile() {
         try {
@@ -121,16 +126,10 @@ public class DefaultCategoriesModel implements CategoriesModel {
         }
     }
 
-    private ArrayList<Category> getDeepCategoriesCopy(ArrayList<Category> originalCategories) {
-        ArrayList<Category> deepCopy;
-        try {
-            deepCopy = categoryMapper
-                    .readValue(categoryMapper.writeValueAsString(originalCategories), new TypeReference<>() {
-                    });
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
-        }
-        return deepCopy;
+    private Category findCategoryById(UUID id) {
+        return categories.stream()
+                .filter(c -> c.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 }

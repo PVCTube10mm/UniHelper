@@ -2,18 +2,15 @@ package com.github.UniHelper.views.notes.note;
 
 import com.github.UniHelper.presenters.commands.Command;
 
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class DefaultNoteView implements NoteView, DocumentListener {
+public class DefaultNoteView implements NoteView {
 
     private final NoteMainPanel noteMainPanel;
     private final NoteTitlePanel titlePanel;
     private final NoteTextPanel textPanel;
     private final NoteOptionsPanel optionsPanel;
-    private final ArrayList<Command> onNoteModifiedCommands;
     private final ArrayList<Command> onNoteDeletedCommands;
 
     public DefaultNoteView() {
@@ -21,7 +18,6 @@ public class DefaultNoteView implements NoteView, DocumentListener {
         titlePanel = new NoteTitlePanel();
         textPanel = new NoteTextPanel();
         optionsPanel = new NoteOptionsPanel();
-        onNoteModifiedCommands = new ArrayList<>();
         onNoteDeletedCommands = new ArrayList<>();
         assembleView();
     }
@@ -32,23 +28,8 @@ public class DefaultNoteView implements NoteView, DocumentListener {
     }
 
     @Override
-    public void addOnNoteModifiedCommand(Command command) {
-        onNoteModifiedCommands.add(command);
-    }
-
-    @Override
     public void addOnNoteDeletedCommand(Command command) {
         onNoteDeletedCommands.add(command);
-    }
-
-    @Override
-    public String getNoteText() {
-        return textPanel.getText();
-    }
-
-    @Override
-    public String getNoteTitle() {
-        return titlePanel.getTitle();
     }
 
     @Override
@@ -67,19 +48,12 @@ public class DefaultNoteView implements NoteView, DocumentListener {
         textPanel.setTextBackground(color);
     }
 
-    @Override
-    public void insertUpdate(DocumentEvent e) {
-        changedUpdate(e);
+    public NoteTitlePanel getTitlePanel() {
+        return titlePanel;
     }
 
-    @Override
-    public void removeUpdate(DocumentEvent e) {
-        changedUpdate(e);
-    }
-
-    @Override
-    public void changedUpdate(DocumentEvent e) {
-        executeOnNoteModifiedCommands();
+    public NoteTextPanel getTextPanel() {
+        return textPanel;
     }
 
     private void assembleView() {
@@ -87,14 +61,6 @@ public class DefaultNoteView implements NoteView, DocumentListener {
         noteMainPanel.add(textPanel, BorderLayout.CENTER);
         noteMainPanel.add(optionsPanel, BorderLayout.SOUTH);
         optionsPanel.addDeleteButtonCommand(this::executeOnNoteDeletedCommands);
-        titlePanel.addTitleDocumentListener(this);
-        textPanel.addTextDocumentListener(this);
-    }
-
-    private void executeOnNoteModifiedCommands() {
-        for (Command c : onNoteModifiedCommands) {
-            c.execute();
-        }
     }
 
     private void executeOnNoteDeletedCommands() {

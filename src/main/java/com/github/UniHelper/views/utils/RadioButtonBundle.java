@@ -8,16 +8,15 @@ import java.util.Collection;
 
 public class RadioButtonBundle implements RadioButtonListener {
 
+    private final ArrayList<Command> onActiveButtonChangedCommands;
     @Getter
     private ArrayList<RadioButton> buttons;
     @Getter
     private RadioButton activeButton;
-    private final ArrayList<Command> onActiveButtonChangedCommands;
-
 
     public RadioButtonBundle() {
-        buttons = new ArrayList<>();
         onActiveButtonChangedCommands = new ArrayList<>();
+        buttons = new ArrayList<>();
         initializeButtonsState();
     }
 

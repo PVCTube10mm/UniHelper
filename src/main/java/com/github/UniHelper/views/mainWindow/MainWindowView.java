@@ -7,15 +7,15 @@ import java.awt.*;
 
 public interface MainWindowView {
 
-    void showFeature(String featureName);
-
     void show();
 
+    void showFeature(String featureName);
+
     void addFeatureView(FeatureView featureView);
+
+    Dimension getFeaturePanelSize();
 
     void addOnCloseCommand(Command command);
 
     void addOnFeatureChangeCommand(Command command);
-
-    Dimension getFeaturePanelSize();
 }

@@ -21,6 +21,11 @@ public class DefaultTimetableModel implements TimetableModel {
     }
 
     @Override
+    public BufferedImage getTimetableImage() {
+        return timetableImage;
+    }
+
+    @Override
     public void setTimetableImage(BufferedImage timetableImage) {
         this.timetableImage = timetableImage;
         if (timetableImage != null) {
@@ -37,11 +42,6 @@ public class DefaultTimetableModel implements TimetableModel {
             saveFile.delete();
         }
         timetableImage = null;
-    }
-
-    @Override
-    public BufferedImage getTimetableImage() {
-        return timetableImage;
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")

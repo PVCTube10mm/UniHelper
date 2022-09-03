@@ -21,16 +21,9 @@ public class DefaultNotePresenter implements NotePresenter {
 
     private void setViewCommands() {
         view.addOnNoteDeletedCommand(this::deleteNote);
-        view.addOnNoteModifiedCommand(this::updateUserChanges);
     }
 
     private void deleteNote() {
         model.deleteNote(note);
-    }
-
-    private void updateUserChanges() {
-        note.setTitle(view.getNoteTitle());
-        note.setText(view.getNoteText());
-        model.updateNote(note);
     }
 }

@@ -34,8 +34,7 @@ public class DefaultMainWindowPresenter implements MainWindowPresenter {
     private void initializeNotes() {
         int accessibleWidth = view.getFeaturePanelSize().width;
         NotesView notesView = new DefaultNotesView(accessibleWidth);
-        NotesModel notesModel = new DefaultNotesModel();
-        NotesPresenter notesPresenter = new DefaultNotesPresenter(notesView, notesModel);
+        NotesPresenter notesPresenter = new DefaultNotesPresenter(notesView);
         view.addFeatureView(notesView);
     }
 

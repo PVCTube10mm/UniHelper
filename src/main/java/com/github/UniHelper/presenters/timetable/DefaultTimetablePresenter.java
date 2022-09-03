@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class DefaultTimetablePresenter implements TimetablePresenter {
+
     private final TimetableView view;
     private final TimetableModel model;
 

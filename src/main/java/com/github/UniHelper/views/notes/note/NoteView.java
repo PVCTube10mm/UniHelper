@@ -8,13 +8,7 @@ public interface NoteView {
 
     Container getContainer();
 
-    void addOnNoteModifiedCommand(Command command);
-
     void addOnNoteDeletedCommand(Command command);
-
-    String getNoteText();
-
-    String getNoteTitle();
 
     void setNoteTitle(String title);
 

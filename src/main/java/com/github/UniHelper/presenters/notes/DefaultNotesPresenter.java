@@ -3,6 +3,7 @@ package com.github.UniHelper.presenters.notes;
 import com.github.UniHelper.model.categories.CategoriesModel;
 import com.github.UniHelper.model.categories.Category;
 import com.github.UniHelper.model.categories.DefaultCategoriesModel;
+import com.github.UniHelper.model.notes.DefaultNotesModel;
 import com.github.UniHelper.model.notes.Note;
 import com.github.UniHelper.model.notes.NotesModel;
 import com.github.UniHelper.views.notes.NotesView;
@@ -18,12 +19,17 @@ public class DefaultNotesPresenter implements NotesPresenter {
     private final NotesView view;
     private final NotesModel model;
 
-    public DefaultNotesPresenter(NotesView notesView, NotesModel notesModel) {
+    public DefaultNotesPresenter(NotesView notesView) {
         view = notesView;
-        model = notesModel;
-        addViewCommands();
-        loadCategories();
+        model = DefaultNotesModel.getInstance();
         loadNotes();
+        loadCategories();
+        addViewCommands();
+    }
+
+    public void loadNotes() {
+        ArrayList<Note> notes = model.getAllNotes();
+        setViewNotes(notes);
     }
 
     private void loadCategories() {
@@ -32,26 +38,11 @@ public class DefaultNotesPresenter implements NotesPresenter {
         view.setCategories(categories);
     }
 
-    @Override
-    public void loadNotes() {
-        ArrayList<Note> notes = model.getAllNotes();
-        setViewNotes(notes);
-    }
-
     private void addViewCommands() {
-        view.addOnSearchBarUpdateCommand(this::updateSearchedNotes);
         view.addOnNewNoteCommand(this::addNewNote);
+        view.addOnSearchBarUpdateCommand(this::updateSearchedNotes);
         view.addOnCategoryChangedCommand(this::updateSearchedNotes);
         view.addOnCategoryModifiedCommand(this::updateCategory);
-    }
-
-    private void updateCategory() {
-        Category modifiedCategory = view.getModifiedCategory();
-        CategoriesModel categoriesModel = DefaultCategoriesModel.getInstance();
-        categoriesModel.addOrModifyCategory(modifiedCategory);
-        ArrayList<Category> newCategories = categoriesModel.getAllCategories();
-        view.setCategories(newCategories);
-        updateSearchedNotes();
     }
 
     private void setViewNotes(ArrayList<Note> notes) {
@@ -59,6 +50,12 @@ public class DefaultNotesPresenter implements NotesPresenter {
         for (Note n : notes) {
             addNoteToView(n);
         }
+    }
+
+    private void addNewNote() {
+        Note newNote = new Note("New note", "", Category.NONE.getName());
+        model.addNote(newNote);
+        addNoteToView(newNote);
     }
 
     private void updateSearchedNotes() {
@@ -70,10 +67,13 @@ public class DefaultNotesPresenter implements NotesPresenter {
         setViewNotes(notesMatchingPatternAndCategory);
     }
 
-    private void addNewNote() {
-        Note newNote = new Note("New note", "", Category.NONE.getName());
-        model.addNote(newNote);
-        addNoteToView(newNote);
+    private void updateCategory() {
+        Category modifiedCategory = view.getModifiedCategory();
+        CategoriesModel categoriesModel = DefaultCategoriesModel.getInstance();
+        categoriesModel.addOrModifyCategory(modifiedCategory);
+        ArrayList<Category> newCategories = categoriesModel.getAllCategories();
+        view.setCategories(newCategories);
+        updateSearchedNotes();
     }
 
     private void addNoteToView(Note note) {

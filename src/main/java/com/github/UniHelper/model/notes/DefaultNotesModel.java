@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.github.UniHelper.model.categories.DefaultCategoriesModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,14 +13,23 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class DefaultNotesModel implements NotesModel {
+
+    private static volatile DefaultNotesModel instance;
     
     private final String saveFileName;
     private ArrayList<Note> notes;
 
-    public DefaultNotesModel() {
-        notes = new ArrayList<>();
-        saveFileName = "saved_notes.txt";
-        load();
+    public static DefaultNotesModel getInstance() {
+        DefaultNotesModel result = instance;
+        if (result != null) {
+            return result;
+        }
+        synchronized (DefaultNotesModel.class) {
+            if (instance == null) {
+                instance = new DefaultNotesModel();
+            }
+            return instance;
+        }
     }
 
     @Override
@@ -63,6 +73,12 @@ public class DefaultNotesModel implements NotesModel {
         save();
     }
 
+    private DefaultNotesModel() {
+        saveFileName = "saved_notes.txt";
+        notes = new ArrayList<>();
+        load();
+    }
+
     private void load() {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -83,16 +99,6 @@ public class DefaultNotesModel implements NotesModel {
         }
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void createNewSaveFile() {
-        try {
-            File f = new File(saveFileName);
-            f.createNewFile();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private ArrayList<Note> getDeepNotesCopy(ArrayList<Note> originalNotes) {
         ArrayList<Note> deepCopy;
         try {
@@ -104,5 +110,15 @@ public class DefaultNotesModel implements NotesModel {
             return null;
         }
         return deepCopy;
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private void createNewSaveFile() {
+        try {
+            File f = new File(saveFileName);
+            f.createNewFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

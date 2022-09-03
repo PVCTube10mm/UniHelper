@@ -12,7 +12,7 @@ class DefaultNotesModelTest {
 
     @BeforeEach
     void create_model() {
-        notesModel = new DefaultNotesModel();
+        notesModel = DefaultNotesModel.getInstance();
     }
 
     @Test

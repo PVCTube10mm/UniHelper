@@ -16,16 +16,16 @@ public class Note {
     private String category;
 
     public Note(String title, String text, String category) {
+        id = UUID.randomUUID();
         this.title = title;
         this.text = text;
         this.category = category;
-        id = UUID.randomUUID();
     }
 
     public Note(Note note) {
+        id = note.getId();
         title = note.getTitle();
         text = note.getText();
         category = note.category;
-        id = note.getId();
     }
 }

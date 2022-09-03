@@ -18,9 +18,9 @@ public class Category {
     private Color color;
 
     public Category(String name, Color color) {
+        id = UUID.randomUUID();
         this.name = name;
         this.color = color;
-        id = UUID.randomUUID();
     }
 
     public Category(Category category) {

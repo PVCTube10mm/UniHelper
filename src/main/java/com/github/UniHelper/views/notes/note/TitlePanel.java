@@ -32,4 +32,8 @@ public class TitlePanel extends JPanel {
         setBackground(color);
         titleTextPane.setBackground(color);
     }
+
+    public void setEditable(boolean editable) {
+        titleTextPane.setEditable(editable);
+    }
 }

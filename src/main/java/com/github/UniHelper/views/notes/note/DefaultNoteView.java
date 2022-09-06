@@ -12,6 +12,8 @@ public class DefaultNoteView implements NoteView {
     private final TextPanel textPanel;
     private final OptionsPanel optionsPanel;
     private final ArrayList<Command> onNoteDeletedCommands;
+    private final ArrayList<Command> onNoteModifiedCommands;
+    private final ArrayList<Command> onEditModeActivatedCommands;
 
     public DefaultNoteView() {
         mainPanel = new MainPanel();
@@ -19,6 +21,8 @@ public class DefaultNoteView implements NoteView {
         textPanel = new TextPanel();
         optionsPanel = new OptionsPanel();
         onNoteDeletedCommands = new ArrayList<>();
+        onNoteModifiedCommands = new ArrayList<>();
+        onEditModeActivatedCommands = new ArrayList<>();
         assembleView();
     }
 
@@ -33,8 +37,23 @@ public class DefaultNoteView implements NoteView {
     }
 
     @Override
+    public void addOnNoteModifiedCommand(Command command) {
+        onNoteModifiedCommands.add(command);
+    }
+
+    @Override
+    public void addOnEditModeActivatedCommand(Command command) {
+        onEditModeActivatedCommands.add(command);
+    }
+
+    @Override
     public void setNoteTitle(String title) {
         titlePanel.setTitle(title);
+    }
+
+    @Override
+    public String getNoteTitle() {
+        return titlePanel.getTitle();
     }
 
     @Override
@@ -43,17 +62,21 @@ public class DefaultNoteView implements NoteView {
     }
 
     @Override
+    public String getNoteText() {
+        return textPanel.getText();
+    }
+
+    @Override
     public void setColor(Color color) {
         titlePanel.setTitleBackground(color.darker().darker());
         textPanel.setTextBackground(color);
     }
 
-    public TitlePanel getTitlePanel() {
-        return titlePanel;
-    }
+    @Override
+    public void setEditable(boolean editable) {
+        textPanel.setEditable(editable);
+        titlePanel.setEditable(editable);
 
-    public TextPanel getTextPanel() {
-        return textPanel;
     }
 
     private void assembleView() {
@@ -61,10 +84,36 @@ public class DefaultNoteView implements NoteView {
         mainPanel.add(textPanel, BorderLayout.CENTER);
         mainPanel.add(optionsPanel, BorderLayout.SOUTH);
         optionsPanel.addDeleteButtonCommand(this::executeOnNoteDeletedCommands);
+        optionsPanel.addEditButtonCommand(this::onEditButtonClicked);
+    }
+
+    private void onEditButtonClicked() {
+        boolean editModeActive = optionsPanel.isEditModeActive();
+        if(editModeActive) {
+            executeOnNoteModifiedCommands();
+        }
+        else {
+            executeOnEditModeActivatedCommands();
+        }
+        titlePanel.setEditable(!editModeActive);
+        textPanel.setEditable(!editModeActive);
+        optionsPanel.setEditModeActive(!editModeActive);
     }
 
     private void executeOnNoteDeletedCommands() {
         for (Command c : onNoteDeletedCommands) {
+            c.execute();
+        }
+    }
+
+    private void executeOnNoteModifiedCommands() {
+        for (Command c : onNoteModifiedCommands) {
+            c.execute();
+        }
+    }
+
+    private void executeOnEditModeActivatedCommands() {
+        for (Command c : onEditModeActivatedCommands) {
             c.execute();
         }
     }

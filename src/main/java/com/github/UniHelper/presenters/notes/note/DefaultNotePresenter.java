@@ -1,4 +1,4 @@
-package com.github.UniHelper.presenters.notes;
+package com.github.UniHelper.presenters.notes.note;
 
 import com.github.UniHelper.model.notes.DefaultNotesModel;
 import com.github.UniHelper.model.notes.Note;
@@ -22,9 +22,16 @@ public class DefaultNotePresenter implements NotePresenter {
 
     private void setViewCommands() {
         view.addOnNoteDeletedCommand(this::deleteNote);
+        view.addOnNoteModifiedCommand(this::updateNote);
     }
 
     private void deleteNote() {
         model.deleteNote(note);
+    }
+
+    private void updateNote() {
+        note.setTitle(view.getNoteTitle());
+        note.setText(view.getNoteText());
+        model.updateNoteWithSameID(note);
     }
 }

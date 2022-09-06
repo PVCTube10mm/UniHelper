@@ -1,4 +1,4 @@
-package com.github.UniHelper.views.notes.notesContentPanel;
+package com.github.UniHelper.views.notes.showNotes.contentPanel;
 
 import javax.swing.*;
 import java.awt.*;

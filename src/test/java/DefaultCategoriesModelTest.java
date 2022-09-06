@@ -88,10 +88,10 @@ public class DefaultCategoriesModelTest {
         // When
         Category newCategory1 = new Category("n3", Color.RED);
         Category newCategory2 = new Category("n2", Color.BLUE);
-        categoriesModel.addOrModifyCategory(c1);
-        categoriesModel.addOrModifyCategory(new Category("n2", Color.RED));
-        categoriesModel.addOrModifyCategory(newCategory1);
-        categoriesModel.addOrModifyCategory(newCategory2);
+        categoriesModel.addOrModifyCategoryWithSameID(c1);
+        categoriesModel.addOrModifyCategoryWithSameID(new Category("n2", Color.RED));
+        categoriesModel.addOrModifyCategoryWithSameID(newCategory1);
+        categoriesModel.addOrModifyCategoryWithSameID(newCategory2);
         ArrayList<Category> returnedCategories = categoriesModel.getAllCategories();
 
         // Then
@@ -114,8 +114,8 @@ public class DefaultCategoriesModelTest {
         // When
         Category c3 = new Category("n1", Color.WHITE);
         c2.setName("N2");
-        categoriesModel.addOrModifyCategory(c3);
-        categoriesModel.addOrModifyCategory(c2);
+        categoriesModel.addOrModifyCategoryWithSameID(c3);
+        categoriesModel.addOrModifyCategoryWithSameID(c2);
         ArrayList<Category> returnedCategories = categoriesModel.getAllCategories();
 
         // Then

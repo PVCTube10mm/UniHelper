@@ -1,4 +1,4 @@
-package com.github.UniHelper.views.notes.notesOptionsPanel;
+package com.github.UniHelper.views.notes.showNotes.optionsPanel;
 
 import com.github.UniHelper.views.utils.NamedButton;
 

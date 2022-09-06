@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface CategoriesModel {
 
-    void addOrModifyCategory(Category category);
+    void addOrModifyCategoryWithSameID(Category category);
 
     void deleteCategory(Category category);
 

@@ -236,7 +236,7 @@ class DefaultNotesModelTest {
         note1 = note3;
 
         // When
-        notesModel.updateNote(note1);
+        notesModel.updateNoteWithSameID(note1);
         note1 = note2;
 
         // Then

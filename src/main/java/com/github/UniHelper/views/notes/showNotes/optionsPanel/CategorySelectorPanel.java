@@ -1,4 +1,4 @@
-package com.github.UniHelper.views.notes.notesOptionsPanel;
+package com.github.UniHelper.views.notes.showNotes.optionsPanel;
 
 import com.github.UniHelper.model.categories.Category;
 import com.github.UniHelper.presenters.commands.Command;
@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class NotesCategorySelectorPanel extends JPanel {
+public class CategorySelectorPanel extends JPanel {
 
     private final ArrayList<Command> onCategoryChangedCommands;
     private final ArrayList<Command> onCategoryModifiedCommands;
@@ -26,7 +26,7 @@ public class NotesCategorySelectorPanel extends JPanel {
     private ArrayList<Category> categories;
     private ArrayList<RadioButton> selectorButtons;
 
-    public NotesCategorySelectorPanel() {
+    public CategorySelectorPanel() {
         super();
         onCategoryChangedCommands = new ArrayList<>();
         onCategoryModifiedCommands = new ArrayList<>();

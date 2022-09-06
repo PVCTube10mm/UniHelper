@@ -1,4 +1,4 @@
-package com.github.UniHelper.presenters;
+package com.github.UniHelper.presenters.mainWindow;
 
 import java.util.EventListener;
 

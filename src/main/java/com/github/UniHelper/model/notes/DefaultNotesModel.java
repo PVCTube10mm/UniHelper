@@ -57,7 +57,7 @@ public class DefaultNotesModel implements NotesModel {
     }
 
     @Override
-    public void updateNote(Note note) {
+    public void updateNoteWithSameID(Note note) {
         Note noteToUpdate = notes.stream()
                 .filter(n -> n.getId().equals(note.getId()))
                 .findFirst()

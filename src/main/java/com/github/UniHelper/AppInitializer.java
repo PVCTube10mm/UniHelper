@@ -1,8 +1,8 @@
 package com.github.UniHelper;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.github.UniHelper.presenters.DefaultMainWindowPresenter;
-import com.github.UniHelper.presenters.MainWindowPresenter;
+import com.github.UniHelper.presenters.mainWindow.DefaultMainWindowPresenter;
+import com.github.UniHelper.presenters.mainWindow.MainWindowPresenter;
 import com.github.UniHelper.views.mainWindow.DefaultMainWindowView;
 import com.github.UniHelper.views.mainWindow.MainWindowView;
 

@@ -38,7 +38,7 @@ public class DefaultCategoriesModel implements CategoriesModel {
     }
 
     @Override
-    public void addOrModifyCategory(Category category) {
+    public void addOrModifyCategoryWithSameID(Category category) {
         if (categories.contains(category)) {
             return;
         }

@@ -1,56 +1,28 @@
 package com.github.UniHelper.views.notes.editNote;
 
-import com.github.UniHelper.presenters.commands.Command;
-import com.github.UniHelper.views.notes.note.*;
+import com.github.UniHelper.views.notes.note.NoteView;
 
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import java.util.ArrayList;
+import java.awt.*;
 
-public class DefaultEditNoteView extends DefaultNoteView implements EditNoteView, DocumentListener {
+public class DefaultEditNoteView implements EditNoteView {
 
-    private final ArrayList<Command> onNoteModifiedCommands;
+    private final MainPanel mainPanel;
 
     public DefaultEditNoteView() {
-        super();
-        onNoteModifiedCommands = new ArrayList<>();
-        this.getTitlePanel().addTitleDocumentListener(this);
-        this.getTextPanel().addTextDocumentListener(this);
+        mainPanel = new MainPanel();
+    }
+
+    public void setNoteView(NoteView noteView) {
+        mainPanel.add(noteView.getContainer(), BorderLayout.CENTER);
     }
 
     @Override
-    public void addOnNoteModifiedCommand(Command command) {
-        onNoteModifiedCommands.add(command);
+    public String getFeatureName() {
+        return "edit note";
     }
 
     @Override
-    public String getNoteText() {
-        return this.getTextPanel().getText();
-    }
-
-    @Override
-    public String getNoteTitle() {
-        return this.getTitlePanel().getTitle();
-    }
-
-    @Override
-    public void insertUpdate(DocumentEvent e) {
-        changedUpdate(e);
-    }
-
-    @Override
-    public void removeUpdate(DocumentEvent e) {
-        changedUpdate(e);
-    }
-
-    @Override
-    public void changedUpdate(DocumentEvent e) {
-        executeOnNoteModifiedCommands();
-    }
-
-    private void executeOnNoteModifiedCommands() {
-        for (Command c : onNoteModifiedCommands) {
-            c.execute();
-        }
+    public Container getContainer() {
+        return mainPanel;
     }
 }

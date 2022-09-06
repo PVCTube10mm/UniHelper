@@ -8,7 +8,7 @@ public interface NotesModel {
 
     void deleteNote(Note note);
 
-    void updateNote(Note note);
+    void updateNoteWithSameID(Note note);
 
     ArrayList<Note> getAllNotes();
 

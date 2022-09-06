@@ -1,4 +1,4 @@
-package com.github.UniHelper.views.notes;
+package com.github.UniHelper.views.notes.showNotes;
 
 import com.github.UniHelper.views.utils.NamedButton;
 

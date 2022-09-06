@@ -1,16 +1,18 @@
-package com.github.UniHelper.presenters;
+package com.github.UniHelper.presenters.mainWindow;
 
-import com.github.UniHelper.model.notes.DefaultNotesModel;
-import com.github.UniHelper.model.notes.NotesModel;
 import com.github.UniHelper.model.timetable.DefaultTimetableModel;
 import com.github.UniHelper.model.timetable.TimetableModel;
 import com.github.UniHelper.presenters.notes.DefaultNotesPresenter;
+import com.github.UniHelper.presenters.notes.showNotes.DefaultShowNotesPresenter;
 import com.github.UniHelper.presenters.notes.NotesPresenter;
+import com.github.UniHelper.presenters.notes.showNotes.ShowNotesPresenter;
 import com.github.UniHelper.presenters.timetable.DefaultTimetablePresenter;
 import com.github.UniHelper.presenters.timetable.TimetablePresenter;
 import com.github.UniHelper.views.mainWindow.MainWindowView;
 import com.github.UniHelper.views.notes.DefaultNotesView;
 import com.github.UniHelper.views.notes.NotesView;
+import com.github.UniHelper.views.notes.showNotes.DefaultShowNotesView;
+import com.github.UniHelper.views.notes.showNotes.ShowNotesView;
 import com.github.UniHelper.views.timetable.DefaultTimetableView;
 import com.github.UniHelper.views.timetable.TimetableView;
 import lombok.AllArgsConstructor;
@@ -33,7 +35,9 @@ public class DefaultMainWindowPresenter implements MainWindowPresenter {
 
     private void initializeNotes() {
         int accessibleWidth = view.getFeaturePanelSize().width;
-        NotesView notesView = new DefaultNotesView(accessibleWidth);
+        ShowNotesView showNotesView = new DefaultShowNotesView(accessibleWidth);
+        ShowNotesPresenter showNotesPresenter = new DefaultShowNotesPresenter(showNotesView);
+        NotesView notesView = new DefaultNotesView(showNotesView);
         NotesPresenter notesPresenter = new DefaultNotesPresenter(notesView);
         view.addFeatureView(notesView);
     }

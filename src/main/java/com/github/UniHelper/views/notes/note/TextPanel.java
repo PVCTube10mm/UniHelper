@@ -40,6 +40,10 @@ public class TextPanel extends JPanel {
         scrollPane.getVerticalScrollBar().setBackground(color);
     }
 
+    public void setEditable(boolean editable) {
+        text.setEditable(editable);
+    }
+
     private void setTextLook() {
         text.setWrapStyleWord(true);
         text.setLineWrap(true);

@@ -41,23 +41,7 @@ public class DefaultNotesPresenter implements NotesPresenter {
         EditedNoteView editedNoteView = new DefaultEditedNoteView(view.getNoteToEdit());
 
 
-
-        DefaultNotesModel notesModel = DefaultNotesModel.getInstance();
-        DefaultCategoriesModel categoriesModel = DefaultCategoriesModel.getInstance();
-        Category category = categoriesModel.getAllCategories().stream()
-                .filter(c -> c.getColor().getRGB() == view.getNoteToEdit().getColor().getRGB())
-                .findFirst()
-                .orElse(Category.NONE);
-        Note note = new Note(view.getNoteToEdit().getNoteTitle(), view.getNoteToEdit().getNoteText(), category.getName());
-        ArrayList<Note> notes = notesModel.getAllNotes();
-        Note editedNote = notes.stream()
-                .filter(n -> n.equals(note))
-                .findFirst()
-                .orElse(null);
-
-
-
-        EditedNotePresenter editedNotePresenter = new DefaultEditedNotePresenter(editedNoteView, editedNote);
+        //EditedNotePresenter editedNotePresenter = new DefaultEditedNotePresenter(editedNoteView, editedNote);
         editNoteView.setNoteView(editedNoteView);
         view.setEditNoteView(editNoteView);
         view.showEditNoteView();

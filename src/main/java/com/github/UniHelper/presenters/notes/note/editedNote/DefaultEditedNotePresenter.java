@@ -1,17 +1,20 @@
-package com.github.UniHelper.presenters.notes.note;
+package com.github.UniHelper.presenters.notes.note.editedNote;
 
 import com.github.UniHelper.model.notes.DefaultNotesModel;
 import com.github.UniHelper.model.notes.Note;
 import com.github.UniHelper.model.notes.NotesModel;
 import com.github.UniHelper.views.notes.note.NoteView;
+import com.github.UniHelper.views.notes.note.editedNote.EditedNoteView;
+import lombok.Getter;
 
-public class DefaultNotePresenter implements NotePresenter {
+public class DefaultEditedNotePresenter implements EditedNotePresenter {
 
-    private final NoteView view;
+    private final EditedNoteView view;
     private final NotesModel model;
+    @Getter
     private final Note note;
 
-    public DefaultNotePresenter(NoteView view, Note note) {
+    public DefaultEditedNotePresenter(EditedNoteView view, Note note) {
         this.view = view;
         this.model = DefaultNotesModel.getInstance();
         this.note = note;

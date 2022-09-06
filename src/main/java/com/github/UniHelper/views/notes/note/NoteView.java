@@ -10,10 +10,6 @@ public interface NoteView {
 
     void addOnNoteDeletedCommand(Command command);
 
-    void addOnNoteModifiedCommand(Command command);
-
-    void addOnEditModeActivatedCommand(Command command);
-
     void setNoteTitle(String title);
 
     String getNoteTitle();
@@ -23,6 +19,4 @@ public interface NoteView {
     String getNoteText();
 
     void setColor(Color color);
-
-    void setEditable(boolean editable);
 }

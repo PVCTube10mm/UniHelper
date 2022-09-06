@@ -6,10 +6,11 @@ import com.github.UniHelper.model.categories.DefaultCategoriesModel;
 import com.github.UniHelper.model.notes.DefaultNotesModel;
 import com.github.UniHelper.model.notes.Note;
 import com.github.UniHelper.model.notes.NotesModel;
-import com.github.UniHelper.presenters.notes.note.DefaultNotePresenter;
-import com.github.UniHelper.presenters.notes.note.NotePresenter;
+import com.github.UniHelper.presenters.notes.note.previewNote.DefaultPreviewNotePresenter;
+import com.github.UniHelper.presenters.notes.note.previewNote.PreviewNotePresenter;
+import com.github.UniHelper.views.notes.note.previewNote.DefaultPreviewNoteView;
+import com.github.UniHelper.views.notes.note.previewNote.PreviewNoteView;
 import com.github.UniHelper.views.notes.showNotes.ShowNotesView;
-import com.github.UniHelper.views.notes.note.DefaultNoteView;
 import com.github.UniHelper.views.notes.note.NoteView;
 
 import java.awt.*;
@@ -45,6 +46,7 @@ public class DefaultShowNotesPresenter implements ShowNotesPresenter {
         view.addOnSearchBarUpdateCommand(this::updateSearchedNotes);
         view.addOnCategoryChangedCommand(this::updateSearchedNotes);
         view.addOnCategoryModifiedCommand(this::updateCategory);
+        view.addOnUpdateRequestCommand(this::updateSearchedNotes);
     }
 
     private void setViewNotes(ArrayList<Note> notes) {
@@ -79,10 +81,10 @@ public class DefaultShowNotesPresenter implements ShowNotesPresenter {
     }
 
     private void addNoteToView(Note note) {
-        NoteView noteView = new DefaultNoteView();
+        PreviewNoteView noteView = new DefaultPreviewNoteView();
         noteView.addOnNoteDeletedCommand(() -> view.removeNoteView(noteView));
         noteView.setColor(getCategoryColor(note.getCategory()));
-        NotePresenter notePresenter = new DefaultNotePresenter(noteView, note);
+        PreviewNotePresenter notePresenter = new DefaultPreviewNotePresenter(noteView, note);
         view.addNoteView(noteView);
     }
 

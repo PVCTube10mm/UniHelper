@@ -3,6 +3,7 @@ package com.github.UniHelper.views.notes.showNotes;
 import com.github.UniHelper.model.categories.Category;
 import com.github.UniHelper.presenters.commands.Command;
 import com.github.UniHelper.views.notes.note.NoteView;
+import com.github.UniHelper.views.notes.note.previewNote.PreviewNoteView;
 import com.github.UniHelper.views.notes.showNotes.contentPanel.ContentPanel;
 import com.github.UniHelper.views.notes.showNotes.contentPanel.ContentScrollPane;
 import com.github.UniHelper.views.notes.showNotes.optionsPanel.CategorySelectorPanel;
@@ -30,8 +31,9 @@ public class DefaultShowNotesView implements ShowNotesView, DocumentListener {
     private final ArrayList<Command> onCategoryChangedCommands;
     private final ArrayList<Command> onCategoryModifiedCommands;
     private final ArrayList<Command> onNoteRequestedEditCommands;
+    private final ArrayList<Command> onUpdateRequestCommands;
     @Getter
-    private NoteView noteToEdit;
+    private PreviewNoteView noteToEdit;
 
     public DefaultShowNotesView(int accessibleWidth) {
         mainPanel = new MainPanel();
@@ -45,16 +47,17 @@ public class DefaultShowNotesView implements ShowNotesView, DocumentListener {
         onCategoryChangedCommands = new ArrayList<>();
         onCategoryModifiedCommands = new ArrayList<>();
         onNoteRequestedEditCommands = new ArrayList<>();
+        onUpdateRequestCommands = new ArrayList<>();
         newNoteButton = new NewNoteButton();
         assembleView(accessibleWidth);
     }
 
     @Override
-    public void addNoteView(NoteView noteView) {
+    public void addNoteView(PreviewNoteView noteView) {
         contentPanel.add(noteView.getContainer(), 0);
         Dimension newNoteSize = noteView.getContainer().getPreferredSize();
         contentPanel.setPreferredSize(calculateNewContentPanelSize(newNoteSize));
-        noteView.addOnEditModeActivatedCommand(() -> onNoteEditRequested(noteView));
+        noteView.addOnEditRequestCommand(() -> onNoteEditRequested(noteView));
     }
 
     @Override
@@ -83,7 +86,7 @@ public class DefaultShowNotesView implements ShowNotesView, DocumentListener {
     }
 
     @Override
-    public void removeNoteView(NoteView noteView) {
+    public void removeNoteView(PreviewNoteView noteView) {
         contentPanel.remove(noteView.getContainer());
         Dimension newNoteSize = noteView.getContainer().getPreferredSize();
         contentPanel.setPreferredSize(calculateNewContentPanelSize(newNoteSize));
@@ -143,6 +146,16 @@ public class DefaultShowNotesView implements ShowNotesView, DocumentListener {
         return categorySelectorPanel.getActiveCategory();
     }
 
+    @Override
+    public void requestUpdate() {
+        executeOnUpdateRequestCommands();
+    }
+
+    @Override
+    public void addOnUpdateRequestCommand(Command command) {
+        onUpdateRequestCommands.add(command);
+    }
+
     private void assembleView(int accessibleWidth) {
         contentPanel.setPreferredSize(new Dimension(accessibleWidth, 0));
         searchBarPanel.add(newNoteButton);
@@ -172,7 +185,7 @@ public class DefaultShowNotesView implements ShowNotesView, DocumentListener {
         return fl.getVgap();
     }
 
-    private void onNoteEditRequested(NoteView noteView) {
+    private void onNoteEditRequested(PreviewNoteView noteView) {
         noteToEdit = noteView;
         executeOnNoteRequestedEditCommands();
     }
@@ -203,6 +216,12 @@ public class DefaultShowNotesView implements ShowNotesView, DocumentListener {
 
     private void executeOnNoteRequestedEditCommands() {
         for (Command c : onNoteRequestedEditCommands) {
+            c.execute();
+        }
+    }
+
+    private void executeOnUpdateRequestCommands() {
+        for (Command c : onUpdateRequestCommands) {
             c.execute();
         }
     }

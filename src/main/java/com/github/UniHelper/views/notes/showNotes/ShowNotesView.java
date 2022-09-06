@@ -3,15 +3,15 @@ package com.github.UniHelper.views.notes.showNotes;
 import com.github.UniHelper.model.categories.Category;
 import com.github.UniHelper.presenters.commands.Command;
 import com.github.UniHelper.views.FeatureView;
-import com.github.UniHelper.views.notes.note.NoteView;
+import com.github.UniHelper.views.notes.note.previewNote.PreviewNoteView;
 
 import java.util.ArrayList;
 
 public interface ShowNotesView extends FeatureView {
 
-    void addNoteView(NoteView noteView);
+    void addNoteView(PreviewNoteView noteView);
 
-    void removeNoteView(NoteView noteView);
+    void removeNoteView(PreviewNoteView noteView);
 
     void addOnCategoryChangedCommand(Command command);
 
@@ -23,7 +23,7 @@ public interface ShowNotesView extends FeatureView {
 
     void addOnNoteRequestedEditCommand(Command command);
 
-    NoteView getNoteToEdit();
+    PreviewNoteView getNoteToEdit();
 
     String getSearchBarText();
 
@@ -34,4 +34,8 @@ public interface ShowNotesView extends FeatureView {
     void setCategories(ArrayList<Category> categories);
 
     Category getModifiedCategory();
+
+    void requestUpdate();
+
+    void addOnUpdateRequestCommand(Command command);
 }

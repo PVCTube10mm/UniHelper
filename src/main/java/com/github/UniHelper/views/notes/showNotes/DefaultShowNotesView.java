@@ -2,11 +2,10 @@ package com.github.UniHelper.views.notes.showNotes;
 
 import com.github.UniHelper.model.categories.Category;
 import com.github.UniHelper.presenters.commands.Command;
-import com.github.UniHelper.views.notes.note.NoteView;
 import com.github.UniHelper.views.notes.note.previewNote.PreviewNoteView;
 import com.github.UniHelper.views.notes.showNotes.contentPanel.ContentPanel;
 import com.github.UniHelper.views.notes.showNotes.contentPanel.ContentScrollPane;
-import com.github.UniHelper.views.notes.showNotes.optionsPanel.CategorySelectorPanel;
+import com.github.UniHelper.views.utils.categorySelectorPanel.CategorySelectorPanel;
 import com.github.UniHelper.views.notes.showNotes.optionsPanel.OptionsPanel;
 import com.github.UniHelper.views.notes.showNotes.optionsPanel.SearchBarPanel;
 import com.github.UniHelper.views.utils.NamedButton;

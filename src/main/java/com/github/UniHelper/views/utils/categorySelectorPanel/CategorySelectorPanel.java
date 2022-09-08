@@ -1,4 +1,4 @@
-package com.github.UniHelper.views.notes.showNotes.optionsPanel;
+package com.github.UniHelper.views.utils.categorySelectorPanel;
 
 import com.github.UniHelper.model.categories.Category;
 import com.github.UniHelper.presenters.commands.Command;

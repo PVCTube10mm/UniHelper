@@ -1,4 +1,4 @@
-package com.github.UniHelper.views.notes.showNotes.optionsPanel;
+package com.github.UniHelper.views.utils.categorySelectorPanel;
 
 import com.github.UniHelper.views.utils.NamedButton;
 

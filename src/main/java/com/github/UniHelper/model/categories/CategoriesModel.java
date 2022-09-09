@@ -1,10 +1,15 @@
 package com.github.UniHelper.model.categories;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public interface CategoriesModel {
 
-    void addOrModifyCategoryWithSameID(Category category);
+    void addCategory(Category category);
+
+    void updateCategory(Category oldCategory, Category newCategory);
+
+    void updateCategoryById(UUID id, Category category);
 
     void deleteCategory(Category category);
 

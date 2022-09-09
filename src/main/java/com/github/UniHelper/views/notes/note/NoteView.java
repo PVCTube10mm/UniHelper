@@ -3,6 +3,7 @@ package com.github.UniHelper.views.notes.note;
 import com.github.UniHelper.presenters.commands.Command;
 
 import java.awt.*;
+import java.util.UUID;
 
 public interface NoteView {
 
@@ -19,4 +20,11 @@ public interface NoteView {
     String getNoteText();
 
     void setColor(Color color);
+
+    Color getColor();
+
+    UUID getId();
+
+    void setId(UUID id);
+
 }

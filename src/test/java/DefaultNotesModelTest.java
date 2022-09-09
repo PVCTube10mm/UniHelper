@@ -226,7 +226,7 @@ class DefaultNotesModelTest {
     }
 
     @Test
-    void updateNote_should_update_a_copy() {
+    void updateNoteById_should_update_a_copy() {
         // Given
         notesModel.setNotes(new ArrayList<>());
         Note note1 = new Note("t1", "d1", "c1");
@@ -236,7 +236,7 @@ class DefaultNotesModelTest {
         note1 = note3;
 
         // When
-        notesModel.updateNoteWithSameID(note1);
+        notesModel.updateNoteById(note1.getId(), note1);
         note1 = note2;
 
         // Then

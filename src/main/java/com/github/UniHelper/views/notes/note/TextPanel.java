@@ -40,6 +40,10 @@ public class TextPanel extends JPanel {
         scrollPane.getVerticalScrollBar().setBackground(color);
     }
 
+    public Color getTextBackground() {
+        return text.getBackground();
+    }
+
     public void setEditable(boolean editable) {
         text.setEditable(editable);
     }

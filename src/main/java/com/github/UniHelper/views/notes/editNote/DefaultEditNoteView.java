@@ -39,7 +39,7 @@ public class DefaultEditNoteView implements EditNoteView {
     }
 
     private void executeOnEditFinishedCommands() {
-        for(Command c : onEditFinishedCommands) {
+        for (Command c : onEditFinishedCommands) {
             c.execute();
         }
     }

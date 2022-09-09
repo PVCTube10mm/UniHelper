@@ -3,7 +3,6 @@ package com.github.UniHelper.views.notes.note.editedNote;
 import com.github.UniHelper.presenters.commands.Command;
 import com.github.UniHelper.views.utils.ColorPalette;
 import com.github.UniHelper.views.utils.NamedButton;
-import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +14,7 @@ public class OptionsPanel extends JPanel {
 
     public OptionsPanel() {
         super();
-        setPreferredSize(new Dimension(0,100));
+        setPreferredSize(new Dimension(0, 100));
         deleteButton = new NamedButton("delete");
         saveButton = new NamedButton("save");
         setLayout(new GridLayout(1, 0));

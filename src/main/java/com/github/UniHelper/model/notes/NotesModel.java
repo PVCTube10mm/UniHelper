@@ -1,6 +1,7 @@
 package com.github.UniHelper.model.notes;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public interface NotesModel {
 
@@ -8,7 +9,9 @@ public interface NotesModel {
 
     void deleteNote(Note note);
 
-    void updateNoteWithSameID(Note note);
+    void updateNote(Note oldNote, Note newNote);
+
+    void updateNoteById(UUID id, Note note);
 
     ArrayList<Note> getAllNotes();
 

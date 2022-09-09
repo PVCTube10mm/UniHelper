@@ -74,7 +74,7 @@ public class DefaultCategoriesModelTest {
     }
 
     @Test
-    void addOrModifyCategory_should_only_add_it_if_it_is_not_present() {
+    void addCategory_should_only_add_it_if_it_is_not_present() {
         // Given
         Category c1 = new Category("n1", Color.WHITE);
         Category c2 = new Category("n2", Color.RED);
@@ -88,10 +88,10 @@ public class DefaultCategoriesModelTest {
         // When
         Category newCategory1 = new Category("n3", Color.RED);
         Category newCategory2 = new Category("n2", Color.BLUE);
-        categoriesModel.addOrModifyCategoryWithSameID(c1);
-        categoriesModel.addOrModifyCategoryWithSameID(new Category("n2", Color.RED));
-        categoriesModel.addOrModifyCategoryWithSameID(newCategory1);
-        categoriesModel.addOrModifyCategoryWithSameID(newCategory2);
+        categoriesModel.addCategory(c1);
+        categoriesModel.addCategory(new Category("n2", Color.RED));
+        categoriesModel.addCategory(newCategory1);
+        categoriesModel.addCategory(newCategory2);
         ArrayList<Category> returnedCategories = categoriesModel.getAllCategories();
 
         // Then
@@ -102,7 +102,7 @@ public class DefaultCategoriesModelTest {
     }
 
     @Test
-    void addOrModifyCategory_should_override_existing_category_values() {
+    void updateCategoryById_should_override_existing_category_values() {
         // Given
         Category c1 = new Category("n1", Color.WHITE);
         Category c2 = new Category("n2", Color.RED);
@@ -114,8 +114,8 @@ public class DefaultCategoriesModelTest {
         // When
         Category c3 = new Category("n1", Color.WHITE);
         c2.setName("N2");
-        categoriesModel.addOrModifyCategoryWithSameID(c3);
-        categoriesModel.addOrModifyCategoryWithSameID(c2);
+        categoriesModel.updateCategoryById(c3.getId(), c3);
+        categoriesModel.updateCategoryById(c2.getId(), c2);
         ArrayList<Category> returnedCategories = categoriesModel.getAllCategories();
 
         // Then

@@ -4,18 +4,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.github.UniHelper.model.categories.DefaultCategoriesModel;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class DefaultNotesModel implements NotesModel {
 
     private static volatile DefaultNotesModel instance;
-    
+
     private final String saveFileName;
     private ArrayList<Note> notes;
 
@@ -46,6 +46,20 @@ public class DefaultNotesModel implements NotesModel {
     }
 
     @Override
+    public void updateNote(Note oldNote, Note newNote) {
+        Note note = notes.stream()
+                .filter(n -> n.equals(oldNote))
+                .findFirst()
+                .orElse(null);
+        if (note != null) {
+            note.setTitle(newNote.getTitle());
+            note.setText(newNote.getText());
+            note.setCategory(newNote.getCategory());
+            save();
+        }
+    }
+
+    @Override
     public void setNotes(ArrayList<Note> notes) {
         this.notes = getDeepNotesCopy(notes);
         save();
@@ -57,20 +71,17 @@ public class DefaultNotesModel implements NotesModel {
     }
 
     @Override
-    public void updateNoteWithSameID(Note note) {
+    public void updateNoteById(UUID id, Note note) {
         Note noteToUpdate = notes.stream()
-                .filter(n -> n.getId().equals(note.getId()))
+                .filter(n -> n.getId().equals(id))
                 .findFirst()
                 .orElse(null);
-        if (noteToUpdate == null) {
-            addNote(note);
-        }
-        else {
+        if (noteToUpdate != null) {
             noteToUpdate.setTitle(note.getTitle());
             noteToUpdate.setText(note.getText());
             noteToUpdate.setCategory(note.getCategory());
+            save();
         }
-        save();
     }
 
     private DefaultNotesModel() {
@@ -104,7 +115,8 @@ public class DefaultNotesModel implements NotesModel {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             deepCopy = objectMapper
-                    .readValue(objectMapper.writeValueAsString(originalNotes), new TypeReference<>() {});
+                    .readValue(objectMapper.writeValueAsString(originalNotes), new TypeReference<>() {
+                    });
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return null;

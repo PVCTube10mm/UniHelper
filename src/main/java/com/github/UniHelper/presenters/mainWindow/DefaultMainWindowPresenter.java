@@ -3,18 +3,16 @@ package com.github.UniHelper.presenters.mainWindow;
 import com.github.UniHelper.model.timetable.DefaultTimetableModel;
 import com.github.UniHelper.model.timetable.TimetableModel;
 import com.github.UniHelper.presenters.notes.DefaultNotesPresenter;
-import com.github.UniHelper.presenters.notes.showNotes.DefaultShowNotesPresenter;
 import com.github.UniHelper.presenters.notes.NotesPresenter;
-import com.github.UniHelper.presenters.notes.showNotes.ShowNotesPresenter;
 import com.github.UniHelper.presenters.timetable.DefaultTimetablePresenter;
 import com.github.UniHelper.presenters.timetable.TimetablePresenter;
 import com.github.UniHelper.views.mainWindow.MainWindowView;
 import com.github.UniHelper.views.notes.DefaultNotesView;
 import com.github.UniHelper.views.notes.NotesView;
-import com.github.UniHelper.views.notes.showNotes.DefaultShowNotesView;
-import com.github.UniHelper.views.notes.showNotes.ShowNotesView;
 import com.github.UniHelper.views.timetable.DefaultTimetableView;
 import com.github.UniHelper.views.timetable.TimetableView;
+import com.github.UniHelper.views.todo.DefaultTodoView;
+import com.github.UniHelper.views.todo.TodoView;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -31,6 +29,7 @@ public class DefaultMainWindowPresenter implements MainWindowPresenter {
     private void initializeFeatureViews() {
         initializeNotes();
         initializeTimetable();
+        initializeTodo();
     }
 
     private void initializeNotes() {
@@ -45,5 +44,10 @@ public class DefaultMainWindowPresenter implements MainWindowPresenter {
         TimetableModel timetableModel = new DefaultTimetableModel();
         TimetablePresenter timetablePresenter = new DefaultTimetablePresenter(timetableView, timetableModel);
         view.addFeatureView(timetableView);
+    }
+
+    private void initializeTodo() {
+        TodoView todoView = new DefaultTodoView();
+        view.addFeatureView(todoView);
     }
 }

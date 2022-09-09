@@ -1,11 +1,14 @@
 package com.github.UniHelper.presenters.notes.note.previewNote;
 
+import com.github.UniHelper.model.categories.Category;
+import com.github.UniHelper.model.categories.DefaultCategoriesModel;
 import com.github.UniHelper.model.notes.DefaultNotesModel;
 import com.github.UniHelper.model.notes.Note;
 import com.github.UniHelper.model.notes.NotesModel;
-import com.github.UniHelper.views.notes.note.NoteView;
 import com.github.UniHelper.views.notes.note.previewNote.PreviewNoteView;
 import lombok.Getter;
+
+import java.awt.*;
 
 public class DefaultPreviewNotePresenter implements PreviewNotePresenter {
 
@@ -20,7 +23,18 @@ public class DefaultPreviewNotePresenter implements PreviewNotePresenter {
         this.note = note;
         view.setNoteText(note.getText());
         view.setNoteTitle(note.getTitle());
+        view.setId(note.getId());
+        view.setColor(getNoteColor());
         setViewCommands();
+    }
+
+    private Color getNoteColor() {
+        return DefaultCategoriesModel.getInstance().getAllCategories()
+                .stream()
+                .filter(c -> c.getName().equals(note.getCategory()))
+                .map(Category::getColor)
+                .findFirst()
+                .orElse(null);
     }
 
     private void setViewCommands() {

@@ -1,14 +1,11 @@
 package com.github.UniHelper.presenters.notes;
 
-import com.github.UniHelper.model.categories.Category;
-import com.github.UniHelper.model.categories.DefaultCategoriesModel;
 import com.github.UniHelper.model.notes.DefaultNotesModel;
 import com.github.UniHelper.model.notes.Note;
 import com.github.UniHelper.presenters.notes.note.editedNote.DefaultEditedNotePresenter;
 import com.github.UniHelper.presenters.notes.note.editedNote.EditedNotePresenter;
 import com.github.UniHelper.presenters.notes.showNotes.DefaultShowNotesPresenter;
 import com.github.UniHelper.presenters.notes.showNotes.ShowNotesPresenter;
-import com.github.UniHelper.views.notes.DefaultNotesView;
 import com.github.UniHelper.views.notes.NotesView;
 import com.github.UniHelper.views.notes.editNote.DefaultEditNoteView;
 import com.github.UniHelper.views.notes.editNote.EditNoteView;
@@ -17,7 +14,7 @@ import com.github.UniHelper.views.notes.note.editedNote.EditedNoteView;
 import com.github.UniHelper.views.notes.showNotes.DefaultShowNotesView;
 import com.github.UniHelper.views.notes.showNotes.ShowNotesView;
 
-import java.util.ArrayList;
+import java.util.UUID;
 
 public class DefaultNotesPresenter implements NotesPresenter {
 
@@ -39,11 +36,19 @@ public class DefaultNotesPresenter implements NotesPresenter {
     private void showEditView() {
         EditNoteView editNoteView = new DefaultEditNoteView();
         EditedNoteView editedNoteView = new DefaultEditedNoteView(view.getNoteToEdit());
-
-
-        //EditedNotePresenter editedNotePresenter = new DefaultEditedNotePresenter(editedNoteView, editedNote);
+        Note editedNote = getEditedNote();
+        EditedNotePresenter editedNotePresenter = new DefaultEditedNotePresenter(editedNoteView, editedNote);
         editNoteView.setNoteView(editedNoteView);
         view.setEditNoteView(editNoteView);
         view.showEditNoteView();
+    }
+
+    private Note getEditedNote() {
+        UUID editedNoteId = view.getNoteToEdit().getId();
+        return DefaultNotesModel.getInstance().getAllNotes()
+                .stream()
+                .filter(n -> n.getId().equals(editedNoteId))
+                .findFirst()
+                .orElse(null);
     }
 }

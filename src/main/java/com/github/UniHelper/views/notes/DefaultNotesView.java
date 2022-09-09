@@ -6,7 +6,6 @@ import com.github.UniHelper.views.notes.note.previewNote.PreviewNoteView;
 import com.github.UniHelper.views.notes.showNotes.ShowNotesView;
 import lombok.Getter;
 
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -80,13 +79,13 @@ public class DefaultNotesView implements NotesView {
     }
 
     private void executeOnShowNotesNoteEditRequestedCommands() {
-        for(Command c : onNoteEditRequestedCommands) {
+        for (Command c : onNoteEditRequestedCommands) {
             c.execute();
         }
     }
 
     private void executeOnNoteEditFinishedCommands() {
-        for(Command c : onNoteEditFinishedCommands) {
+        for (Command c : onNoteEditFinishedCommands) {
             c.execute();
         }
     }

@@ -11,7 +11,6 @@ import com.github.UniHelper.presenters.notes.note.previewNote.PreviewNotePresent
 import com.github.UniHelper.views.notes.note.previewNote.DefaultPreviewNoteView;
 import com.github.UniHelper.views.notes.note.previewNote.PreviewNoteView;
 import com.github.UniHelper.views.notes.showNotes.ShowNotesView;
-import com.github.UniHelper.views.notes.note.NoteView;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -74,7 +73,7 @@ public class DefaultShowNotesPresenter implements ShowNotesPresenter {
     private void updateCategory() {
         Category modifiedCategory = view.getModifiedCategory();
         CategoriesModel categoriesModel = DefaultCategoriesModel.getInstance();
-        categoriesModel.addOrModifyCategoryWithSameID(modifiedCategory);
+        categoriesModel.updateCategoryById(modifiedCategory.getId(), modifiedCategory);
         ArrayList<Category> newCategories = categoriesModel.getAllCategories();
         view.setCategories(newCategories);
         updateSearchedNotes();

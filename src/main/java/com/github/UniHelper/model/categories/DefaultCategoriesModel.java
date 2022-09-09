@@ -38,19 +38,36 @@ public class DefaultCategoriesModel implements CategoriesModel {
     }
 
     @Override
-    public void addOrModifyCategoryWithSameID(Category category) {
-        if (categories.contains(category)) {
-            return;
+    public void addCategory(Category category) {
+        if (!categories.contains(category)) {
+            categories.add(category);
+            save();
         }
-        Category categoryWithSameId = findCategoryById(category.getId());
-        if (categoryWithSameId == null) {
-            Category categoryCopy = new Category(category);
-            categories.add(categoryCopy);
-        } else {
-            categoryWithSameId.setColor(category.getColor());
+    }
+
+    @Override
+    public void updateCategory(Category oldCategory, Category newCategory) {
+        Category category = categories.stream()
+                .filter(c -> c.equals(oldCategory))
+                .findFirst()
+                .orElse(null);
+        if (category != null) {
+            category.setName(newCategory.getName());
+            category.setColor(newCategory.getColor());
+            save();
+        }
+    }
+
+    @Override
+    public void updateCategoryById(UUID id, Category category) {
+        Category categoryWithSameId = categories.stream()
+                .filter(c -> c.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+        if (categoryWithSameId != null) {
             categoryWithSameId.setName(category.getName());
+            categoryWithSameId.setColor(category.getColor());
         }
-        save();
     }
 
     @Override
@@ -87,8 +104,7 @@ public class DefaultCategoriesModel implements CategoriesModel {
 
     private void load() {
         try {
-            categories = categoryMapper.readValue(new File(saveFileName), new TypeReference<>() {
-            });
+            categories = categoryMapper.readValue(new File(saveFileName), new TypeReference<>() {});
         } catch (IOException e) {
             createNewSaveFile();
         }
@@ -108,7 +124,8 @@ public class DefaultCategoriesModel implements CategoriesModel {
         ArrayList<Category> deepCopy;
         try {
             deepCopy = categoryMapper
-                    .readValue(categoryMapper.writeValueAsString(originalCategories), new TypeReference<>() {});
+                    .readValue(categoryMapper.writeValueAsString(originalCategories), new TypeReference<>() {
+                    });
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return null;
@@ -124,12 +141,5 @@ public class DefaultCategoriesModel implements CategoriesModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private Category findCategoryById(UUID id) {
-        return categories.stream()
-                .filter(c -> c.getId().equals(id))
-                .findFirst()
-                .orElse(null);
     }
 }

@@ -1,10 +1,15 @@
 package com.github.UniHelper.views.notes.note.previewNote;
 
 import com.github.UniHelper.presenters.commands.Command;
-import com.github.UniHelper.views.notes.note.*;
+import com.github.UniHelper.views.notes.note.MainPanel;
+import com.github.UniHelper.views.notes.note.TextPanel;
+import com.github.UniHelper.views.notes.note.TitlePanel;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class DefaultPreviewNoteView implements PreviewNoteView {
 
@@ -14,6 +19,9 @@ public class DefaultPreviewNoteView implements PreviewNoteView {
     private final OptionsPanel optionsPanel;
     private final ArrayList<Command> onNoteDeletedCommands;
     private final ArrayList<Command> onEditRequestCommands;
+    @Getter
+    @Setter
+    private UUID id;
 
     public DefaultPreviewNoteView() {
         mainPanel = new MainPanel();

@@ -1,11 +1,16 @@
 package com.github.UniHelper.views.notes.note.editedNote;
 
 import com.github.UniHelper.presenters.commands.Command;
-import com.github.UniHelper.views.notes.note.*;
+import com.github.UniHelper.views.notes.note.MainPanel;
+import com.github.UniHelper.views.notes.note.TextPanel;
+import com.github.UniHelper.views.notes.note.TitlePanel;
 import com.github.UniHelper.views.notes.note.previewNote.PreviewNoteView;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class DefaultEditedNoteView implements EditedNoteView {
 
@@ -16,6 +21,9 @@ public class DefaultEditedNoteView implements EditedNoteView {
     private final ArrayList<Command> onNoteDeletedCommands;
     private final ArrayList<Command> onNoteModifiedCommands;
     private final ArrayList<Command> onNoteSavedCommands;
+    @Getter
+    @Setter
+    private UUID id;
 
     public DefaultEditedNoteView() {
         mainPanel = new MainPanel();
@@ -86,6 +94,11 @@ public class DefaultEditedNoteView implements EditedNoteView {
     public void setColor(Color color) {
         titlePanel.setTitleBackground(color.darker().darker());
         textPanel.setTextBackground(color);
+    }
+
+    @Override
+    public Color getColor() {
+        return textPanel.getTextBackground();
     }
 
     private void assembleView() {

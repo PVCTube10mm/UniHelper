@@ -1,11 +1,17 @@
 package com.github.UniHelper.presenters.mainWindow;
 
+import com.github.UniHelper.model.calendar.CalendarModel;
+import com.github.UniHelper.model.calendar.DefaultCalendarModel;
 import com.github.UniHelper.model.timetable.DefaultTimetableModel;
 import com.github.UniHelper.model.timetable.TimetableModel;
+import com.github.UniHelper.presenters.calendar.CalendarPresenter;
+import com.github.UniHelper.presenters.calendar.DefaultCalendarPresenter;
 import com.github.UniHelper.presenters.notes.DefaultNotesPresenter;
 import com.github.UniHelper.presenters.notes.NotesPresenter;
 import com.github.UniHelper.presenters.timetable.DefaultTimetablePresenter;
 import com.github.UniHelper.presenters.timetable.TimetablePresenter;
+import com.github.UniHelper.views.calendar.CalendarView;
+import com.github.UniHelper.views.calendar.DefaultCalendarView;
 import com.github.UniHelper.views.mainWindow.MainWindowView;
 import com.github.UniHelper.views.notes.DefaultNotesView;
 import com.github.UniHelper.views.notes.NotesView;
@@ -29,7 +35,15 @@ public class DefaultMainWindowPresenter implements MainWindowPresenter {
     private void initializeFeatureViews() {
         initializeNotes();
         initializeTimetable();
+        initializeCalendar();
         initializeTodo();
+    }
+
+    private void initializeCalendar() {
+        CalendarView calendarView = new DefaultCalendarView();
+        CalendarModel calendarModel = new DefaultCalendarModel();
+        CalendarPresenter calendarPresenter = new DefaultCalendarPresenter(calendarView);
+        view.addFeatureView(calendarView);
     }
 
     private void initializeNotes() {
